@@ -1,0 +1,330 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s08.html" title="基础编辑">
+<link rel="next" href="ch25s10.html" title="窗格和缓冲区管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center"></th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s08.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s10.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="emacs-region"></a>区块编辑</h3></div></div></div>
+<p>如何选中区块，可以参考<a class="xref" href="ch25s03.html#emacs-select" title="区块选择">“区块选择”一节</a></p>
+<p>
+	    需要补充的是，完成区块选择时，实际定义了两种区块 ：
+	  </p>
+<pre class="screen">
+---XXXXXxxx
+xxxXXXXXxxx
+xxxXXXXXxxx
+xxxXXXXX---	  </pre>
+<p>
+<span class="emphasis"><em>---</em></span>代表没有被选中的区域
+	    </p>
+<p>
+	    <span class="emphasis"><em>连续区块</em></span>为标记和光标点之间连续的区块；字符 X 和 x 均为连续区块
+	  </p>
+<p>
+	    <span class="emphasis"><em>矩形区块</em></span>为标记和光标点之间矩形的区块；大写字符 X 为矩形区块
+	  </p>
+<div class="table">
+<a name="id2866130"></a><p class="title"><b>表 25.6. Emacs 区块编辑</b></p>
+<div class="table-contents"><table summary="Emacs 区块编辑" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr><td colspan="3">连续区块</td></tr>
+<tr>
+<td>C-SPC</td>
+<td>M-x set-mark-command</td>
+<td>在光标点处设置标记</td>
+</tr>
+<tr>
+<td>C-@</td>
+<td>同上</td>
+<td>建议使用 C-t</td>
+</tr>
+<tr>
+<td>M-@</td>
+<td>M-x mark-word</td>
+<td>在单词结尾处设置标记</td>
+</tr>
+<tr>
+<td>M-h</td>
+<td>M-x mark-paragraph</td>
+<td>选中段落</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x mark-end-of-sentence</td>
+<td>在句末设置标记</td>
+</tr>
+<tr>
+<td>C-x h</td>
+<td>M-x mark-whole-buffer</td>
+<td>整个缓冲区</td>
+</tr>
+<tr>
+<td>C-x C-x</td>
+<td>M-x exchange-point-and-mark</td>
+<td>交换标记和光标点</td>
+</tr>
+<tr>
+<td>C-w</td>
+<td>M-x kill-region</td>
+<td>剪切区块</td>
+</tr>
+<tr>
+<td>M-w</td>
+<td>M-x kill-ring-save</td>
+<td>复制区块</td>
+</tr>
+<tr>
+<td>C-y</td>
+<td>M-x yank</td>
+<td>粘贴区块</td>
+</tr>
+<tr>
+<td>M-y</td>
+<td>M-x yank-pop</td>
+<td>队列粘贴</td>
+</tr>
+<tr><td colspan="3">矩形区块</td></tr>
+<tr>
+<td>C-x r k</td>
+<td>M-x kill-rectangle</td>
+<td>删除矩形区块</td>
+</tr>
+<tr>
+<td>C-x r y</td>
+<td>M-x yank-rectangle</td>
+<td>粘贴上一次删除的矩形区块</td>
+</tr>
+<tr>
+<td>C-x r t</td>
+<td>M-x string-rectangle</td>
+<td>用指定字符填充</td>
+</tr>
+<tr>
+<td>C-x r o</td>
+<td>M-x open-rectangle</td>
+<td>用空格插入</td>
+</tr>
+<tr>
+<td>C-x r c</td>
+<td>M-x clear-rectangle</td>
+<td>用空格填充</td>
+</tr>
+<tr>
+<td>C-x r r</td>
+<td>M-x copy-rectangle-to-register</td>
+<td>拷贝到寄存器中</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2866423"></a>搜索和替换</h3></div></div></div>
+<p>
+	    Emacs中，默认使用 增量搜索 ：在搜索对话模式中输入关键词的同时，Emacs 就开始进行搜索，随着关键字的输入，不断的缩小搜索范围
+	  </p>
+<p>
+	    而传统的非增量搜索，则是关键词输入后，再进行搜索。
+	  </p>
+<div class="table">
+<a name="id2866444"></a><p class="title"><b>表 25.7. Emacs 搜索</b></p>
+<div class="table-contents"><table summary="Emacs 搜索" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr><td colspan="3">增量搜索</td></tr>
+<tr>
+<td>C-s</td>
+<td>M-x isearch-forward</td>
+<td>向前增量搜索</td>
+</tr>
+<tr>
+<td>C-r</td>
+<td>M-x isearch-backward</td>
+<td>向后增量搜索</td>
+</tr>
+<tr>
+<td>C-M-s</td>
+<td>M-x isearch-forward-regexp</td>
+<td>正则表达式向前增量搜索</td>
+</tr>
+<tr>
+<td>C-M-r</td>
+<td>M-x isearch-backward-regexp</td>
+<td>正则表达式向后增量搜索</td>
+</tr>
+<tr><td colspan="3">询问替换</td></tr>
+<tr>
+<td>M-%</td>
+<td>M-x query-replace</td>
+<td>询问替换</td>
+</tr>
+<tr>
+<td>C-M-%</td>
+<td>M-x query-replace-regexp</td>
+<td>正则表达式询问替换</td>
+</tr>
+<tr><td colspan="3">搜索</td></tr>
+<tr>
+<td> </td>
+<td>M-x search-forward</td>
+<td>向前搜索</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x search-backward</td>
+<td>向后搜索</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x search-forward-regexp</td>
+<td>正则表达式向前搜索</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x search-backward-regexp</td>
+<td>正则表达式向后搜索</td>
+</tr>
+<tr><td colspan="3">替换</td></tr>
+<tr>
+<td> </td>
+<td>M-x replace-string</td>
+<td>替换</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x replace-regexp</td>
+<td>正则表达式替换</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc">
+<li>
+	    增量搜索时，关键词会被一直保留。可以直接进行下一次搜索
+	  </li>
+<li>
+	      下一次增量搜索，如果之前进行了其它操作，则需要连续两次命令（快捷键），才能召回关键词。
+	    </li>
+<li>
+<strong class="userinput"><code>C-g</code></strong> 取消搜索，回到搜索前的位置
+	    </li>
+<li>
+<strong class="userinput"><code>RET</code></strong> 结束搜索，停在当前位置
+	    </li>
+<li>
+	      可以选中区块后，在区块内进行替换
+	    </li>
+</ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2866736"></a>其它</h3></div></div></div>
+<p>
+	    <span class="emphasis"><em>插入控制字符</em></span>
+	  </p>
+<p>
+	    使用 <strong class="userinput"><code>C-q</code></strong> ，可以在缓冲区插入一个控制字符。例如: 
+	  </p>
+<code class="computeroutput">C-q C-m = ^M</code><p>
+	     
+	  </p>
+<p>
+	    文本换位
+	  </p>
+<div class="table">
+<a name="id2866774"></a><p class="title"><b>表 25.8. Emacs 其它</b></p>
+<div class="table-contents"><table summary="Emacs 其它" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>字符</td>
+<td>C-t</td>
+<td>M-x transpose-chars</td>
+</tr>
+<tr>
+<td>单词</td>
+<td>M-t</td>
+<td>M-x transpose-words</td>
+</tr>
+<tr>
+<td>行</td>
+<td>C-x C-t</td>
+<td>M-x transpose-lines</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+	     
+	  </p>
+<p>
+	    <span class="emphasis"><em>将 TAB 字符转换为空格</em></span>
+	  </p>
+<p>
+	      选中需要转换的区域， <span class="command"><strong>M-x untabify</strong></span>
+	  </p>
+<p>
+	    <span class="emphasis"><em>对齐文本块</em></span>
+	  </p>
+<p>
+	      选中需要对齐的区域， <span class="command"><strong>M-x indent-region</strong></span>
+	  </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s10.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">基础编辑 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 窗格和缓冲区管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

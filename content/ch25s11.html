@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>寄存器管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s10.html" title="窗格和缓冲区管理">
+<link rel="next" href="ch25s12.html" title="书签管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">寄存器管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s10.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s12.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2867109"></a>寄存器管理</h2></div></div></div>
+<p>
+	  寄存器用于存贮内容，在需要时取出，插入缓冲区。
+	</p>
+<p>
+	  Emacs 的寄存器使用<span class="emphasis"><em>单个字符</em></span>命名，可以存贮两种内容 ：
+	</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2867128"></a>光标位置和窗口状态</h3></div></div></div>
+<div class="table">
+<a name="id2867134"></a><p class="title"><b>表 25.11. Emacs 寄存器</b></p>
+<div class="table-contents"><table summary="Emacs 寄存器" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-x r SPC (寄存器名)</td>
+<td>M-x point-to-register</td>
+<td>存贮光标位置</td>
+</tr>
+<tr>
+<td>C-x r w (寄存器名)</td>
+<td>M-x window-configuration-to-register</td>
+<td>保存当前窗口状态</td>
+</tr>
+<tr>
+<td>C-x r f (寄存器名)</td>
+<td>M-x frame-configuration-to-register</td>
+<td>保存所有窗口状态</td>
+</tr>
+<tr>
+<td>C-x r j (寄存器名)</td>
+<td>M-x jump-to-register</td>
+<td>光标跳转</td>
+</tr>
+<tr>
+<td>C-x j (寄存器名)</td>
+<td>略……</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2867213"></a>文本和数字</h3></div></div></div>
+<div class="table">
+<a name="id2867219"></a><p class="title"><b>表 25.12. Emacs 寄存器2</b></p>
+<div class="table-contents"><table summary="Emacs 寄存器2" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-x r s (寄存器名)</td>
+<td>M-x copy-to-register</td>
+<td>将连续区块拷贝到寄存器中</td>
+</tr>
+<tr>
+<td>C-x r r (寄存器名)</td>
+<td>M-x copy-rectangle-to-register</td>
+<td>将矩形区块拷贝到寄存器中</td>
+</tr>
+<tr>
+<td>C-u (数字) C-x r n (寄存器名)</td>
+<td>M-x number-to-register</td>
+<td>将数字拷贝到寄存器中</td>
+</tr>
+<tr>
+<td>C-x r i (寄存器名)</td>
+<td>M-x insert-register</td>
+<td>在缓冲区中插入寄存器内容</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc">
+<li>
+<span class="command"><strong>M-x view-register</strong></span> 查看寄存器内容
+	  </li>
+<li>
+<span class="command"><strong>M-x list-registers</strong></span> 查看寄存器列表
+	    </li>
+<li>
+	      寄存器中的矩形区块，以矩形区块的方式插入到缓冲区中。 见 <a class="xref" href="ch25s09.html#emacs-region" title="区块编辑">“区块编辑”一节</a>
+</li>
+<li>
+	      也可以将文件插入到寄存器中 (set-register ?寄存器名称 '(file . 文件名)) ，示例
+	      <pre class="screen">
+          M-x lisp-interaction-mode 进入交互模式，输入如下 Lisp 代码：
+          (set-register ?e '(file . "~/.emacs"))(光标)移动此外， C-j 求值。
+          M-x list-registers 查看寄存器列表，多了寄存器 e ： Register e contains the file "~/.emacs".     </pre>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s10.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s12.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">窗格和缓冲区管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 书签管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>conky配置</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch39.html" title="第 39 章 openbox 工作环境">
+<link rel="prev" href="ch39s05.html" title="OpenBox配置">
+<link rel="next" href="ch40.html" title="第 40 章   Emacs muse">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">conky配置</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch39s05.html">上一页</a> </td>
+<th width="60%" align="center">第 39 章 openbox 工作环境</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch40.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2918910"></a>conky配置</h2></div></div></div>
+<p>
+    ~/.config/openbox/.conkyrc
+  </p>
+<pre class="screen">
+# set to yes if you want Conky to be forked in the background
+background yes
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+out_to_console no
+
+# X font when Xft is disabled, you can pick one with program xfontsel
+#font 7x12
+#font 6x10
+#font 7x13
+#font 8x13
+#font 7x12
+#font *mintsmild.se*
+#font -*-*-*-*-*-*-34-*-*-*-*-*-*-*
+#font -artwiz-snap-normal-r-normal-*-*-100-*-*-p-*-iso8859-1
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+#xftfont Bitstream Vera Sans Mono:size=8
+xftfont Monospace:size=8
+
+own_window_transparent yes
+own_window_colour hotpink
+# Text alpha when using Xft
+xftalpha 0.8
+
+#on_bottom yes
+
+# mail spool
+mail_spool $MAIL
+
+# Update interval in seconds
+update_interval 1
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+#If own_window is yes, you may use type normal, desktop or override
+#own_window_type normal
+#own_window_type desktop
+own_window_type override
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+#minimum_size 280 5
+maximum_width 300
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 10
+
+# border margins
+border_margin 4
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color white
+default_shade_color white
+default_outline_color white
+
+# Text alignment, other possible values are commented
+#alignment top_left
+#minimum_size 10 10
+gap_x 10
+gap_y 10
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer no
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# boinc (seti) dir
+# seti_dir /opt/seti
+
+# Possible variables to be used:
+#
+#      Variable         Arguments                  Description                
+#  acpiacadapter                     ACPI ac adapter state.                   
+#  acpifan                           ACPI fan state                           
+#  acpitemp                          ACPI temperature.                        
+#  adt746xcpu                        CPU temperature from therm_adt746x       
+#  adt746xfan                        Fan speed from therm_adt746x             
+#  battery           (num)           Remaining capasity in ACPI or APM        
+#                                    battery. ACPI battery number can be      
+#                                    given as argument (default is BAT0).     
+#  buffers                           Amount of memory buffered                
+#  cached                            Amount of memory cached                  
+#  color             (color)         Change drawing color to color            
+#  cpu                               CPU usage in percents                    
+#  cpubar            (height)        Bar that shows CPU usage, height is      
+#                                    bar's height in pixels                   
+#  downspeed         net             Download speed in kilobytes              
+#  downspeedf        net             Download speed in kilobytes with one     
+#                                    decimal                                  
+#  exec              shell command   Executes a shell command and displays    
+#                                    the output in torsmo. warning: this      
+#                                    takes a lot more resources than other    
+#                                    variables. I'd recommend coding wanted   
+#                                    behaviour in C and posting a patch :-).  
+#  execi             interval, shell Same as exec but with specific interval. 
+#                    command         Interval can't be less than              
+#                                    update_interval in configuration.        
+#  fs_bar            (height), (fs)  Bar that shows how much space is used on 
+#                                    a file system. height is the height in   
+#                                    pixels. fs is any file on that file      
+#                                    system.                                  
+#  fs_free           (fs)            Free space on a file system available    
+#                                    for users.                               
+#  fs_free_perc      (fs)            Free percentage of space on a file       
+#                                    system available for users.              
+#  fs_size           (fs)            File system size                         
+#  fs_used           (fs)            File system used space                   
+#  hr                (height)        Horizontal line, height is the height in 
+#                                    pixels                                   
+#  i2c               (dev), type, n  I2C sensor from sysfs (Linux 2.6). dev   
+#                                    may be omitted if you have only one I2C  
+#                                    device. type is either in (or vol)       
+#                                    meaning voltage, fan meaning fan or temp 
+#                                    meaning temperature. n is number of the  
+#                                    sensor. See /sys/bus/i2c/devices/ on     
+#                                    your local computer.                     
+#  kernel                            Kernel version                           
+#  loadavg           (1), (2), (3)   System load average, 1 is for past 1     
+#                                    minute, 2 for past 5 minutes and 3 for   
+#                                    past 15 minutes.                         
+#  machine                           Machine, i686 for example                
+#  mails                             Mail count in mail spool. You can use    
+#                                    program like fetchmail to get mails from 
+#                                    some server using your favourite         
+#                                    protocol. See also new_mails.            
+#  mem                               Amount of memory in use                  
+#  membar            (height)        Bar that shows amount of memory in use   
+#  memmax                            Total amount of memory                   
+#  memperc                           Percentage of memory in use              
+#  new_mails                         Unread mail count in mail spool.         
+#  nodename                          Hostname                                 
+#  outlinecolor      (color)         Change outline color                     
+#  pre_exec          shell command   Executes a shell command one time before 
+#                                    torsmo displays anything and puts output 
+#                                    as text.                                 
+#  processes                         Total processes (sleeping and running)   
+#  running_processes                 Running processes (not sleeping),        
+#                                    requires Linux 2.6                       
+#  shadecolor        (color)         Change shading color                     
+#  stippled_hr       (space),        Stippled (dashed) horizontal line        
+#                    (height)        
+#  swapbar           (height)        Bar that shows amount of swap in use     
+#  swap                              Amount of swap in use                    
+#  swapmax                           Total amount of swap                     
+#  swapperc                          Percentage of swap in use                
+#  sysname                           System name, Linux for example           
+#  time              (format)        Local time, see man strftime to get more 
+#                                    information about format                 
+#  totaldown         net             Total download, overflows at 4 GB on     
+#                                    Linux with 32-bit arch and there doesn't 
+#                                    seem to be a way to know how many times  
+#                                    it has already done that before torsmo   
+#                                    has started.                             
+#  totalup           net             Total upload, this one too, may overflow 
+#  updates                           Number of updates (for debugging)        
+#  upspeed           net             Upload speed in kilobytes                
+#  upspeedf          net             Upload speed in kilobytes with one       
+#                                    decimal                                  
+#  uptime                            Uptime                                   
+#  uptime_short                      Uptime in a shorter format               
+#
+#  seti_prog                         Seti@home current progress
+#  seti_progbar      (height)        Seti@home current progress bar
+#  seti_credit                       Seti@hoome total user credit
+
+
+# variable is given either in format $variable or in ${variable}. Latter
+# allows characters right after the variable and must be used in network
+# stuff because of an argument
+#${font Dungeon:style=Bold:pixelsize=10}I can change the font as well
+#${font Verdana:size=10}as many times as I choose
+#${font Perry:size=10}Including UTF-8,
+#${font Luxi Mono:size=10}justo como este texto que o google traduz fêz o português
+# stuff after 'TEXT' will be formatted on screen
+#${font Grunge:size=12}${time %a  %b  %d}${alignr -25}${time %k:%M}
+
+TEXT
+${color lightgrey}${font Monospace:style=Bold:size=8}${time %b%d日 星期%a}${alignr}${time %p%l:%M:%S}
+${color #ddaa00}${exec whoami}${color snow} on ${color #88aadd}$nodename${alignr}$sysname $kernel
+${color #88aadd}$stippled_hr
+${color lightgrey}Uptime:$color $uptime ${color lightgrey}- Load:$color $loadavg
+${color lightgrey}Usage:${cpu cpu1}%  ${cpu cpu2}%  ${acpitemp}°C${offset 50}  
+${color yellow}${cpugraph cpu1 25,150 32cd32 228b22}${alignr}${cpugraph cpu2 25,150 32cd32 228b22}
+${color lightgrey}RAM Usage:$memperc% $mem/$memmax${alignr}Disk IO: ${diskio}/s  
+${color #b8860b}${memgraph 25,150 4682b4 4682b4}${alignr}${color #cd950c}${diskiograph 25,150 ff00ff ff00ff}
+${color lightgrey}Swap Usage:    $swapperc% ${alignr}$swap/$swapmax 
+${color #ffe7ba}${swapbar}
+${color lightgrey}File System:    /     ${alignr}${fs_used /}/${fs_size /} 
+${color lightgrey}${fs_bar /}
+${color lightgrey}File System:    /home ${alignr}${fs_used /home}/${fs_size /home} 
+${color lightgrey}${fs_bar /home}
+${color lightgrey}Processes:$color $processes  ${color grey}Running:$color $running_processes
+${color}CPU usage            PID    CPU%   MEM%
+${color #ddaa00} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color}Mem usage
+${color #ddaa00} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${color lightgrey} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${color lightgrey} ${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+${color #88aadd}$stippled_hr
+${color lightgrey}Networking:$alignr${color snow}${addr ppp0}
+${color lightgrey}Down:${color #8844ee} ${downspeed eth0} k/s${color lightgrey} ${offset 70}Up:${color #22ccff} ${upspeed eth0} k/s
+${color darkgreen}${downspeedgraph eth0 25,150 ff0000 0000ff} $alignr${color darkgreen}${upspeedgraph eth0 25,150 0000ff ff0000}
+${color #1e90ff}Totaldown:${color #09ff09}${totaldown eth0} ${color #1e90ff}${offset 20}Totalup:${color #09ff09}${totalup eth0}
+${color #88aadd}$stippled_hr
+${rss http://feed.feedsky.com/my_cnbeta 5 item_titles 10}
+${color #ddaa00}Port(s): Connections:${color #5d478b}  Inbound: ${tcp_portmon 1 32767 count} Outbound: ${tcp_portmon 32768 61000 count} ALL: ${tcp_portmon 1 65535 count}
+${color #5d478b}Inbound Connection | Local Service/Port | Outbound Connection | Remote Service/Port$color
+${color darkgreen}${tcp_portmon 1 32767 rhost 0} ${tcp_portmon 1 32767 lservice 0} ${tcp_portmon 32768 61000 rhost 0} ${tcp_portmon 32768 61000 rservice 0}
+${tcp_portmon 1 32767 rhost 1} ${tcp_portmon 1 32767 lservice 1} ${tcp_portmon 32768 61000 rhost 1} ${tcp_portmon 32768 61000 rservice 1}
+${tcp_portmon 1 32767 rhost 2} ${tcp_portmon 1 32767 lservice 2} ${tcp_portmon 32768 61000 rhost 2} ${tcp_portmon 32768 61000 rservice 2}
+${tcp_portmon 1 32767 rhost 3} ${tcp_portmon 1 32767 lservice 3} ${tcp_portmon 32768 61000 rhost 3} ${tcp_portmon 32768 61000 rservice 3}
+${tcp_portmon 1 32767 rhost 4} ${tcp_portmon 1 32767 lservice 4} ${tcp_portmon 32768 61000 rhost 4} ${tcp_portmon 32768 61000 rservice 4}
+${tcp_portmon 1 32767 rhost 5} ${tcp_portmon 1 32767 lservice 5} ${tcp_portmon 32768 61000 rhost 5} ${tcp_portmon 32768 61000 rservice 5}
+  </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch39s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch39.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch40.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">OpenBox配置 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 40 章   Emacs muse</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

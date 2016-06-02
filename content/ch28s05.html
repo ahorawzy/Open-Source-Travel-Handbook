@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>版本更新</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch28.html" title="第 28 章 Git 版本控制系统">
+<link rel="prev" href="ch28s04.html" title="初始化">
+<link rel="next" href="ch28s06.html" title="时间机器">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">版本更新</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch28s04.html">上一页</a> </td>
+<th width="60%" align="center">第 28 章 Git 版本控制系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch28s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2891008"></a>版本更新</h2></div></div></div>
+<p>现在创建一个 git版本库：(参见<a class="xref" href="ch28s04.html" title="初始化">“初始化”一节</a>)</p>
+<pre class="screen">
+mkdir <code class="filename">sandbox</code>
+cd sandbox/ 
+git init
+touch <code class="filename">test</code>
+git add .
+git commit -m "创建git版本库"  </pre>
+<p><span class="command"><strong>git log</strong></span>查看版本纪录：</p>
+<pre class="screen">
+commit d63e709f565dcd60ab749f0eca27a947b02b8c26<a name="git-use-1"></a><img src="images/callouts/1.png" alt="1" border="0">
+Author: kardinal &lt;2999am@gmail.com&gt;<a name="git-use-2"></a><img src="images/callouts/2.png" alt="2" border="0">
+Date:   Wed Nov 5 14:08:50 2008 +0800<a name="git-use-3"></a><img src="images/callouts/3.png" alt="3" border="0">
+
+    创建 git版本库<a name="git-use-4"></a><img src="images/callouts/4.png" alt="4" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">版本ID(默认自动生成)</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">提交者</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">提交日期</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-4"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">备注</td>
+</tr>
+</table></div>
+<p>现在对<code class="filename">test</code>文件作一些修改：</p>
+<pre class="screen">
+增加一行内容  </pre>
+<p><span class="command"><strong>git diff</strong></span>查看自上次提交以来发生什么改动：</p>
+<pre class="screen">
+diff --git a/test b/test
+index e69de29..bae0882 100644
+--- a/test
++++ b/test
+@@ -0,0 +1 @@
++增加一行内容<a name="git-use-5"></a><img src="images/callouts/1.png" alt="1" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-5"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">典型的<span class="application">diff</span>输出，如果你设置了彩色输出，这些内容会非常直观的显示</td>
+</tr></table></div>
+<p>接下来，把这次的更新作为新的版本提交</p>
+<pre class="screen">
+git add test<a name="git-use-6"></a><img src="images/callouts/1.png" alt="1" border="0">
+git commit -m "增加了一行内容"<a name="git-use-7"></a><img src="images/callouts/2.png" alt="2" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-6"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">将本次更新提交到索引(生成快照)。此时使用<span class="command"><strong>git diff</strong></span>查看改动纪录，看不到任何内容；但是仍可以使用<span class="command"><strong>git  diff --cached</strong></span>查看缓存的改动纪录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-7"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">提交为新版本后，便不能使用<span class="command"><strong>git diff</strong></span>查看改动纪录</td>
+</tr>
+</table></div>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top"><p><strong class="userinput"><code>git add</code></strong>提交改动到索引，但并不提交到版本库。如果不想频繁的提交新版本，可以使用该命令提交改动到索引，比较和上一次提交的变化。只要不使用<strong class="userinput"><code>git commit</code></strong>提交，版本库中不会有新的版本</p></td></tr>
+</table></div>
+<p>使用<span class="command"><strong>git log</strong></span>查看版本库纪录</p>
+<pre class="screen">
+commit 13aa16309db3693ea8a6b93b8a818e731194824c
+Author: kardinal &lt;2999am@gmail.com&gt;
+Date:   Wed Nov 5 14:28:04 2008 +0800
+
+    增加了一行内容
+
+commit d63e709f565dcd60ab749f0eca27a947b02b8c26
+Author: kardinal &lt;2999am@gmail.com&gt;
+Date:   Wed Nov 5 14:08:50 2008 +0800
+
+    创建git版本库  </pre>
+<p>如果想查看每个版本的改动纪录，使用<span class="command"><strong>git log -p</strong></span></p>
+<pre class="screen">
+commit 13aa16309db3693ea8a6b93b8a818e731194824c
+Author: kardinal &lt;2999am@gmail.com&gt;
+Date:   Wed Nov 5 14:28:04 2008 +0800
+
+    增加了一行内容
+
+diff --git a/test b/test
+index e69de29..bae0882 100644
+--- a/test
++++ b/test
+@@ -0,0 +1 @@
++增加一行内容
+
+commit d63e709f565dcd60ab749f0eca27a947b02b8c26
+Author: kardinal &lt;2999am@gmail.com&gt;
+Date:   Wed Nov 5 14:08:50 2008 +0800
+
+    创建git版本库
+
+diff --git a/test b/test
+new file mode 100644
+index 0000000..e69de29  </pre>
+<p>每次使用<span class="command"><strong>git add</strong></span>和<span class="command"><strong>git commit</strong></span>两个命令提交版本更新很繁琐，可以使用<span class="command"><strong>git commit -a</strong></span>提交(已索引文件的改动)</p>
+<pre class="screen">
+git commit -a -m "一次新的提交"  </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2891349"></a>版本标签</h3></div></div></div>
+<p>使用<span class="command"><strong>git tag</strong></span>为某一版本创建版本标签：</p>
+<pre class="screen">
+git tag 1.0 d63e70
+git tag 1.1 13aa16 
+git tag newest HEAD    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+        版本标签存储在<code class="filename">.git/refs/tags/</code>目录
+      </li></ul></div>
+<p>使用容易记忆的版本标签进行操作：</p>
+<pre class="screen">
+git diff 1.0 1.1 <a name="git-use-21"></a><img src="images/callouts/1.png" alt="1" border="0">
+git diff 1.0 13aa16 
+git log 1.0 <a name="git-use-22"></a><img src="images/callouts/2.png" alt="2" border="0">   </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">查看1.0和1.1之间的变化</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-use-22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">查看1.0纪录</td>
+</tr>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch28s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch28.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch28s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">初始化 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 时间机器</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

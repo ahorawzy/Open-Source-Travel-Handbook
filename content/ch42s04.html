@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>lftp 使用方法</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch42.html" title="第 42 章 使用 lftp">
+<link rel="prev" href="ch42s03.html" title="登录 ftp服务器">
+<link rel="next" href="ch42s05.html" title="中文乱码">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">lftp 使用方法</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch42s03.html">上一页</a> </td>
+<th width="60%" align="center">第 42 章 使用 lftp</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch42s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2920759"></a>lftp 使用方法</h2></div></div></div>
+<p>大多数图形界面的
+    ftp客户端，都有两栏窗口，一栏为本地目录，一栏为远程目录。<span class="application">lftp</span> 也采用这种方式工作，只不过没有使用图形界面直观的显示</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>命令</th>
+<th>本地</th>
+<th>远程</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>显示工作目录</td>
+<td>lpwd</td>
+<td>pwd</td>
+</tr>
+<tr>
+<td>切换目录</td>
+<td>lcd</td>
+<td>cd</td>
+</tr>
+<tr>
+<td rowspan="2">显示文件列表</td>
+<td>!ls</td>
+<td>cls</td>
+</tr>
+<tr>
+<td>!ls -l</td>
+<td>ls</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+其中， <strong class="userinput"><code>!</code></strong>
+      表示执行本地命令，<span class="application">lftp</span>中没有与
+      <span class="command"><strong>ls</strong></span> 对应的本地命令
+      <span class="command"><strong>lls</strong></span>， 所以要使用 <span class="command"><strong>!ls</strong></span> 显示本地目录文件
+  </li></ul></div>
+<p>使用以上命令确认当前工作目录的情况。以下命令用于从本地目录上传，或者从远程目录下载：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th> </th>
+<th>下载</th>
+<th>上传</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>单个文件</td>
+<td>get</td>
+<td>put</td>
+</tr>
+<tr>
+<td>多个文件</td>
+<td>mget</td>
+<td>mput</td>
+</tr>
+<tr>
+<td>多线程</td>
+<td>pget</td>
+<td> </td>
+</tr>
+<tr>
+<td>目录</td>
+<td>mirror</td>
+<td>mirror -R</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<p>在 <span class="application">lftp</span> 配置文件
+    <code class="filename">~/.lftp/rc</code> 中设置 <span class="command"><strong>pget</strong></span> 使用的线程数</p>
+<pre class="screen">
+set pget:default-n 5   </pre>
+</li></ul></div>
+<p>在远程目录中，可以使用以下命令操作文件</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>统计文件大小</td>
+<td>du</td>
+</tr>
+<tr>
+<td>移动、重命名</td>
+<td>mv</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>rm</td>
+</tr>
+<tr>
+<td>创建文件夹</td>
+<td>mkdir</td>
+</tr>
+<tr>
+<td>删除文件夹</td>
+<td>rmdir</td>
+</tr>
+</tbody>
+</table></div>
+<p> </p>
+<p>使用 <strong class="userinput"><code>exit</code></strong> 命令退出 <span class="application">lftp</span></p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch42s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch42.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch42s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">登录 ftp服务器 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 中文乱码</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

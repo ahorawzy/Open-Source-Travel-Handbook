@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>零宽断言</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch26.html" title="第 26 章 正则表达式">
+<link rel="prev" href="ch26s08.html" title="分组、捕获">
+<link rel="next" href="ch27.html" title="第 27 章 docbook 指南">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">零宽断言</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch26s08.html">上一页</a> </td>
+<th width="60%" align="center">第 26 章 正则表达式</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2878562"></a>零宽断言</h2></div></div></div>
+<p>目前为止，我们学到的正则表达式匹配，都是有“宽度”的，使用
+    <strong class="userinput"><code>\w+。</code></strong> 匹配下面文本，会将
+    <strong class="userinput"><code>。</code></strong> 一同匹配：</p>
+<pre class="screen">
+regular。 
+expression。  </pre>
+<p>如果不想匹配符号，只匹配一个位置，就要用到“零宽断言”(匹配宽度为零，满足一定的
+    条件/断言)，零宽断言使用 <span class="command"><strong>(?=表达式)</strong></span> 的语法，例如
+    <strong class="userinput"><code>\w+(?=。)</code></strong>，其中 <strong class="userinput"><code>(?=。)</code></strong>
+  表示 <strong class="userinput"><code>。</code></strong> 前面的位置(先行断言)</p>
+<pre class="screen">
+<strong class="userinput"><code>regular</code></strong>。 
+<strong class="userinput"><code>expression</code></strong>。  </pre>
+<p>如果需要匹配后面的位置，如：</p>
+<pre class="screen">
+。<strong class="userinput"><code>regular</code></strong> 
+。<strong class="userinput"><code>expression</code></strong>  </pre>
+<p>则要用到后发断言 <strong class="userinput"><code>(?&lt;=。)</code></strong> ，使用
+    <strong class="userinput"><code>(?&lt;=。)\w+</code></strong> 得到上面的匹配结果</p>
+<p>使用 <strong class="userinput"><code>(?&lt;=&lt;b&gt;).*(?=&lt;/b&gt;)</code></strong> 匹配标签中的内容</p>
+<pre class="screen">
+&lt;b&gt;<strong class="userinput"><code>粗体</code></strong>&lt;/b&gt;  </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2878705"></a>负向零宽断言</h3></div></div></div>
+<p>负向零宽断言 <span class="command"><strong>(?!表达式)</strong></span>
+    也是匹配一个零宽度的位置，不过这个位置的“断言”取表达式的反值，例如
+      <strong class="userinput"><code>(?!表达式)</code></strong> 表示 <strong class="userinput"><code>表达式</code></strong>
+    前面的位置，如果 <strong class="userinput"><code>表达式</code></strong> 不成立
+    ，匹配这个位置；如果 <strong class="userinput"><code>表达式</code></strong> 成立，则不匹配：</p>
+<pre class="screen">
+<strong class="userinput"><code>expression</code></strong> 
+<strong class="userinput"><code>expression</code></strong>，
+<strong class="userinput"><code>expression</code></strong>；
+expression。       </pre>
+<p>以上为使用 <strong class="userinput"><code>.+n(?!。)</code></strong> 的匹配结果。注意与
+      <strong class="userinput"><code>.+n[^。]</code></strong> 匹配的区别</p>
+<pre class="screen">
+expression
+<strong class="userinput"><code>expression，</code></strong>
+<strong class="userinput"><code>expression；</code></strong>
+expression。    </pre>
+<p>同样，负向零宽断言也有“先行”和“后发”两种，负向零宽后发断言为 <span class="command"><strong>(?&lt;!表达式)</strong></span></p>
+<p>使用 <strong class="userinput"><code>(?&lt;![&lt;/])para(?!&gt;)</code></strong> 匹配下面文本</p>
+<pre class="screen">
+&lt;para&gt;<strong class="userinput"><code>para</code></strong>表示一个段落&lt;/para&gt;    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+<strong class="userinput"><code>(?&lt;![&lt;/])</code></strong> 表示
+	<code class="filename">para</code> 左边不能为
+	<strong class="userinput"><code>&lt;</code></strong> 或 <strong class="userinput"><code>/</code></strong>
+	；<strong class="userinput"><code>(?!&gt;)</code></strong> 表示 <code class="filename">para</code>
+	右边不能为 <strong class="userinput"><code>&gt;</code></strong>
+</li></ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch26s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch26.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">分组、捕获 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 27 章 docbook 指南</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

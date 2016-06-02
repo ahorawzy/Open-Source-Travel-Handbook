@@ -1,0 +1,344 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>安装基本系统</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+<link rel="prev" href="ch31s02.html" title="简介">
+<link rel="next" href="ch31s04.html" title="更新系统">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">安装基本系统</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch31s02.html">上一页</a> </td>
+<th width="60%" align="center">第 31 章 完美工作站 Archlinux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2906023"></a>安装基本系统</h2></div></div></div>
+<p>大致上，安装 Linux 分为几个阶段：</p>
+<div class="glosslist"><dl>
+<dt>前期准备</dt>
+<dd><p>通过各种方式获取安装介质，进入安装作业平台。比如下载 ISO 映像刻录光盘，使用光盘引导，启动安装程序</p></dd>
+<dt>选择安装源</dt>
+<dd><p>选择通过安装介质安装还是通过网络下载的方式进行安装。如果通过网络安装，可能需要配置网络</p></dd>
+<dt>准备磁盘</dt>
+<dd><p>操作系统最终是安装在磁盘上的，所以要分割磁盘、格式化分区、挂载</p></dd>
+<dt>选择、安装软件包</dt>
+<dd><p>选择需要的软件。有些发行版如 Ubuntu LiveCD 安装时不能选择软件</p></dd>
+<dt>配置系统</dt>
+<dd><p>对系统进行各种配置，使其能良好运行</p></dd>
+<dt>安装引导程序</dt>
+<dd><p>以便启动时可以引导系统</p></dd>
+<dt>新建用户</dt>
+<dd><p>使用 root 用户进行操作存在一定风险，尽量建立一个用于日常操作的用户</p></dd>
+</dl></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906139"></a>前期准备</h3></div></div></div>
+<p>首先下载 <a class="ulink" href="http://www.archlinux.org/download/" target="_top">Archlinux</a> 安装介质。</p>
+<p>有两种安装介质： ISO 和 USB ，其中 ISO
+  为光盘映像，用来刻录安装光盘； USB 为磁盘映像，可以恢复到 USB 移动存储设备</p>
+<p>每种安装介质包含两种目标架构： i686 和 x86_64 ，其中 i686 适用于
+    <span class="trademark">奔腾Ⅱ</span>™ 以上级别 CPU ； x86_64 只适用于 64 位 CPU</p>
+<p>每种目标架构又包含两个版本： CORE 和 FTP Install ，其中 FTP
+    Install 只包含作业平台，需要通过网络下载软件包；CORE
+    除了作业平台，还包含基本系统<sup>[<a name="id2906179" href="#ftn.id2906179" class="footnote">75</a>]</sup></p>
+<p>假设您下载了 archlinux-2008.06-core-i686.iso ，刻录并使用它引导，您会看到以下界面</p>
+<p><img src="images/archlinux/boot.jpg"></p>
+<p>Archlinux 提供几种不同的引导选项，你可根据自己需要选择。一般情况下，按回车即可。</p>
+<p>稍等片刻，Archlinux 引导进入这个画面</p>
+<p><img src="images/archlinux/setup.jpg">  </p>
+<p>该画面包括一些有用的安装信息，如安装日志的记录、文档的查看、键盘映射的更改等。我们直接在命令提示符后输入下列指令，启动 Archlinux 安装程序：</p>
+<pre class="screen">
+/arch/setup  </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906228"></a>作业平台</h3></div></div></div>
+<p><code class="filename">/arch/setup</code> 是在安装介质中 FreeBSD 风格的安装脚本，安装 Archlinux ，其实就是进入作业平台后，运行这个脚本。</p>
+<p>使用 Archlinux 安装光盘引导，就是进入作业平台的过程。作业平台通常包含：</p>
+<div class="glosslist"><dl>
+<dt>内核</dt>
+<dd><p>作业平台需要可以使用其它工具，正在运行着的系统是起码的条件，这就需要有内核</p></dd>
+<dt>磁盘工具</dt>
+<dd><p>将系统安装到磁盘上，必然要对分区进行相关操作</p></dd>
+<dt>网络工具</dt>
+<dd><p>现代 Linux 系统大都支持通过网络安装，各种网络工具也是必需的</p></dd>
+<dt>包管理系统</dt>
+<dd>
+<p>在安装过程中，如果希望选择软件，通常需要包管理系统</p>
+<p>否则就只能将预先打包的整个系统一古脑的恢复到机器上，且不能选择软件，如 
+	Ubuntu LiveCD</p>
+</dd>
+<dt>编译工具链</dt>
+<dd><p>如果采用编译的方式安装，则需要编译工具链，如 Gentoo LFS</p></dd>
+<dt>基本工具集</dt>
+<dd><p>以上组件可能会依赖其它的工具，而且安装光盘通常也被当作系统维护光盘，所以基本工具集是必需的</p></dd>
+</dl></div>
+<p><code class="filename">/arch/setup</code> 脚本(安装程序)将在“字符图形”界面中调用上述工具:</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906360"></a>选择安装源</h3></div></div></div>
+<p><img src="images/archlinux/source.jpg">  </p>
+<p>如果使用已包含基本系统软件包的 CORE ，使用默认选项即可；如果通过
+    FTP/HTTP 下载软件包安装，可以选择第二项，安装程序会自动调用网络工具。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906380"></a>分割磁盘</h3></div></div></div>
+<p>接下来进入 Archlinux
+    安装主菜单。</p>
+<p><img src="images/archlinux/hard-drive.jpg"></p>
+<p>现在需要准备硬盘，即对硬盘分区和挂载文件系统，相关基础概念请参阅
+      <a class="xref" href="ch08.html#partition" title="分区概念">“分区概念”一节</a></p>
+<p><img src="images/archlinux/partition.jpg"> </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+    自动分区(强烈不推荐)
+  </li>
+<li>
+        对硬盘分区
+      </li>
+<li>
+        设置挂载点
+      </li>
+<li>
+        返回主菜单
+      </li>
+</ul></div>
+<p>安装程序会自动检测硬盘类型及容量，要求你选择硬盘，并调用硬盘分区程序 cfdisk</p>
+<p><img src="images/archlinux/cfdisk-new.jpg"> </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+        通过“上下方向键”选择分区，“左右方向键”、“TAB”或“首字母大写”切换操作选项
+      </li>
+<li>
+      New 创建分区，需要在 “Free Space”上操作
+    </li>
+<li>
+          Bootable 设置可引导标志
+        </li>
+<li>
+        Write 将分区方案写入分区表
+      </li>
+</ul></div>
+<p>推荐为以下目录建立分区：</p>
+<div class="glosslist"><dl>
+<dt>/</dt>
+<dd><p>根目录。系统将安装在这里，通常 5～10G 足够</p></dd>
+<dt>/home</dt>
+<dd><p>用户家目录。用户的所有文件都在这里，尽可能的大</p></dd>
+<dt>swap</dt>
+<dd><p>交换分区。物理内存的1～2 倍(如果内存足够大，也可以不建立此分区)</p></dd>
+</dl></div>
+<p>建立好分区后，将根目录所在的分区设置为
+      Bootable<sup>[<a name="id2906526" href="#ftn.id2906526" class="footnote">76</a>]</sup></p>
+<p><img src="images/archlinux/cfdisk-bootable.jpg"> </p>
+<p>准备妥当后，按下 <strong class="userinput"><code>W</code></strong>
+      写入分区表，<strong class="userinput"><code>Q</code></strong> 退出</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906563"></a>挂载分区</h3></div></div></div>
+<p>分割磁盘后，选择 DONE 返回准备硬盘菜单。接着，我们选择 Set Filesystem Mountpoints 来将分区挂载到文件系统上。</p>
+<p><img src="images/archlinux/swap.jpg"> </p>
+<p>首先要求你挂载 swap ，我们选择 /dev/sda2。然后依次挂载 / 和 /home
+      目录。与挂载 swap
+      区不同的是，挂载后几个分区会要求你选择文件系统类型，推荐选择
+      XFS<sup>[<a name="id2906588" href="#ftn.id2906588" class="footnote">77</a>]</sup>。另外，挂载 /home 时，需要自己输入挂载点，按原名输入即可。</p>
+<p><img src="images/archlinux/filesystem.jpg"> </p>
+<p>完成后，返回安装程序主菜单。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906628"></a>选择软件</h3></div></div></div>
+<p>接下来选择要安装的软件包。Archlinux 首先会要求选择安装介质，因为我们是从 
+CD-ROM 进行安装，所以保持默认。然后，我们选择 CD 驱动器，仍然默认。最后，选择软件包</p>
+<p>软件包有四大类：</p>
+<p><img src="images/archlinux/package-support.jpg"> </p>
+<div class="glosslist"><dl>
+<dt>base</dt>
+<dd><p>最基本的包</p></dd>
+<dt>devel</dt>
+<dd><p>包含一些软件编译工具</p></dd>
+<dt>lib</dt>
+<dd><p>包含应用程序所需的库文件</p></dd>
+<dt>support</dt>
+<dd><p>包含一些在网络和文件系统方面有用的包</p></dd>
+</dl></div>
+<p>使用空格键 标记/取消标记。当 Archlinux 安装程序提示你是否默认选中所有的包时，按 Yes 后会进入已标记分类包含软件的选择菜单，完成后按 OK 确认。</p>
+<p><img src="images/archlinux/package.jpg"> </p>
+<p>在开始安装前，安装程序将提示你是否保存 Pacman 缓存的软件包，我们选择
+      No。安装将调用
+    Pacman 安装你所选择的包，这个过程需要花一会时间。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906731"></a>配置系统</h3></div></div></div>
+<p>现在，我们将进入 Archlinux 安装过程中的一个重要环节，配置系统文件。Archlinux 安装程序先会询问是否使用 hwdetect，按推荐选择 Yes，并回答是否需要支持从 usb、firewire、pcmcia 等设备引导。</p>
+<p> 之后，我们需要选择文本编辑器，可选 nano 和 vim，选择后者。然后，我们就到了如下的配置画面：</p>
+<p><img src="images/archlinux/config.jpg"> </p>
+<p>配置的过程就是调用 Vim<sup>[<a name="id2906762" href="#ftn.id2906762" class="footnote">78</a>]</sup> 编辑器编辑以上配置文件。其中，需要重点关注的配置文件是：</p>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2906775"></a>/etc/rc.conf</h4></div></div></div>
+<p>
+      /etc/rc.conf 是 Archlinux 最重要的配置文件。下面的选项有必要设置一下：
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>推荐值</th>
+<th>可选值</th>
+<th>说明</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>LOCALE="en_US.utf8"</td>
+<td>zh_CN.utf8</td>
+<td>系统语言</td>
+</tr>
+<tr>
+<td>TIMEZONE="Asia/Shanghai"</td>
+<td>UTC<sup>[<a name="id2906824" href="#ftn.id2906824" class="footnote">a</a>]</sup>
+</td>
+<td>时区</td>
+</tr>
+<tr>
+<td>HOSTNAME="myhost"</td>
+<td>linuxtoy.org</td>
+<td>主机名</td>
+</tr>
+<tr>
+<td>MODULES=()</td>
+<td>!pcspkr</td>
+<td>禁用扬声器</td>
+</tr>
+<tr>
+<td>INTERFACES=(eth0)</td>
+<td> </td>
+<td>网络接口</td>
+</tr>
+<tr>
+<td>eth0="dhcp"</td>
+<td>eth0 IP地址 netmask 子网掩码 broadcast 广播地址(该IP段最后一个地址“255”)</td>
+<td>接口地址设置</td>
+</tr>
+<tr>
+<td>DAEMONS=(syslog-ng !network netfs crond)</td>
+<td>守护进程以 <strong class="userinput"><code>!</code></strong> 起始表示禁用，以 <strong class="userinput"><code>@</code></strong> 起始表示后台运行</td>
+<td>启动时运行的守护进程</td>
+</tr>
+</tbody>
+<tbody class="footnotes"><tr><td colspan="3"><div class="footnote"><p><sup>[<a name="ftn.id2906824" href="#id2906824" class="para">a</a>] </sup>如果安装了 Windows 系统，使用 UTC 可以避免各个系统时间不一致</p></div></td></tr></tbody>
+</table></div>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2906914"></a>/etc/locale.gen</h4></div></div></div>
+<p>这个文件包含系统所支持的区域及字符集。对中文用户来说，你需要去掉包括 zh_CN 这几行行首的注释符 <strong class="userinput"><code>#</code></strong></p>
+<p><img src="images/archlinux/locale-gen.jpg"> </p>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2906938"></a>/etc/fstab</h4></div></div></div>
+<p>该文件确定文件系统设置及挂载点，可以不用编辑，不过查看一下是否正确还是有必要的。</p>
+<p><img src="images/archlinux/fstab.jpg"> </p>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2906957"></a>设置 root 密码</h4></div></div></div>
+<p>为 root 帐号设置一个密码，需要重复输入确认。</p>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2906968"></a>设置 Pacman 仓库镜像</h4></div></div></div>
+<p>为 Pacman 包管理系统设置仓库镜像，选择一个较快的地址。</p>
+</div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2906981"></a>安装引导程序</h3></div></div></div>
+<p>系统配置完成后，回到主菜单。进入下一步，安装系统引导程序。我们选择 GRUB 。此时，安装程序让你查看 /boot/grub/menu.lst 的内容。接着，要求选择安装的位置，我们选 MBR，主引导记录</p>
+<p><img src="images/archlinux/grub-lilo.jpg"> </p>
+<p><img src="images/archlinux/MBR.jpg"> </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907010"></a>退出安装</h3></div></div></div>
+<p>如果一切顺利，你已经完成了 Archlinux 的安装。现在是时候退出了。按提示我们在命令行输入下列指令，以便重启系统：</p>
+<pre class="screen">
+reboot    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907028"></a>新建用户</h3></div></div></div>
+<p><img src="images/archlinux/grub.jpg"> </p>
+<p>重启系统后，输入 root 帐号和密码登录系统。</p>
+<p><img src="images/archlinux/login.jpg"> </p>
+<p>第一件事，建立一个普通的帐号。可以通过以下命令完成：</p>
+<pre class="screen">
+useradd -m -s /bin/bash kardinal    </pre>
+<p>这将添加一个名为 kardinal 的用户。接着，为该账号设置密码：</p>
+<pre class="screen">
+passwd kardinal    </pre>
+<p>使用 <span class="command"><strong>visudo</strong></span> 命令将该账号加入 sudoers 列表</p>
+<p>确认无误后，可以锁定 root 账号，以绝后患</p>
+<pre class="screen">
+su kardinal      <span class="database">#切换到普通账号，如果能够锁定，说明这个账号是 sudoers</span>
+sudo usermod -L root    </pre>
+<p>至此，Archlinux 基本系统安装完成</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2906179" href="#id2906179" class="para">75</a>] </sup>将 CORE
+      中的软件包移除，差不多就是 FTP Install </p></div>
+<div class="footnote"><td>
+<sup>[<a name="ftn.id2906526" href="#id2906526" class="entry">76</a>] </sup>如果为 <code class="filename">/boot</code>
+	目录准备了独立的分区，则要将该分区设置为 Bootable</td></div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id2906588" href="#id2906588" class="para">77</a>] </sup>大多数 Linux 系统中的引导程序
+	  <span class="application">grub</span>，不支持从 XFS
+	分区启动，解决的办法是将 <code class="filename">/boot</code>
+	目录挂载到一个独立的 ext2 分区……不过 Archlinux 中的 grub
+	不存在这个问题</p>
+<p>传说 ext4 文件系统也十分优秀，不过大多数发行版还没有正式支持</p>
+</div>
+<div class="footnote"><p><sup>[<a name="ftn.id2906762" href="#id2906762" class="para">78</a>] </sup>参阅<a class="xref" href="ch24.html" title="第 24 章 Vim 编辑器">第 24 章 <i>Vim 编辑器</i></a></p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch31s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch31.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 更新系统</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

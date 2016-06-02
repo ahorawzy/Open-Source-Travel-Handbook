@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>目录结构</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch15.html" title="第 15 章 基本系统">
+<link rel="prev" href="ch15.html" title="第 15 章 基本系统">
+<link rel="next" href="ch15s03.html" title="启动流程">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">目录结构</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch15.html">上一页</a> </td>
+<th width="60%" align="center">第 15 章 基本系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch15s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2823718"></a>目录结构</h2></div></div></div>
+<p>各种 Linux 发行版的目录结构可能不太一样，但它们都遵循 FHS(Filesystem Hierarchy Stand)。</p>
+<p>实际上 FHS 只是规定了根目录下的各主要目录应该放些什么文件，仅了解这些还不够，下面是一般情况下 Linux 系统的目录结构</p>
+<pre class="screen">
+/   根目录
+│
+├boot/              启动文件。所有与系统启动有关的文件都保存在这里
+│    └grub/         Grub 引导器相关的文件
+│
+├dev/               设备文件
+├proc/              内核与进程镜像
+│
+├mnt/               临时挂载
+├media/             挂载媒体设备
+│
+├root/              root用户 的 $HOME 目录
+├home/
+│    ├user/         普通用户 的 $HOME 目录
+│    └.../
+│
+├bin/               系统程序
+├sbin/              管理员系统程序
+├lib/               系统程序库文件
+├etc/               系统程序和大部分应用程序的全局配置文件
+│   ├init.d/        SystemV 风格的启动脚本
+│   ├rcX.d/         SystemV 启动脚本的链接，定义运行级别
+│   ├rc.d/          BSD 风格的启动脚本
+│   ├rc.xxx         BSD 风格启动脚本，定义运行级别
+│   ├network/       网络配置文件
+│   ├X11/           图形界面配置文件
+│
+├usr/
+│   ├bin/           应用程序
+│   ├sbin/          管理员应用程序
+│   ├lib/           应用程序库文件
+│   ├share/         应用程序资源文件
+│   ├src/           应用程序源代码
+│   ├local/
+│   │     ├soft/    用户程序
+│   │     └.../     通常使用单独文件夹
+│   ├X11R6/         图形界面系统
+│
+├var/               动态数据
+│
+├temp/              临时文件      </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch15.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch15.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch15s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 15 章 基本系统 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 启动流程</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

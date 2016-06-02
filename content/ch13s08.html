@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>隐藏文件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch13.html" title="第 13 章 基础知识">
+<link rel="prev" href="ch13s07.html" title="配置方式">
+<link rel="next" href="ch13s09.html" title="文件类型">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">隐藏文件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch13s07.html">上一页</a> </td>
+<th width="60%" align="center">第 13 章 基础知识</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch13s09.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2817862"></a>隐藏文件</h2></div></div></div>
+<p>Linux 下，名称中第一个字符为 <span class="emphasis"><em>.</em></span> 的文件或者文件夹，系统会将它们隐藏起来。传统上，这种文件大多是用户的配置文件。</p>
+<p>您可以尝试以下操作：</p>
+<pre class="screen">
+cd ~     <span class="database">#进入您的用户目录</span>
+ls       <span class="database">#查看当前目录下的文件列表</span>
+ls -a    <span class="database">#查看所有文件的文件列表（包括隐藏文件）。</span>    </pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+	 如果您只想查看隐藏文件，而不包括这两个特殊目录，您可以使用 ls 命令的选项 -A （ls -A）
+    </li>
+<li>
+      每个目录下都包含两个特殊目录 <code class="filename">.</code> 和 <code class="filename">..</code> 。您也许猜到了， <code class="filename">.</code> 代表当前目录， <code class="filename">..</code> 代表上一级目录。
+      </li>
+</ul></div>
+<p>现在，您可以看到许多文件名以 . 起始的文件或者文件夹了吧？使用 <span class="application">ls</span> 命令无法显示它们</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch13s07.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch13.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch13s09.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">配置方式
+     </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 文件类型</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

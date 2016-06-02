@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>硬件基础</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch22.html" title="第 22 章 Grub">
+<link rel="prev" href="ch22.html" title="第 22 章 Grub">
+<link rel="next" href="ch22s03.html" title="Grub 介绍">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">硬件基础</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch22.html">上一页</a> </td>
+<th width="60%" align="center">第 22 章 Grub</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch22s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2849959"></a>硬件基础</h2></div></div></div>
+<p>一块硬盘，它起始的一部分扇区为主引导扇区，包括 MBR（主引导纪录）和 DPT（分区表，您可以阅读<a class="xref" href="ch08.html#partition" title="分区概念">“分区概念”一节</a>中相关内容）</p>
+<p>每个分区起始的一部分扇区，为分区引导扇区。</p>
+<p>在分区引导扇区之后的部分，为文件系统的索引，文件系统通过它定位文件在硬盘上的位置。不同的文件系统采用不同的索引，例如 FAT 文件系统使用文件分配表和目录区。</p>
+<p>绝大多数操作系统，对硬盘的读写操作，通过文件系统来完成，因此引导扇区中的内容，我们不能够在文件系统中进行操作，而需要专用软件，比如引导管理器。</p>
+<p>我们对文件进行修改后，操作系统会将文件系统索引中的内容同步。</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2849736"></a>系统引导流程</h3></div></div></div>
+<div class="orderedlist"><ol type="1">
+<li>
+    系统启动时，首先引导至 MBR，将控制权移交安装在 MBR 中的引导管理器<a name="grub-11"></a><img src="images/callouts/4.png" alt="4" border="0">
+</li>
+<li>
+	引导管理器装载自身<sup>[<a name="grub-stage" href="#ftn.grub-stage" class="footnote">39</a>]</sup>
+</li>
+<li>
+        引导管理器读取分区中的配置文件，并按配置文件中预设的参数运行<a name="grub-12"></a><img src="images/callouts/5.png" alt="5" border="0">
+</li>
+<li>
+        引导管理器根据您的选择，可能会有如下活动
+      <div class="itemizedlist"><ul type="disc">
+<li>
+          加载内核，启动 Linux 系统检查活动分区，并引导它
+        </li>
+<li>
+Windows 系统:读取相应分区的引导扇区，将控制权移交该扇区中的引导管理器
+	  </li>
+</ul></div>
+</li>
+</ol></div>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-11"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">Windows 使用 NTLDR，Linux 通常用 Grub</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-12"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">例如，Grub 读取“<code class="filename">/boot/grub/menu.lst</code>”文件中内容，将可引导系统通过菜单显示</td>
+</tr>
+</table></div>
+<p>Linux 系统在安装 Grub 时，会提问您安装在 MBR 或者分区引导扇区中。如果将 Grub 安装在分区引导纪录中，您必须确保 MBR 中的引导管理器能够正确的引导至分区引导扇区。</p>
+<p>如果您在 MBR 中使用的是 Windows 的引导管理器 NTLDR，完成这件工作会非常困难，因而我们推荐您使用 Grub。</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.grub-stage" href="#grub-stage" class="para">39</a>] </sup>Grub 先装载 MBR 中的 stage1，通过 stage1 来装载文件系统中的 stage2，显示菜单和 Shell 等待用户。<br>  有时 stage1 不能识别 stage2 所在分区的文件系统，这就需要装载 stage1.5 来连接 stage1 和 stage2</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch22.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch22.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch22s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 22 章 Grub </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Grub 介绍</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

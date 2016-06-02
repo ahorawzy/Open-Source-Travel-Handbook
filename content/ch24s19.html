@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>命令模式</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch24.html" title="第 24 章 Vim 编辑器">
+<link rel="prev" href="ch24s18.html" title="单词补全">
+<link rel="next" href="ch24s20.html" title="折叠">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">命令模式</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch24s18.html">上一页</a> </td>
+<th width="60%" align="center">第 24 章 Vim 编辑器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch24s20.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2858215"></a>命令模式</h2></div></div></div>
+<p>前面介绍了普通模式和插入模式。我们发现，普通模式主要用来浏览和修改文本内容，而插入模式则用来向文本中添加内容。</p>
+<p>而命令模式则多用于操作文本文件（而不是操作文本文件的内容），例如保存文件；或者用来更改编辑器本身的状态，例如设定多栏窗口、标签或者退出编辑器……</p>
+<p>w(rote) 将更改写入文件</p>
+<pre class="screen">:w</pre>
+<p>q(uit) 退出编辑器</p>
+<pre class="screen">:q</pre>
+<p>某些情况下，编辑器会阻止命令的执行。例如您修改了文件，而没有保存，那么您使用 :q 命令退出时，编辑器就不会执行这条命令，而是提醒您保存文件。</p>
+<p>这个时候，您可以在命令末尾追加 ! 来强制执行命令</p>
+<pre class="screen">:命令!</pre>
+<p>例如 <strong class="userinput"><code>:q!</code></strong> ，即便您没有保存已修改的文件，使用此命令，编辑器也会放弃修改而强行退出</p>
+<p>以 <strong class="userinput"><code>!</code></strong> 引导一个 Shell 命令，则可以从 Vim 临时切换到 Shell 中，执行一个 Shell</p>
+<pre class="screen">:!命令</pre>
+<p>例如 <strong class="userinput"><code>:!ls</code></strong></p>
+<p>命令模式还可以用来调节一些选项，例如</p>
+<pre class="screen">:set linespace=6</pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+    使用 Tab 键补全命令
+  </li>
+<li>
+      命令可以直接写入配置文件
+    </li>
+<li>
+      在选项后加上一个 <strong class="userinput"><code>&amp;</code></strong> 使用默认值，例如： <strong class="userinput"><code>:set linespace&amp;</code></strong>
+</li>
+</ul></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch24s18.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch24.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch24s20.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">单词补全 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 折叠</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

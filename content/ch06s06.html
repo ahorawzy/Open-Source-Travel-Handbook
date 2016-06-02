@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>GUI vs. CLI</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch06.html" title="第 6 章 完全用 Gnu/Linux 工作">
+<link rel="prev" href="ch06s05.html" title="为什么要反对使用 Windows">
+<link rel="next" href="ch06s07.html" title="UNIX 是简单的">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">GUI vs. CLI</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch06s05.html">上一页</a> </td>
+<th width="60%" align="center">第 6 章 完全用 Gnu/Linux 工作</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch06s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2811143"></a>GUI vs. CLI</h2></div></div></div>
+<p>做一个坚定不移的“两面派” </p>
+<p>大家看到这个标题是不是热血沸腾？两派大虾都可以围攻我了： </p>
+<p>GUI派用户：“哇！我一看你这小子就是 CLI 的。要不然自己写什么 Makefile？用什么 Mutt？” </p>
+<p>CLI派用户：“切～ 你还用 X！高手都不用 X。你是 GUI 那边的。” </p>
+<p>可怜的我：“555～～ 你们都不要我～～ GUI 和 CLI 就那么水火不容吗？” </p>
+<p>计算机界这样的门派之分还很多。很有特点的就是 CLI 和 GUI 了。CLI (Command LIne<sup>[<a name="id2811179" href="#ftn.id2811179" class="footnote">12</a>]</sup>) 的狂热份子声称永远不用 X。我上次在实验室看到一个同学用一个 SecureCRT<sup>[<a name="id2811186" href="#ftn.id2811186" class="footnote">13</a>]</sup> 登录到 Sun 机器，然后用一个 vanilla vi 编辑程序，我建议他启动一个 GVIM 过来显示在 Exceed 上可以有语法加亮。但是他坚决反对，说：“高手不用X。你想想，要是我在一个很慢的网络连接怎么用 X？而且好多服务器没有装 X 程序。” </p>
+<p>但是我们实验室的网速可够快，Windows 机器都有 Exceed 啊，而且 Sun 机器有全套 X 客户程序包括 GVIM。他说他是 CLI 的坚决拥护者，但是他却在用 Windows，他后来打开了好几个 SecureCRT，每次从文本框输入地址，用户名和密码，从下拉菜单选择 "SSH2"，然后点击“Connnect”。他还不断的夸SecureCRT是“网络管理员投票选出的最受欢迎的登录方式”。老天，SecureCRT 本身就是个 GUI 啊，他其实没有明白 Xwindow 的好处。 </p>
+<p>你说我是 GUI 的？我虽然很少在 console 下工作。但是我对 bash, VIM 很熟悉，我可以让 bash 按照我的键绑定方式来工作。我可以在 rxvt 里使用 Mutt 来收发 email。我的每个桌面上都常常堆放着一打不同大小的 rxvt。我用 VIM 编辑 LaTeX。我自己写 Makefile 来维护 LaTeX 文档。我有时用 mpg321 来放 mp3。我上BBS用的我自己写的 expect 脚本。 好了，CLI 派的朋友可以收我做盟友了 :) </p>
+<p>你说我是 CLI 的老古董？我的 FVWM 被我配置为可以“手写操作”，我只要画一个"r"就可以启动 rxvt，我只要画一个 "U" 就可以启动 GVIM，…… 我用 GVIM 语法加亮模式编辑程序，我用 Mozilla 浏览网页，…… GUI 派的现在好像认我做朋友了 :) </p>
+<p>好了。CLI 派的朋友，虽然我很喜欢命令行，但是我有时在屏幕上左右画一下就可以执行: </p>
+<pre class="screen">
+Module FvwmConsole -terminal rxvt -geometry 45x5-0+0 \
+-bg gold -fg midnightblue  \
+-fn "-adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*  </pre>
+<p>你是不是现在又想把我逐出师门？ </p>
+<p>GUI 派的朋友，虽然我很喜欢窗口。但是我可以在 FvwmConsole 里输入： </p>
+<pre class="screen">
+All (rxvt) MoveToDesk  </pre>
+<p>把我所有的 rxvt 移动到我现在工作的桌面。“这家伙，怎么这么快就叛变了！” </p>
+<p>其实何必分什么 GUI 和 CLI，UNIX 和 Xwindow 都是工业标准，它们从设计那天开始就有非常灵活的用法，各个程序，不管是 GUI 还是命令行的都可以互相协作。UNIX 和 X 是一家，何必搞的那么偏激，非此即彼？你从我上面的行为可以看出 GUI 和 CLI 的模糊界线吗？我就是坚定不移的“两面派”。 </p>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2811179" href="#id2811179" class="para">12</a>] </sup>Command Line Interface</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2811186" href="#id2811186" class="para">13</a>] </sup>Putty 更好用</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch06s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch06.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch06s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">为什么要反对使用 Windows </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> UNIX 是简单的</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

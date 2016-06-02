@@ -1,0 +1,243 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s02.html" title="基础知识">
+<link rel="next" href="ch25s04.html" title="基本配置">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center"></th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s02.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862732"></a>内部命令</h3></div></div></div>
+<p>
+      <strong class="userinput"><code>C-h k</code></strong> 后，回显区提示
+    </p>
+<pre class="screen">
+Describe key (or click or menu item):    </pre>
+<p>
+      接着 <strong class="userinput"><code>C-x h</code></strong> ，您会发现，缓冲区被水平分割为两个。另一个名为 <span class="emphasis"><em>*help*</em></span> 缓冲区中显示的内容为
+    </p>
+<pre class="screen">
+C-x h runs the command mark-whole-buffer
+   which is an interactive compiled Lisp function in `simple.el'.
+It is bound to C-x h, &lt;menu-bar&gt; &lt;edit&gt; &lt;mark-whole-buffer&gt;.
+(mark-whole-buffer)
+
+Put point at beginning and mark at end of buffer.
+You probably should not use this function in Lisp programs;
+it is usually a mistake for a Lisp function to use any subroutine
+that uses or sets the mark.
+
+[back]     </pre>
+<p>
+	    第一行说明了 <strong class="userinput"><code>C-x h</code></strong> 运行的命令为 <span class="command"><strong>mark-whole-buffer</strong></span></p>
+<p> 第二行说明了该命令由 <code class="filename">simple.el</code> 这个扩展提供，绑定到 <strong class="userinput"><code>C-x h</code></strong> 、 菜单栏-编辑-标记全部缓冲区 、 和命令 <span class="command"><strong>mark-whole-buffer</strong></span></p>
+<p> 第三行介绍了这个命令的行为： 在文档末尾设置一个标记，并把<span class="emphasis"><em>光标点</em></span><sup>[<a name="emacs-point" href="#ftn.emacs-point" class="footnote">45</a>]</sup>移动到文档起始。
+	  </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top"><span class="emphasis"><em>Emacs 使用命令进行处理，快捷键只是一种发送命令的方法！</em></span></td></tr>
+</table></div>
+<p>
+	    一般情况下，我们用不到这么详细的说明，而且英文看起来也比较吃力。您可以使用 <strong class="userinput"><code>C-h c</code></strong> 以简洁模式查看说明。 只在回显区显示键位和它执行的命令：
+	  </p>
+<pre class="screen">
+C-x h runs the command mark-whole-buffer	  </pre>
+<p>
+	    通常这就足够了。
+	  </p>
+<p>
+	    
+	  </p>
+<p>
+	    如果您知道一个命令，而不知道它绑定到什么键上，您可以使用 <strong class="userinput"><code>C-h w</code></strong> ，也就是命令 <span class="command"><strong>Where-is</strong></span>
+	  </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862912"></a>Emacs 命令行</h3></div></div></div>
+<p>
+	    由于 Emacs 太过强大，内部命令恒河沙数，根本不可能有同样数量的快捷键位来绑定它们！
+	  </p>
+<p>
+	    对于没有绑定的命令，可以使用命令执行！
+	  </p>
+<p>
+	    <strong class="userinput"><code>M-x</code></strong> (Alt+x) 开启命令行，回显区显示为 M-x ，然后输入 newline
+	  </p>
+<p>
+	    这个命令默认绑定在回车键，所以它和回车键的作用一样为 换行
+	  </p>
+<p>
+	  C-h w newline 结果是： newline is on RET  
+	  </p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">
+	  命令行中，可以使用 <strong class="userinput"><code>TAB</code></strong> 补全，使用 <strong class="userinput"><code>M-p</code></strong> 上翻， <strong class="userinput"><code>M-n</code></strong> 下翻
+	  </td></tr>
+</table></div>
+<p>
+	    在后面的部分中，统一使用 <strong class="userinput"><code>M-x command</code></strong> 来表示 内部命令 <span class="command"><strong>command</strong></span> ；内部命令以 "(command)" 的形式写到配置文件中
+	  </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862999"></a>Emacs 终端</h3></div></div></div>
+<p>
+	    <strong class="userinput"><code>M-x shell</code></strong> 激活 Emacs 终端。可以在 Emacs 终端中使用外部命令。
+	  </p>
+<p>
+	    需要注意的是，Emacs 终端是哑终端，某些类型的输出不能够正确显示。
+	  </p>
+<p>
+	    在 Emacs 终端中使用 <strong class="userinput"><code>exit</code></strong> 命令退出。
+	  </p>
+<p>
+	    <strong class="userinput"><code>M-!</code></strong> (Alt+Shift+1)临时执行一条外部命令，并输出在名为 <span class="emphasis"><em>*Shell Command Output*</em></span> 的缓冲区中 <span class="command"><strong>(M-x shell-command)</strong></span>
+	  </p>
+<p>
+<strong class="userinput"><code>C-u M-!</code></strong> (Ctrl+u Alt+Shift+1)临时执行一条外部命令，并输出到光标位置。
+	  </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2863068"></a>Emacs 文件管理器</h3></div></div></div>
+<p>
+	    <strong class="userinput"><code>C-x d</code></strong> 进入 Dired 列表模式
+	  </p>
+<p>
+	    <strong class="userinput"><code>C-x C-d</code></strong> 获取文件列表（简洁）
+	  </p>
+<p>
+	    <strong class="userinput"><code>C-x C-f</code></strong>打开文件，输入路径为打开目录
+	  </p>
+<p>
+	    详细介绍见 <a class="xref" href="ch25s15.html" title="文件管理">“文件管理”一节</a>
+	  </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="emacs-select"></a>区块选择</h3></div></div></div>
+<p>
+	    很多时候，我们需要选中缓冲区中的某一部分内容。和大多数程序一样，您可以在被选择区块的起始点按下左键，移动鼠标，在结束点释放左键，这部分区块便被选中。
+	  </p>
+<p>
+	    这种方式效率并不高，而且一些场合并没有鼠标支持，例如控制台或者远程登录。
+	  </p>
+<p>
+	    事实上，Emacs 进行区块选择的方法，是设置一个标记，标记到光标点<sup>[<a href="ch25s03.html#ftn.emacs-point" class="footnoteref">45</a>]</sup>之间的部分将被选中。
+	  </p>
+<p>
+	    标记的位置为 <span class="command"><strong>M-x set-mark-command</strong></span> 时，光标点<sup>[<a href="ch25s03.html#ftn.emacs-point" class="footnoteref">45</a>]</sup>所处的位置。
+	  </p>
+<p>
+	    M-x set-mark-command 是设置标记的内部命令，默认绑定在 <strong class="userinput"><code>C-SPC</code></strong> 键上。
+	  </p>
+<p>
+	    如果使用输入法，这个键位多半是切换输入法的快捷键。键盘指令会先被输入法拦截下来，而无法发送到 Emacs。
+	  </p>
+<p>
+	    当然也可以使用 <strong class="userinput"><code>M-@</code></strong> 来设定标记。不过 <strong class="userinput"><code>M-@</code></strong> 原绑定为 <span class="command"><strong>M-x mark-word</strong></span> ，虽然差不太多，但有时并不好用；况且对于一个常用的命令来讲， <strong class="userinput"><code>M-@</code></strong> 键位的难度太高了
+	  </p>
+<p>
+	    Emacs 的键位中，几乎没有默认绑定在 WIN 键上的命令，不妨利用一下
+	  </p>
+<p>
+	    在 Emacs 的用户配置文件 <code class="filename">~/.emacs</code> 中添加如下内容：
+	  </p>
+<pre class="screen">
+;; WIN+Space 设置标记
+(global-set-key (kbd "s-SPC") 'set-mark-command) </pre>
+<p>
+	在某些类型的终端中，WIN键 不起作用，建议使用命令。或者绑定到 <strong class="userinput"><code>C-t</code></strong> 
+	    <sup>[<a name="id2863266" href="#ftn.id2863266" class="footnote">46</a>]</sup>
+	  
+	  
+	  </p>
+<pre class="screen">
+;; （在注释里说明原命令和绑定，是一个良好的习惯）
+;; C-t 设置标记
+(global-set-key (kbd "C-t") 'set-mark-command)	  </pre>
+<p>
+	     
+	  </p>
+<div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[重要]" src="images/important.png"></td>
+<th align="left">重要</th>
+</tr>
+<tr><td align="left" valign="top">
+重启 Emacs，或者在 ~/.emacs 文件的缓冲区中执行命令 <strong class="userinput"><code>M-x eval-buffer</code></strong> ，便可以使配置文件立即生效	    
+	  </td></tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2863320"></a>中止执行</h3></div></div></div>
+<p>
+	    如果想放弃一个命令，可以使用 <strong class="userinput"><code>C-g</code></strong> <span class="command"><strong>(M-x keyboard-quit)</strong></span>打断。
+	  </p>
+<p>
+	    建议您使用快捷键 C-g ，因为在需要中止执行的情况下， M-x 通常是无法使用的 
+	  </p>
+<p>
+	    <strong class="userinput"><code>ESC ESC ESC</code></strong> <span class="command"><strong>(M-x keyboard-escape-quit)</strong></span>可以从一些交互命令中退出。
+	  </p>
+<p>
+	    例如从 "询问替换 M-x query-replace" 中退出。
+	  </p>
+<p>
+	    当 C-g 不能搞定，您可以尝试连按三次 ESC
+	  </p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.emacs-point" href="#emacs-point" class="para">45</a>] </sup>光标点假定光标为插入式（竖线），位置在覆盖式光标(方块)的左侧。<br>  事实上，Emacs 中的相关判定以光标点为准！方块形光标只是为了减少视觉疲劳</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2863266" href="#id2863266" class="para">46</a>] </sup>这是一个让人头痛不已的地方。因为无论绑到哪，似乎都不太方便：<br>  使用 WIN键 倒是挺好，但是在字符界面下，WIN键 通常不起作用；同样，C-; 这样使用标点的组合键在字符界面下也不行;<br>  C-m、C-i 是两个不错的组合，但是 Emacs 认为 C-m 和 RET、C-i 和 TAB 是一个键，这样绑定，你的回车或者 TAB 就成了设置标记；<br>  最后，C-t 这个键默认绑定的命令几乎没什么用，只是这个键位不是很好按，但这样也有好处──无论你用左手或者右手来按 t键，距离都差不多</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">基础知识 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 基本配置</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

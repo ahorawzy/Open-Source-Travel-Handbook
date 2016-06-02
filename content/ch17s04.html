@@ -1,0 +1,392 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>文件管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch17.html" title="第 17 章 核心工具集">
+<link rel="prev" href="ch17s03.html" title="系统信息">
+<link rel="next" href="ch17s05.html" title="文件操作">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">文件管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch17s03.html">上一页</a> </td>
+<th width="60%" align="center">第 17 章 核心工具集</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2828718"></a>文件管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2828724"></a>细节</h3></div></div></div>
+<p>    <code class="filename">/</code> 目录为文件系统根目录，所有目录都是它的子目录</p>
+<p>  绝对路径以 <strong class="userinput"><code>/</code></strong> 起始，相对路径以当前所在目录起始</p>
+<p>
+      目录是一种特殊类型的文件，如果没有特别指明， <span class="emphasis"><em>文件</em></span> 包括文件和目录
+    </p>
+<p>
+      <code class="filename">..</code> 表示上一级目录， <code class="filename">.</code> 表示当前目录，它们是两个特殊目录
+    </p>
+<p><b>链接. </b>为当前文件建立在其它路径中的访问方法。例如将系统中其它位置的可执行文件，链接到 <code class="filename">/usr/local/bin</code> 目录下，使用命令调用。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2828792"></a>ls [路径]</h3></div></div></div>
+<p>
+      显示当前目录文件列表
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>--color </td>
+<td>不同属性以不同颜色显示（默认选项）</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>全部显示</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>显示 inode值</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>详细信息</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>显示文件类型后缀 目录<code class="filename">/</code> 链接<code class="filename">@</code> 可执行文件<code class="filename">*</code> 端口文件<code class="filename">=</code> 管道文件<code class="filename">|</code> </td>
+</tr>
+<tr>
+<td>-A</td>
+<td>显示隐藏文件</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>递归显示子目录文件列表</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>按文件大小排序</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>按修改时间排序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>按访问时间排序</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>只显示目录，不递归显示目录下的文件</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2828915"></a>cd [目录路径] | [特殊路径]</h3></div></div></div>
+<p>
+      切换目录,目录可以使用绝对路径或者相对路径
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>~</td>
+<td>$HOME 目录（默认值）</td>
+</tr>
+<tr>
+<td>-</td>
+<td>上一次目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>上一级目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>当前目录</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+	您可以通过修改 <code class="filename">/etc/environment</code> 文件，来定义 <code class="envar">$CDPATH</code> 变量，设定“<span class="command"><strong>cd</strong></span>”命令的搜索路径。
+    </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2828990"></a>pwd</h3></div></div></div>
+<p>
+      显示当前路径
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829001"></a>file 文件名</h3></div></div></div>
+  显示文件类型
+    <div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody><tr>
+<td>-i</td>
+<td>显示 mime类型</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829027"></a>du [路径]</h3></div></div></div>
+<p>
+      计算文件或目录空间占用
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-h</td>
+<td>人性化显示。自动以 G、M、K 为单位显示占用空间大小</td>
+</tr>
+<tr>
+<td>--max-depth=数字</td>
+<td>显示目录深度</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>重复计算硬链接文件大小</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>计算符号链接文件大小</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>显示当前目录子目录中的文件</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示文件数</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829092"></a>less 文件名</h3></div></div></div>
+<p>  浏览文件，使用 <a class="link" href="ch14s04.html#keybind-vi">VI</a> 和 <a class="link" href="ch14s05.html#keybind" title="表 14.1. Emacs风格 键绑定">Emacs</a> 两种风格的键绑定。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829115"></a>touch 目标文件</h3></div></div></div>
+<p>
+      触碰，在不修改文件的前提下，更改其时间属性。通常用来创建一个空文件
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829129"></a>mkdir 文件夹</h3></div></div></div>
+<p>
+      创建文件夹
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-p 多级目录</td>
+<td>按路径创建多级目录</td>
+</tr>
+<tr>
+<td>-m 数字权限值</td>
+<td>设定权限</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829166"></a>cp 源文件 目标目录|文件</h3></div></div></div>
+<p>
+      将源文件复制为目录文件，或者将源文件复制到目标目录。多个源文件使用空格分隔
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829181"></a>cp 源目录 目标目录</h3></div></div></div>
+<p>
+      将源目录复制到目标目录中，如果复制多个源目录，需要使用 <span class="command"><strong>-R</strong></span> 选项
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-a</td>
+<td>相当于 -dpr 选项</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>保留链接</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>强制复制，覆盖目标文件</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>覆盖时询问用户</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>保留修改时间和访问权限</td>
+</tr>
+<tr>
+<td>-r -R</td>
+<td>递归复制（目录=&gt;目录）</td>
+</tr>
+<tr>
+<td>-l </td>
+<td>创建链接</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示过程</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829265"></a>rm 目标目录|文件</h3></div></div></div>
+<p>
+      删除
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-r -R</td>
+<td>递归删除（用于删除目录）</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>强制删除（无需确认，直接删除。慎用！）</td>
+</tr>
+<tr>
+<td>-i </td>
+<td>交互式删除（询问用户）</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829310"></a>rmdir 目标目录</h3></div></div></div>
+<p>
+      删除目录时，建议您使用“<span class="command"><strong>rm -r</strong></span>”命令
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829327"></a>mv 源文件 目标目录|文件</h3></div></div></div>
+<p>
+      相当于 cp 后删除源文件，也可以作为“重命名”使用。
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-f</td>
+<td>强制，覆盖目标文件</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>覆盖时询问用户</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示过程</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2829371"></a>ln 源文件 链接</h3></div></div></div>
+<p>
+      链接
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-s</td>
+<td>符号链接</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>强制链接，覆盖目标文件</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>覆盖时询问用户</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch17s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch17.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">系统信息 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 文件操作</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

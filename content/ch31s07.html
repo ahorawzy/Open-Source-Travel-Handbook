@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>应用软件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+<link rel="prev" href="ch31s06.html" title="安装桌面环境">
+<link rel="next" href="ch31s08.html" title="Compiz Fusion">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">应用软件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch31s06.html">上一页</a> </td>
+<th width="60%" align="center">第 31 章 完美工作站 Archlinux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31s08.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2907533"></a>应用软件</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907538"></a>网络浏览</h3></div></div></div>
+<p>Firefox 几乎是 Linux 平台的标准装备</p>
+<pre class="screen">
+pacman -S firefox firefox-i18n    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+firefox-i18n 为语言包，安装后可以使 Firefox 界面显示中文，不安也可以正常显示中文页面    </li></ul></div>
+<p>Opera 使用 QT 图形库，推荐 KDE 桌面环境下使用</p>
+<pre class="screen">
+pacman -S opera    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907578"></a>下载工具</h3></div></div></div>
+<p>命令行下载工具有 wget。此外，aria2 也不错，它支持断点续传和多线程下载：</p>
+<pre class="screen">
+pacman -S aria2    </pre>
+<p>BitTorrent 下载工具，我们选用 Deluge：</p>
+<pre class="screen">
+pacman -S deluge    </pre>
+<p>其他的包括 Azureus、rTorrent 等。</p>
+<p>另外，我们把 aMule 也安装上：</p>
+<pre class="screen">
+pacman -S amule    </pre>
+<p>为了能够让 aMule 直接从 Firefox 浏览器中处理 ed2k 链接，我们在 Firefox 的 <code class="filename">about:config</code> 中新建字符串 <strong class="userinput"><code>network.protocol-handler.app.ed2k</code></strong>，并将其设为 <strong class="userinput"><code>/usr/bin/ed2k</code></strong>。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907645"></a>办公处理</h3></div></div></div>
+<p>“所见即所得”的办公套件，首推  OpenOffice.org</p>
+<pre class="screen">
+pacman -S openoffice-base openoffice-zh_cn    </pre>
+<p>为了让 OpenOffice.org 运行于 GTK 2 模式，我们向 ~/.bashrc 添加如下内容：</p>
+<pre class="screen">
+export OOO_FORCE_DESKTOP=gnome    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907674"></a>图像编辑</h3></div></div></div>
+<p>图像编辑软件首选 GIMP，要安装它可以执行命令：</p>
+<pre class="screen">
+pacman -S gimp    </pre>
+<p>矢量图形编辑软件可以使用 Inkscape：</p>
+<pre class="screen">
+pacman -S inkscape    </pre>
+<p>用 Scrot 截图：</p>
+<pre class="screen">
+pacman -S scrot    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907711"></a>即时通讯</h3></div></div></div>
+<p>要与朋友即时聊天，我们可以选用 Pidgin，它支持 Gtalk、MSN、QQ 等多种协议：</p>
+<pre class="screen">
+pacman -S pidgin    </pre>
+<p>如果安装 QQ for Linux ，只要下载 tar 包，解压后运行即可</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907734"></a>音影播放</h3></div></div></div>
+<p>音乐播放软件我选择 Quod Libet，你可以凭自己的喜好来安装：</p>
+<pre class="screen">
+pacman -S quodlibet    </pre>
+<p>其他的音乐播放器包括 MPD、Audacious、Exaile、Amarok 等。</p>
+<p>如果是看电影的话，MPlayer 不错，同时也加上浏览器插件和常用解码器：</p>
+<pre class="screen">
+pacman -S mplayer mplayer-plugin codecs gstreamer0.10-bad gstreamer0.10-ugly \
+gstreamer0.10-ffmpeg gstreamer0.10-mad gstreamer0.10-mpeg2dec    </pre>
+<p>如果需要 MPlayer 的前端，那么可以安装 SMPlayer：</p>
+<pre class="screen">
+pacman -S smplayer    </pre>
+<p>当然，另一个选择 VLC 也挺好：</p>
+<pre class="screen">
+pacman -S vlc    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907790"></a>新闻阅读</h3></div></div></div>
+<p>RSS 离线阅读软件，我们安装 Liferea：</p>
+<pre class="screen">
+pacman -S liferea    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907807"></a>图像查看</h3></div></div></div>
+<p>GQview 是一个轻快的图像查看软件：</p>
+<pre class="screen">
+pacman -S gqview    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907825"></a>文本编辑</h3></div></div></div>
+<p>如果要求简单的话，可以选用 Gedit、Leafpad：</p>
+<pre class="screen">
+pacman -S gedit
+pacman -S leafpad    </pre>
+<p>Scite 功能强大，操作简单，推荐</p>
+<pre class="screen">
+pacman -S scite    </pre>
+<p>Vim 似乎也是 Linux 系统的标准装备，需要图形界面的话，可以加上 Gvim：</p>
+<pre class="screen">
+pacman -S vim    </pre>
+<p>Emacs 的最新版本为 emacs-cvs</p>
+<pre class="screen">
+pacman -S emacs-cvs    </pre>
+<p>如果只是喜欢 Emacs 的操作方式，可以安装轻量级的 类Emacs 编辑器 Jed</p>
+<pre class="screen">
+pacman -S jed    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907888"></a>FTP 客户端</h3></div></div></div>
+<p>Lftp 是命令行的 ftp 客户端，但是它很、十分、非常、以及特别的好用</p>
+<pre class="screen">
+pacman -S lftp    </pre>
+<p>Lftp 的使用方法参见<a class="xref" href="ch42.html" title="第 42 章 使用 lftp">第 42 章 <i>使用 lftp</i></a></p>
+<p>图形化的有 gFTP、FileZilla 等。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907921"></a>光盘刻录</h3></div></div></div>
+<p>我们选择 K3b，你可以通过以下指令安装：</p>
+<pre class="screen">
+pacman -S k3b    </pre>
+<p>为了让当前用户能够使用光盘刻录设备，需要将其添加到 optical 用户组中 (请将 kardinal 替换成你的用户名)：</p>
+<pre class="screen">
+gpasswd -a kardinal optical    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907953"></a>文档查看</h3></div></div></div>
+<p>查看 PDF 文档，可以安装 Evince：</p>
+<pre class="screen">
+pacman -S evince    </pre>
+<p>CHM 文档，可以选用 KchmViewer。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907974"></a>其它工具</h3></div></div></div>
+<p>计算器：</p>
+<pre class="screen">
+pacman -S gcalctool    </pre>
+<p>压缩/解压 rar、zip 等格式：</p>
+<pre class="screen">
+pacman -S unrar unzip    </pre>
+<p>另外，图形化的可以用 Squeeze：</p>
+<pre class="screen">
+pacman -S squeeze    </pre>
+<p>Flash 插件：</p>
+<pre class="screen">
+pacman -S flashplugin    </pre>
+<p>Java 支持：</p>
+<pre class="screen">
+pacman -S jre    </pre>
+<p>词典翻译，我们安装 StarDict：</p>
+<pre class="screen">
+pacman -S stardict    </pre>
+<p>词典文件需从 StarDict 官方网站 下载，并释放到 <code class="filename">/usr/share/stardict/dic/</code> 目录。</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch31s06.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch31.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31s08.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">安装桌面环境 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Compiz Fusion</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

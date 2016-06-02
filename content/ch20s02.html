@@ -1,0 +1,190 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>I18N 简介</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch20.html" title="第 20 章 国际化">
+<link rel="prev" href="ch20.html" title="第 20 章 国际化">
+<link rel="next" href="ch20s03.html" title="设置 locale">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">I18N 简介</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch20.html">上一页</a> </td>
+<th width="60%" align="center">第 20 章 国际化</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch20s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2848652"></a>I18N 简介</h2></div></div></div>
+<p>习惯上，<strong class="userinput"><code>internationalization</code></strong>（国际化）简写为<strong class="userinput"><code>I18N</code></strong>,中间的数字为省略的字母个数。 </p>
+<p>在 Linux 系统中，通过定义一组环境变量来设置程序的语言环境，以实现对<strong class="userinput"><code>I18N</code></strong>的支持，这种机制称为：<strong class="userinput"><code>locale</code></strong>（本地化）</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2848050"></a>locale 变量</h3></div></div></div>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>LANG</td>
+<td>低优先级全局 locale 变量</td>
+<td>如果下面的变量未赋值，默认使用此变量的值</td>
+</tr>
+<tr>
+<td>LC_COLLATE</td>
+<td>比较和排序习惯</td>
+<td>会影响目录列表的分类显示等</td>
+</tr>
+<tr>
+<td>LC_CTYPE</td>
+<td>定义系统的字符处理特性</td>
+<td>哪些字符能被视为字母、数字，等等；与中文输入关系密切</td>
+</tr>
+<tr>
+<td>LC_MESSAGES</td>
+<td>提示信息,错误信息, 状态信息, 标题, 标签, 按钮和菜单等</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_MONETARY</td>
+<td>定义货币单位和货币型数值的格式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_NUMERIC</td>
+<td>定义非货币型数值的格式</td>
+<td>影响到千位分隔符和小数分隔符等</td>
+</tr>
+<tr>
+<td>LC_TIME</td>
+<td>定义日期和时间的格式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_NAME</td>
+<td>姓名书写方式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_ADDRESS</td>
+<td>地址书写方式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_TELEPHONE</td>
+<td>电话号码书写方式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_MEASUREMENT</td>
+<td>度量衡表达方式</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_PAPER</td>
+<td>定义默认的纸张尺寸</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_IDENTIFICATION</td>
+<td>对 locale 自身包含信息的概述</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>LC_ALL</td>
+<td>高优先级全局 locale 变量</td>
+<td>为此变量赋值会强行覆盖上面变量的值，不推荐</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+ 假如未设置以上变量，系统将采用 POSIX 作为 lcoale，也就是 C locale
+    </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2848803"></a>locale 值</h3></div></div></div>
+<p><strong class="userinput"><code>locale</code></strong> 变量的值有三个要素：语言代码 (Language Code)、 地域代码 (Country Code) 和字符集(Encoding)<sup>[<a name="id2848820" href="#ftn.id2848820" class="footnote">35</a>]</sup>：</p>
+<pre class="screen">
+语言代码[_地域代码[.字符集]]</pre>
+<p>例如：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>语言/国家代码</th>
+<th>描述</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>en_US.ISO-8859-1</td>
+<td rowspan="2">美国英语</td>
+</tr>
+<tr><td>en_US.UTF-8</td></tr>
+<tr>
+<td>zh_CN.UTF-8</td>
+<td>简体中文</td>
+</tr>
+<tr>
+<td>zh_TW.UTF-8</td>
+<td>繁体中文</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2848906"></a>字符集</h3></div></div></div>
+<p>众所周知，计算机中的信息，是以数字形式表示的，字符也不例外。字符以数字编号的形式存储，使用时，根据这个编号，在字符集中找到相应的字符</p>
+<p>字符集是字符在系统内的编码方式，也就是通常所说的内码<sup>[<a name="id2848922" href="#ftn.id2848922" class="footnote">36</a>]</sup>。不同的字符集有不同的编码方式，</p>
+<p>例如“码”字，它的 GB2312编码 为 426B；UTF-8编码 为 E7A081 。如果错误的以 GB2312编码 来检索 E7A081，将会产生类似 “锘跨爜” 的乱码</p>
+<p>只要系统中安装了中文字体，通过字符集的支持，便可以正常显示中文，而无需设置 locale；locale 可以使操作界面显示中文，并可以使用中文输入等</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2848952"></a>其它</h3></div></div></div>
+<p>另外还有一个本地化变量叫做 LINGUAS。它会影响到基于 gettext 的程序<sup>[<a name="id2848961" href="#ftn.id2848961" class="footnote">37</a>]</sup>；它还能决定某些特殊软件包的本地化，比如<span class="application">kde-i18n</span>和<span class="application">openoffice</span>。这个变量的值为一组以空格分隔的语言代码：
+</p>
+<pre class="screen">LINGUAS="zh en"</pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2848820" href="#id2848820" class="para">35</a>] </sup>中文 <span class="application">Windows</span> 系统中使用的字符集为 <strong class="userinput"><code>GB2132</code></strong>，而 <strong class="userinput"><code>UTF-8</code></strong> 是大势所趋，它能够显示比 GB2312 更多的字符</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2848922" href="#id2848922" class="para">36</a>] </sup>参见<code class="filename">/usr/share/i18n/charmaps</code>文件</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2848961" href="#id2848961" class="para">37</a>] </sup>通过编译时安装本地化文件的方式实现<strong class="userinput"><code>I18N</code></strong>，编译时需要<span class="application">Native Language Support</span>(NLS)支持</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch20.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch20.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch20s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 20 章 国际化 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 设置 locale</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

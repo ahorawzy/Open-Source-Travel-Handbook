@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>特殊字符</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s11.html" title="行内元素">
+<link rel="next" href="ch27s13.html" title="列表">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">特殊字符</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s11.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s13.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2882313"></a>特殊字符</h2></div></div></div>
+<p>  
+      一些字符在 XML 中有特殊的含义，只能够通过其实体名称输入
+    </p>
+<div class="informaltable">
+<a name="t22"></a><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>字符</th>
+<th>写法</th>
+<th>缩写涵义</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>&lt;</td>
+<td>&amp;lt;</td>
+<td>less than</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>&amp;gt;</td>
+<td>greater than</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>&amp;amp;</td>
+<td>ampersand</td>
+</tr>
+<tr>
+<td>"</td>
+<td>&amp;quot;</td>
+<td>quote</td>
+</tr>
+<tr>
+<td>'</td>
+<td>&amp;apos;</td>
+<td>apostrophe</td>
+</tr>
+<tr>
+<td>空格</td>
+<td>&amp;nbsp;</td>
+<td>none-break space</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="itemizedlist"><ul type="disc"><li>
+      通常需要使用实体输入的字符包括<strong class="userinput"><code>&lt;</code></strong>、<strong class="userinput"><code>&amp;</code></strong>、<strong class="userinput"><code>空格</code></strong><br>  XML 会将任意数量的空格解析为一个，如果想通过多个空格控制缩进，就要使用<strong class="userinput"><code>&amp;nbsp;</code></strong><br>  <strong class="userinput"><code>]]&gt;</code></strong>这个字符序列也不能直接输入，这样输入它<strong class="userinput"><code>]]&amp;gt;</code></strong>
+</li></ul></div>
+<p>也可以不使用实体输入特殊字符，通过<span class="command"><strong>CDATA</strong></span>直接引用：</p>
+<pre class="screen">
+&lt;![CDATA[ <strong class="userinput"><code>&lt;&amp;</code></strong> ]]&gt;</pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s11.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s13.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">行内元素 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 列表</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

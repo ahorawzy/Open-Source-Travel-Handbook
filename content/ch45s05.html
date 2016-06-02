@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>附录: Unix 时代的开创者 Ken Thompson</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch45.html" title="第 45 章 Unix">
+<link rel="prev" href="ch45s04.html" title="现在几种主要的UNIX版本">
+<link rel="next" href="ch46.html" title="第 46 章   Gnu">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">附录: Unix 时代的开创者 Ken Thompson</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch45s04.html">上一页</a> </td>
+<th width="60%" align="center">第 45 章 Unix</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch46.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2922642"></a>附录: Unix 时代的开创者 Ken Thompson</h2></div></div></div>
+<p>自图灵奖诞生以来，其获得者一直都是计算机领域的科学家与学者，而在所有这些届的图灵奖中只有唯一的一届有个例外，那就是Ken Thompson与Dennis M. Ritchie，他们都是计算机软件工程师。</p>
+<p>Ken Thompson，1943年出生于美国新奥尔良。1960年，Ken进入加州大学伯克利分校主修电气工程。1965年从伯克利毕业后，又花了一年的时间在该校取得了电子工程硕士的学位。不知道是时代造就英雄，还是英雄顺应时代而生，在Ken读书期间，正好赶上了计算机时代蓬勃发展的起步阶段，自小喜欢电气的Ken接触到计算机后，立即完全沉迷了进去，从1962年的开始，他就在学校的计算机中心找到份工作，专门负责程序的编写。这也为其后他一手开创的 Unix时代奠定了良好基础。</p>
+<p>1966年离开校园的Ken加入了贝尔实验室。那时的计算机系统还是批处理的天下，程序员只能在又慢又笨重大型机上工作，一般来讲是先将程序卡片装入设备，然后再等1个小时再过来取回运算的结果，其效率之低可想而知。应市场的需要，当时贝尔实验室与麻省理工学院以及通用电气公司联合开发了一个多用户分时操作系统，取名为Multics(多路信息计算系统)，Ken当时就是这个系统的开发人员之一，在开发Multics的期间，Ken创造出了名为 Bon的编程语言。可惜因为这个系统不但开发周期长，成本高，而且庞大而缓慢，市场前景完全不被看好，最后贝尔实验室从这个项目中撤了出来。这对于Ken 而言，简直是个巨大的不幸，因为他自己用写的一个“star travel”游戏就是完全基于Multics的，退出Multics项目意味着Ken将没有机器可以再玩这个游戏了。</p>
+<p>面对此情此景，Ken作为一个创造者的本性立即体现了出来，于是他决定自己写一个操作系统来满足他玩游戏的需要，说干就干，Ken找到了一台废弃已久的老式PDP-7，并在这台机器上重写了他的游戏。在这个过程中，Ken有了一个主意，要开发一个全新的操作系统。利用PDP-7上的汇编语言，Ken 只花了一个月就编写完了操作系统的内核，在这个一个月中，他一周一个内核，一个文件系统，一个编辑器和一个编译程序的完成。做完这个系统后，Ken将其命名为UNiplexed Information and Computing System，缩写为 UNICS，后来做了一下改动，称为UNIX，在开发第一版Unix的过程中，Ken还开发出一种新的语言，即C语言的前身——B语言，这种语言简洁明了，接近于硬件语言，第一版的Unix就是基于B语言来开发的。</p>
+<p>Unix的出现开始虽然并不为大家所看好，但是却引起了贝尔实验室另一位同事的注意，这就是Dennis M. Ritchie，于是Dennis主动加入了进来共同完善这个系统。至此一场轰轰烈烈的Unix的传奇时代才真正的拉开了序幕。1972年，他们联手将 Unix移植到当时最先进的大型机PDP-2上，由于Unix是如此的简洁、稳定与高效，以至于当时大家都放弃了PDP-2上自带的DEC操作系统，而完全改用Unix，这时的Unix已经开始走向成熟了。在1973年之前Unix还不太为外界所知，到同年10月，Unix在IBM举办的操作系统原理专题研讨会上被提及，当Ken和Dennis在会上宣读论文并展示Unix后，整个会场轰动了，大家都立即涌上来索取这种新型的操作系统的程序。随着Unix 的需求量的日益增加，Ken与Dennis决定将Unix进一步改写，以便可以移植到各种不同的硬件系统，由于Unix的原码中不少是用汇编完成，不具备良好的移植性，正好Dennis在1973年在B语言的基础上开发出了C语言，C语言灵活，高效性，与硬件无关，并且不失其简洁性，正是Unix移植所需要的法宝，于是旧版的Unix与C语言完美结合在一起产生了新的可移植的Unix系统。随着Unix的广泛使用，C语言也成为了当时最受欢迎的编程语言一直到延续至令。</p>
+<p>说到Unix与C语言，还有一段小故事，当时安装了Unix的PDP-11被放在贝尔实验室供大家使用，有一天大家伙发现Ken总是可以得到最高的权限轻松进入他们的帐户，在贝尔实验室这种高人云集的地方，这简单是太不能容忍了，于是有若干高人跳了出来，仔细分析Unix代码，找到后门，修改后再重新编译整个Unix，当所有人都以为这个世界应该从此清静了的时候，却发现Ken还是很容易就取得了他们的帐户权限，为此大家郁闷不已。至到很多年后，Ken才道出其中的原委，原来代码里确实存在后门，不过并不在Unix代码中，而是藏在编译Unix的编译器里，每次编译器编译时就会自动加入后门代码，而当时整个贝尔实验室都用的是Ken所写的C编译器。</p>
+<p>由于Unix与C语言的深远影响，1983年美国计算机协会将当年的图灵奖破例颁给了作为软件工程师的Ken与Dennis，并在当年还决定新设立一个奖项――软件系统奖，以奖励那些优秀的软件开发者，当然首个软件系统奖也是非他们两人莫属了。</p>
+<p>虽然Unix与C语言让Ken与Dennis功成名就，但是他们两人都没有走那些IT史上自己创业的通用套路，而是一直留在贝尔实验室从事其喜爱的软件开发工作。到了2000年12月时，Ken正式退休，离开了工作了几十年的贝尔实验室开始享受他晚年的时光，但是Ken怎么能闲得下来呢，于是他干脆将他的另一个爱好：飞机，变成正式的职业，成为了一名专职的飞行员。至此，他所开创的Unix时代已经完全与他无关了。</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch45s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch45.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch46.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">现在几种主要的UNIX版本 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 46 章   Gnu</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

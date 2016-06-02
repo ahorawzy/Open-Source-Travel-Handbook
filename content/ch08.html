@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>第 8 章 磁盘 分区</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="pt01.html" title="部分 I. 气候">
+<link rel="prev" href="ch07s04.html" title="历史">
+<link rel="next" href="ch08s02.html" title="挂载分区">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">第 8 章 磁盘 分区</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch07s04.html">上一页</a> </td>
+<th width="60%" align="center">部分 I. 气候</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch08s02.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id2813810"></a>第 8 章 磁盘 分区</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="ch08.html#partition">分区概念</a></span></dt>
+<dt><span class="sect1"><a href="ch08s02.html">挂载分区</a></span></dt>
+</dl>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="partition"></a>分区概念</h2></div></div></div>
+<p>首先我们需要知道，硬盘分区的存在，是由硬盘的物理特性决定的，并不会因为操作系统的不同而有所改变。</p>
+<p>请您把一块硬盘想象为一本书……即便您不喜欢读书，您也一定非常熟悉它，所有的书都是相同的，包括我们使用的课本……您肯定非常熟悉</p>
+<p>一本完整的书，通常包括书名、目录和正文。</p>
+<p>如果您需要Linux，您首先需要找到一本书名为《linux》的书，书名相当于硬盘中的MBR，也就是主引导纪录。不同的是，MBR可以是几个书名合在一起，类似于《XX合订本》。这部分内容暂时还没有什么实用价值，您只需要大概的了解。</p>
+<p>而正文，就是硬盘中纪录的数据，这也非常容易理解，且对于安装系统并没有什么影响，所以现在我们来了解目录:</p>
+<p>目录相当于硬盘中的分区表，书中的每一个章节，相当于硬盘中的一个分区，它起始和结束的页次，都可以在目录中找到。试想，如果阅读一本撕掉目录的书，您将很难找到您想阅读的部分。同样，如果没有分区表，操作系统也不能够在硬盘上定位数据的位置。</p>
+<p>由于历史的原因，硬盘中的分区表大小受到了限制，最多只可以容纳四个分区（主分区）。如果一本书，它的目录最多只能有四个章节，那不是太可怕了么？很多书的内容远远不止四个章节啊！</p>
+<p>于是聪明的人们想到了一个变通的办法，就是利用其中的一个章节，来存储其它部分的目录。比如第一章是前言，第二章是其它部分的目录，我们翻到第二章，呵呵，这里是第二个目录，因为只有第一个目录受四个章节的限制，所以这个目录的内容可以非常的详尽。第二个目录就是分区表中的扩展分区了，其中定义的章节，就是硬盘中的逻辑分区，不是很难理解吧？</p>
+<p>明白了这一点，我们来看看Linux和Windows对于分区不同的表示方法：</p>
+<p>可能您已经很熟悉Windows了，它使用盘符来表示分区，比如 C: D: E: ，每一个分区使用一个盘符来标识，而且顺序可以颠倒， D: 并不一定就是您系统中的第二个分区。（如果您给第二个分区分配最后一个硬盘盘符，把所有的盘符按顺序排列好，并且重装一次系统，您就会理解什么叫作“头疼”了）</p>
+<p>而在Linux中，分区是这样表示的</p>
+<pre class="screen">
+    /dev/hda
+    /dev/hda1
+    /dev/hda2
+    /dev/hda5
+    /dev/sdb1  </pre>
+<p><span class="emphasis"><em>以 /dev/hda5 为例:</em></span></p>
+<p>因为在Linux中，每一个设备都是用 /dev/ 文件夹下的一个文件来表示，所以 /dev/hda5 中， /dev/ 表示的是根目录下的dev目录，我们来看剩下的部分 hda5 。</p>
+<p>前两位的字母 hd 表示这是一块IDE硬盘，如果是 sd ，则代表SATA硬盘，或者闪存等外设。</p>
+<p>第三位的字母 a 表示这是该类型接口上的第一个设备。同理， b、c、d…… 分别代表该类型接口上的第二三四……个设备。例如 hdc 表示第二个IDE接口上的主硬盘（每个IDE接口上允许一个主设备和一个从设备）。</p>
+<p>第四位的数字 5 ，并不表示这是该硬盘中的第5个分区，而是第一个逻辑分区。因为在Linux中，为了避免不必要的混乱，分区的顺序是不能改变的，分区标识则由它们在硬盘中的位置决定。系统又要为所有可能的主分区预留标识，所以 1-4 一定不会是逻辑分区， 5 则是第一个逻辑分区，以此类推。</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch07s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="pt01.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch08s02.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">历史 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 挂载分区</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

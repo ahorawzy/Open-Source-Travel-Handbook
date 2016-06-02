@@ -1,0 +1,255 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>项目管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s07.html" title="">
+<link rel="next" href="ch29s09.html" title="语法简介">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">项目管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s07.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s09.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2897341"></a>项目管理</h2></div></div></div>
+<p>为了养成良好的习惯，我们把 ConTeXt 文档拆分到几个单独的
+    <code class="filename">.tex</code> 文件中，这样维护起来比较方便。</p>
+<p>首先是主文档 <code class="filename">product.tex</code><sup>[<a name="id2897365" href="#ftn.id2897365" class="footnote">73</a>]</sup>，生成 PDF 只要编译此文件即可 </p>
+<pre class="screen">
+<span class="database">%%%%%此文件使用 product 环境，起始声明</span>
+\startproduct{}
+
+<span class="database">%%%导言区使用 \environment 载入文件</span>
+<span class="database">%载入样式文件 style.tex</span>
+\environment style
+
+<span class="database">%载入词汇定义文件 gloss.tex</span>
+\environment gloss
+
+<span class="database">%%%正文起始</span>
+\starttext
+
+<span class="database">%%%正文区使用 \component 载入文件</span>
+<span class="database">%封面 cover.tex</span>
+\component cover
+
+<span class="database">%目录</span>
+\title{目录}
+\placecontent
+
+<span class="database">%%正文内容</span>
+
+<span class="database">%载入章节 1.tex 2.tex 3.tex</span>
+\component 1
+\component 2
+\component 3
+
+<span class="database">%%%正文结束</span>
+\stoptext
+
+<span class="database">%%%%% product 环境结束声明</span>
+\stopproduct  </pre>
+<p>在导言区载入的文件，要使用 <strong class="userinput"><code>environment</code></strong> 环境，例如样式定义文件 <code class="filename">style.tex</code></p>
+<pre class="screen">
+\startenvironment{}
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="database">%               中文设置               %</span>
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+\usetypescriptfile[zhfonts]     <span class="database">%加载打印字体配置文件(typescript) zhfonts.tex</span>
+\usetypescript[myscript]        <span class="database">%使用打印字体配置文件中定义打印字体的脚本 myscript</span>
+\setupbodyfont[myfont,rm,11pt]  <span class="database">%设置正文字体</span>
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="database">%              正文  标题              %</span>
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="database">% 启用颜色模式， 设置链接文本颜色</span>
+\setupcolors[state=start]
+\definecolor[linktext][darkred]
+\setupinteraction[state=start,color=linktext]
+
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="database">%正文    </span>
+\setupindenting[always,2em,first]                  <span class="database">%设置中文缩进格式(首行缩进两字)</span>
+\setupheads[indentnext=yes]                        <span class="database">%每节的首段也要缩进</span>
+
+\setupinterlinespace[big]                          <span class="database">%设置行距(big=1.5倍)      </span>
+\setupwhitespace[small]                           <span class="database">%设置段间距[small, medium, big]</span>
+
+<span class="database">%标题</span>
+\setupheads[indentnext=yes]
+\setuphead
+[chapter]
+[style=\bfc,header=empty,footer=empty]
+\setuphead
+[section]
+[style=\bfa]
+\setuphead
+[title]
+[style=\bfb,header=empty,foote=empty]
+\setuphead
+[subsubject]
+[style=\bf]
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="database">%               页面设置               % </span>
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="database">%定义页面尺寸为 SCREEN</span>
+\definepapersize[mySCREEN][width=21cm,height=29.7cm] 
+<span class="database">%纸张尺寸，通常和页面尺寸相同。(除非在印刷用纸上实现多页排版)    </span>
+\setuppapersize[SCREEN][mySCREEN]         
+
+<span class="database">%布局</span>
+\setuplayout
+[width=fit,
+height=middle,
+leftmargin=3cm,
+rightmargin=3cm,
+backspace=4cm,
+topspace=.5cm,
+headerdistance=.4cm,
+footerdistance=.4cm,
+header=1cm,
+footer=1cm]
+
+<span class="database">%去掉页眉正中 自动添加的页码</span>
+\setuppagenumbering
+[style=\tfx,location=]
+
+<span class="database">%页眉</span>
+\def\CurrentChapter{<span class="database">%</span>
+第 \headnumber[chapter]\ 章<span class="database">%</span>
+\hbox to 2em{}<span class="database">%</span>
+\getmarking[chapter]<span class="database">%</span>
+}
+\def\CurrentSection{<span class="database">%</span>
+\headnumber[section]<span class="database">%</span>
+\hbox to 2em{}<span class="database">%</span>
+\getmarking[section]<span class="database">%</span>
+}
+\setupheadertexts
+[\CurrentChapter][pagenumber]
+[pagenumber][\CurrentSection]
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span class="database">%边注</span>
+\setupinmargin[left,right][style=\tfx]
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="database">%PDF 阅读器中自适应页宽</span>
+\setupinteraction[state=start,openaction=FitWidth]
+
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="database">%              目录  书签              %</span>
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+
+<span class="database">% 启用书签功能</span>
+\setupinteraction[state=start]
+\setupinteractionscreen[option=bookmark]
+\placebookmarks[chapter,section,subsection][chapter]
+
+<span class="database">%%%经典目录样式</span>
+<span class="database">%% turn off numbering of some levels</span>
+<span class="database">%\setuphead[subsection][number=no]</span>
+<span class="database">%\setuphead[subsubsection][number=no]</span>
+<span class="database">%% TOC</span>
+<span class="database">%% level=4, \subsubsubsections are not listed in TOC</span>
+<span class="database">%% alternative=c, space to the page number is filled with dots</span>
+<span class="database">%\setupcombinedlist[content][level=4,alternative=c]</span>
+<span class="database">%%\setuplist[chapter][width=5mm,style=bold]</span>
+<span class="database">%\setuplist[section][width=10mm,style=bold]</span>
+<span class="database">%\setuplist[subsection][width=20mm]</span>
+<span class="database">%% pagestyle=normal for changing the appearance of pagenumber</span>
+<span class="database">%\setuplist[subsubsection][width=20mm,style=slanted,pagestyle=normal]</span>
+
+
+<span class="database">%目录样式</span>
+\def\ChapterNumber#1{\doiftext{#1}{第\;#1\;章\quad}}
+\setuplist
+[chapter]
+[alternative=a,
+before={\page[preference]\blank},
+after=\blank,
+style=bold,
+width=fit,
+pagestyle=boldslanted,
+pagenumber=no,
+numbercommand=\ChapterNumber]
+
+\def\PageNumber#1{\color[darkgray]{#1}.}
+\setuplist
+[section]
+[alternative=d,
+style=small,
+pagecommand=\PageNumber,
+pagestyle=\itx]
+
+<span class="database">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+\stopenvironment  </pre>
+<p>词汇定义文件 <code class="filename">gloss.tex</code></p>
+<pre class="screen">
+\startenvironment{}
+
+<span class="database">%使用命令 \hello{mom} </span>
+<span class="database">%得到 Good morning mom</span>
+\define[1]\hello{Good morning, #1}
+
+<span class="database">%使用命令 \lxsc</span>
+<span class="database">%得到 《开源世界旅行手册》</span>
+\define\lxsc{《开源世界旅行手册》}
+
+\stopenvironment  </pre>
+<p>章节放在单独的文件中，例如 <code class="filename">1.tex</code></p>
+<pre class="screen">
+\startcomponent{}
+
+\chapter{第一章}
+
+ConTeXt 组件文档
+
+\stopcomponent  </pre>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2897365" href="#id2897365" class="para">73</a>] </sup>文件名任意</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s07.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s09.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top"> </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 语法简介</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

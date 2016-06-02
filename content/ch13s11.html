@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>用户</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch13.html" title="第 13 章 基础知识">
+<link rel="prev" href="ch13s10.html" title="权限">
+<link rel="next" href="ch14.html" title="第 14 章 命令系统">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">用户</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch13s10.html">上一页</a> </td>
+<th width="60%" align="center">第 13 章 基础知识</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch14.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2818314"></a>用户</h2></div></div></div>
+<p>
+    在 Linux 系统中，有两种用户：普通用户、root用户
+  </p>
+<p>
+     root用户拥有对系统的完全控制权。实际上这没有看上去那样的美妙，你必须对自己的行为负全部的责任。Linux 继承了 Unix 的设计哲学：系统毫无保留的执行你下达的命令，哪怕这个命令是“向我开炮！”
+  </p>
+<p>
+    普通用户只可以作系统允许的事情。尽管可以执行大多数命令，但是 root
+    专有的命令却不能成功的执行，因为这些命令往往关联着只有 root 才可以处理的文件。也就是说，普通用户通常只可以处理自己 <code class="filename">$HOME</code> 目录下的文件。详见 <a class="xref" href="ch13s10.html#rightofcom" title="执行命令的权限">“执行命令的权限”一节</a>
+  </p>
+<p>
+    而作为 root用户，可能会因为误操作给系统带来破坏；作为普通用户，可以作的事情又太少了点。
+  </p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2818368"></a>执行命令的身份</h3></div></div></div>
+<p>默认情况下，您的命令提示符末位为 <span class="emphasis"><em>$</em></span> ，这表示您将以普通用户的身份执行命令。</p>
+<p>您可以使用 <span class="application">su</span> （switch user）这个命令来切换其它用户。</p>
+<p>例如 <span class="command"><strong>su root</strong></span> ，切换到 root用户(如果 su
+    命令后面没有参数，那么这个命令默认切换到 root用户)。</p>
+<p>当您执行 <span class="application">su</span> 这个命令，系统会提示您输入密码，请输入管理员的密码。这个时候，您会发现命令提示符末位变成了 <span class="command"><strong>#</strong></span> ，您将以 root用户 的身份执行命令。</p>
+<p>许多 Linux 系统默认会随机设定系统的 root密码，这样更安全一些，这个时候您可以执行 <span class="application">sudo</span> 命令，输入当前用户密码后，暂时以 root用户 的身份执行命令。（前提是 sudoer 列表中要包含您的 ID）</p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">使用 <span class="application">visudo</span> (需要 root权限)可以将普通用户加入到 sudoer 列表中。</td></tr>
+</table></div>
+<p>  
+      但即便是用 sudo 来执行，也不能保证系统不会在您的误操作下一命呜乎，更安全的办法是直接赋与用户某种操作的权限。
+    </p>
+<pre class="screen">
+gpasswd -a user audio</pre>
+<p>这个命令将 user 加入到 audio 群组，您拥有了使用音频设备的权限。</p>
+<p>
+      事实上，Linux 中一切皆文件，包括设备文件。
+    </p>
+<pre class="screen">
+ls -l /dev/sound       
+
+crw-rw---- 1 root audio 14,  4 10-04 09:41 audio
+crw-rw---- 1 root audio 14,  3 10-04 09:41 dsp
+crw-rw---- 1 root audio 14,  2 10-04 09:41 midi
+crw-rw---- 1 root audio 14,  0 10-04 09:41 mixer
+…………    </pre>
+<p>可以看到，和音频有关的设备文件，除了 root用户 可以使用，audio群组 中的用户也可以使用。</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2818496"></a>群组</h3></div></div></div>
+<p>
+      群组分为两种，主组和辅组。在 <code class="filename">/etc/passwd</code> 文件中，与用户相关联的是主组，每个用户只可以加入一个主组；<code class="filename">/etc/group</code> 文件中则记录了每一个辅组所包含的用户，同一个用户可以被多个辅组所包含。
+    </p>
+<p>
+    这样看起来有点乱，但却可以提供更大的灵活性。例如：
+    </p>
+<pre class="screen">
+crw-rw---- 1 root audio    /dev/sound/audio
+brw-rw---- 1 root optical  /dev/cdrom  </pre>
+<p>
+    </p>
+<p>
+      先假设一名用户只可以属于一个群组：你是系统管理员，你管理的用户要求听点音乐，你把他加入了 audio组；于是该用户把 CD 放进了光驱，结果一点反映也没有，于是为了让他使用 cdrom，不得不让他拥有 root权限，你将不能防范他可能作出的破坏。
+    </p>
+<p>
+      而一名用户可以属于多个群组，能够很好的解决这个问题：你可以让可以用户既属于 audio群组，又属于 optical群组，这样他就可以用 cdrom 来听音乐,却没有 root权限。
+    </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch13s10.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch13.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch14.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">权限 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 14 章 命令系统</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

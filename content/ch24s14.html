@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>寄存器操作</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch24.html" title="第 24 章 Vim 编辑器">
+<link rel="prev" href="ch24s13.html" title="正则表达式">
+<link rel="next" href="ch24s15.html" title="宏">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">寄存器操作</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch24s13.html">上一页</a> </td>
+<th width="60%" align="center">第 24 章 Vim 编辑器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch24s15.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2857788"></a>寄存器操作</h2></div></div></div>
+<p>Vim 可以将不同字段剪切或复制到不同寄存器中，您可以从不同寄存器中取出内容后粘贴</p>
+<pre class="screen">
+"寄存器名称</pre>
+<div class="itemizedlist"><ul type="disc"><li>
+    按下<strong class="userinput"><code>"</code></strong>键和另一个字符键，便可以定义一个寄存器。例如：<strong class="userinput"><code>"a</code></strong> <strong class="userinput"><code>"1</code></strong>
+</li></ul></div>
+<p>定义寄存器后直接进行操作</p>
+<pre class="screen">
+"ayy    <span class="database">将当前行复制到寄存器 a 中</span>
+"ap     <span class="database">将寄存器 a 中的内容粘贴到光标之后</span></pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<span class="command"><strong>:registers</strong></span> 查看所有寄存器的内容
+  </li>
+<li>
+      通常情况下，寄存器 <span class="command"><strong>+</strong></span> (先按"，再按 Shift+= )对应 X 下的剪贴板。您在其它程序中复制的内容，可以使用 <strong class="userinput"><code>"+p</code></strong> 粘贴到 Vim中；您在 Vim 中，可以使用 <strong class="userinput"><code>"+y</code></strong> 将内容复制到剪贴板，再粘贴到其它程序中
+    </li>
+<li>
+      没有指定寄存器时，Vim 使用“无名寄存器”存储内容
+    </li>
+</ul></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch24s13.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch24.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch24s15.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">正则表达式 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 宏</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

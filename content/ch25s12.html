@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>书签管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s11.html" title="寄存器管理">
+<link rel="next" href="ch25s13.html" title="Shell 模式">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">书签管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s11.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s13.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2867351"></a>书签管理</h2></div></div></div>
+<p>
+	  Emacs 可以在当前位置创建一个书签，以便能够快速的返回。
+	</p>
+<div class="glosslist"><dl>
+<dt>
+     与存储光标位置的寄存器略有不同
+    </dt>
+<dd>
+<p>
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          书签可以使用单词来命名，而不限于一个字符。起一个容易记住的名字
+        </li>
+<li>
+	    退出 Emacs 后，书签不会消失，下次还可以使用
+	  </li>
+</ul></div>
+<p>	    	      
+	      </p>
+</dd>
+</dl></div>
+<div class="table">
+<a name="id2867397"></a><p class="title"><b>表 25.13. Emacs 书签</b></p>
+<div class="table-contents"><table summary="Emacs 书签" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-x r m (name)</td>
+<td>M-x bookmark-set</td>
+<td>设置书签</td>
+</tr>
+<tr>
+<td>C-x r b (name)</td>
+<td>M-x bookmark-jump</td>
+<td>跳转到书签</td>
+</tr>
+<tr>
+<td>C-x r l</td>
+<td>M-x bookmark-bmenu-list</td>
+<td>书签列表</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x bookmark-delete</td>
+<td>删除书签</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x bookmark-load</td>
+<td>读取存储书签文件</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc">
+<li>
+	      书签默认存储在 <code class="filename">~/.emacs.bmk</code> 文件中
+        </li>
+<li>
+<p>在配置文件中，可以设置书签存储的文件</p>
+<pre class="screen">
+;; 书签文件的路径及文件名
+(setq bookmark-default-file "~/.emacs.d/.emacs.bmk")
+
+;; 同步更新书签文件 ;; 或者退出时保存
+(setq bookmark-save-flag 1)
+
+	    </pre>
+</li>
+</ul></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s11.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s13.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">寄存器管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Shell 模式</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

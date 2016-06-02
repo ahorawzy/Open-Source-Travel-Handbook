@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>UNIX 是永恒的</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch06.html" title="第 6 章 完全用 Gnu/Linux 工作">
+<link rel="prev" href="ch06s07.html" title="UNIX 是简单的">
+<link rel="next" href="ch06s09.html" title="UNIX 是强大的">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">UNIX 是永恒的</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch06s07.html">上一页</a> </td>
+<th width="60%" align="center">第 6 章 完全用 Gnu/Linux 工作</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch06s09.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2811350"></a>UNIX 是永恒的</h2></div></div></div>
+<p>有人说：“Plan9 会取代 UNIX，Mach 会取代 Linux 内核。” </p>
+<p>但是你如果是一个深入体会了 UNIX 的人，你就会知道：UNIX 的思想是永恒的，不管时过境迁，Plan9 是否代替 UNIX，UNIX 的灵魂都会在 Plan9 身上现形！ </p>
+<p>我为同一个设备写过 Linux 内核和 Windows VxD 驱动程序。写 Linux 驱动程序时，我对 UNIX 设计的完美的一致性，远见性所折服。UNIX 用同样界面的 read(), write() 系统调用就可以对不同的对象：普通文件，设备文件，管道，管道文件，socket，…… 进行统一的读写操作。我跟本不需要写一个测试用的应用程序就可以对我的设备驱动进行测试，因为 cat, cp, dd, 它们也使用了同样的 read(), write()，设备和普通文件在应用程序眼里没有区别。在那个还没有 Smalltalk, 没有 C++ 的年代，UNIX 的设计者已经使用了所谓的 “面向对象方法”。对，C 语言也可以实现面向对象。 </p>
+<p>UNIX 的系统调用几十年都没有很大变化，这非但不是顽固，不进步的象征，反而是 UNIX 的远见卓识的体现！这就跟 TeX 程序几十年都不变的情况差不多。这些才是真正的永恒的 master piece! 你应该改变所有软件都必需从 0.1, 1.0, 1.1, 1.2, 2.0, ..., 3.0, 3.1, 95, 98, 2000, XP, ... 不断升级的想法。 </p>
+<p>Windows 就不同了，它在最开头只是一个 DOS 之上的图形包装而已。后来为了兼容以前的糟糕设计，不得不加上很多累赘。我写 VxD 驱动程序的时候就深有体会，Windows 95 程序对设备的操作只有用 DeviceIoControl，我不得不写了两个应用程序来对设备驱动进行测试。Windows 内核的不一致性和隐密性使我非常恼火。不过 Windows WDM 驱动程序现在也有了 ReadFile, WriteFile，…… 那说明什么？那说明 Windows 在向 UNIX 学习，或者有可能是某个 UNIX 设计人员在微软打了几天临工，顺手加了几个 UNIX 的东西进去。这样做是没有用的，Windows 从一开始就是非常糟糕的设计，它的历史的包袱太沉重了，缝缝补补有什么用？它只能永远的被 UNIX 甩在身后！ </p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch06s07.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch06.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch06s09.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">UNIX 是简单的 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> UNIX 是强大的</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

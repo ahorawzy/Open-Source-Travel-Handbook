@@ -1,0 +1,612 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>进程管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch17.html" title="第 17 章 核心工具集">
+<link rel="prev" href="ch17s09.html" title="用户管理">
+<link rel="next" href="ch17s11.html" title="磁盘和内存管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">进程管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch17s09.html">上一页</a> </td>
+<th width="60%" align="center">第 17 章 核心工具集</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17s11.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2831878"></a>进程管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831883"></a>细节</h3></div></div></div>
+<p>
+      进程一般分为批处理进程、交互进程和守护进程三类。
+    </p>
+<p>
+      守护进程总是活跃，在系统启动时通过脚本自动启动，或由 root 启动，通常在后台运行。
+    </p>
+<p>
+      一个进程可以拥有子进程。当父进程终止时，它的子进程也随之终止；而子进程终止时，父进程通常可以继续运行。
+    </p>
+<p>
+      <span class="application">init</span> 进程为根进程，所有进程都是它的子进程
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831922"></a>ps</h3></div></div></div>
+<p>  
+      显示进程信息，选项可省略 “<strong class="userinput"><code>-</code></strong>”
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>aux</td>
+<td>以 BSD风格 显示进程 <span class="emphasis"><em>常用</em></span>
+</td>
+</tr>
+<tr>
+<td>-efH</td>
+<td>以 SystemV风格 显示进程</td>
+</tr>
+<tr>
+<td>-e | -A </td>
+<td>显示所有进程</td>
+</tr>
+<tr>
+<td>a</td>
+<td>显示终端上所有用户的进程</td>
+</tr>
+<tr>
+<td>x</td>
+<td>显示无终端进程</td>
+</tr>
+<tr>
+<td>u</td>
+<td>显示详细信息</td>
+</tr>
+<tr>
+<td>f </td>
+<td>树状显示</td>
+</tr>
+<tr>
+<td>w</td>
+<td>完整显示信息</td>
+</tr>
+<tr>
+<td>l</td>
+<td>显示长列表</td>
+</tr>
+</tbody>
+</table></div>
+<p>
+      输出字段
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>USER</td>
+<td colspan="2">进程所有者</td>
+</tr>
+<tr>
+<td>PID</td>
+<td colspan="2">进程编号</td>
+</tr>
+<tr>
+<td>PPID</td>
+<td colspan="2">父进程编号</td>
+</tr>
+<tr>
+<td>%CPU</td>
+<td colspan="2">CPU 占用率</td>
+</tr>
+<tr>
+<td>%MEM</td>
+<td colspan="2">内存占用率</td>
+</tr>
+<tr>
+<td>NI</td>
+<td colspan="2">进程优先级。数值越大，占用 CPU 时间越少</td>
+</tr>
+<tr>
+<td>VSZ</td>
+<td colspan="2">进程虚拟大小</td>
+</tr>
+<tr>
+<td>RSS</td>
+<td colspan="2">页面文件占用</td>
+</tr>
+<tr>
+<td>TTY</td>
+<td colspan="2">终端编号</td>
+</tr>
+<tr>
+<td rowspan="14">STAT</td>
+<td colspan="2">进程状态</td>
+</tr>
+<tr>
+<td> D</td>
+<td>不可中断</td>
+</tr>
+<tr>
+<td>R</td>
+<td>正在运行，或在队列中的进程</td>
+</tr>
+<tr>
+<td>S</td>
+<td>处于休眠状态</td>
+</tr>
+<tr>
+<td>T</td>
+<td>停止或被追踪</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>僵尸进程</td>
+</tr>
+<tr>
+<td>X</td>
+<td>死掉的进程</td>
+</tr>
+<tr><td colspan="3"> </td></tr>
+<tr>
+<td>&lt;</td>
+<td>高优先级</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>N</td>
+<td>低优先级</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>L</td>
+<td>有些页被锁进内存</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>s</td>
+<td>包含子进程</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>+</td>
+<td>位于后台的进程组</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>l</td>
+<td>多线程，克隆线程</td>
+<td class="auto-generated"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832237"></a>pstree [ 进程编号 | 用户 ]</h3></div></div></div>
+<p>
+      树状显示进程信息。可选择显示某用户的进程或从某进程编号开始的进程
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-a</td>
+<td>显示完整命令及选项</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>完全显示重复进程</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>显示进程编号，隐含-c</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按进程编号排列进程</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示进程所有者</td>
+</tr>
+<tr>
+<td>-h</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>-H 进程编号</td>
+<td>高亮显示进程编号指定的进程及其祖先</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832310"></a>pgrep 进程名</h3></div></div></div>
+<p>
+      显示进程编号
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-l</td>
+<td>显示进程名和进程编号</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>进程起始编号</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>进程终止编号</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832353"></a>kill [信号代码] 进程编号</h3></div></div></div>
+<p>
+根据进程编号向进程发送信号，常用来结束进程，默认信号为 -9      
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-l [信号代码]</td>
+<td>显示、翻译信号代码</td>
+</tr>
+<tr>
+<td>-9 | -KILL</td>
+<td>发送 kill 信号,退出</td>
+</tr>
+<tr>
+<td>-6 | -ABRT</td>
+<td>发送 abort 信号,退出</td>
+</tr>
+<tr>
+<td>-15 | -TERM</td>
+<td>发送 Termination 信号</td>
+</tr>
+<tr>
+<td>-1 | -HUP</td>
+<td>挂起</td>
+</tr>
+<tr>
+<td>-2 | -INT</td>
+<td>从键盘中断，相当于 Ctrl+c</td>
+</tr>
+<tr>
+<td>-3 | -QUIT</td>
+<td>从键盘退出，相当于 Ctrl+d</td>
+</tr>
+<tr>
+<td>-4 | -ILL </td>
+<td>非法指令</td>
+</tr>
+<tr>
+<td>-11 | -SEGV</td>
+<td>内存错误</td>
+</tr>
+<tr>
+<td>-13 | -PIPE</td>
+<td>破坏管道</td>
+</tr>
+<tr>
+<td>-14 | -ALRM</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>-STOP</td>
+<td>停止进程，但不结束</td>
+</tr>
+<tr>
+<td>-CONT</td>
+<td>继续运行已停止的进程</td>
+</tr>
+<tr>
+<td>-9 | -1</td>
+<td>结束当前用户的所有进程</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832469"></a>pkill [信号代码] 进程名称</h3></div></div></div>
+<p>
+      结束进程族。如果结束单个进程，请用 kill
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832483"></a>xkill</h3></div></div></div>
+<p>
+在图形界面中点杀进程。执行此命令后，鼠标指针变为骷髅图案（一定看过《加勒比海盗》吧）。在窗口中点击左键杀死进程，右键取消      
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832499"></a>top</h3></div></div></div>
+<p>
+动态、交互式进程管理器      
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="8">启动选项</td>
+<td>-b</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示进程启动状态，包括选项、参数、操作对象等；而不只是进程名</td>
+</tr>
+<tr>
+<td>-d 秒</td>
+<td>刷新频率。 -d 5，表示5秒刷新一次</td>
+</tr>
+<tr>
+<td>-n 次</td>
+<td>刷新次数，然后退出。 -n 5，表示刷新5次后退出</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>禁止显示空闲进程或僵尸进程</td>
+</tr>
+<tr>
+<td>-p 进程编号</td>
+<td>仅监视指定进程的编号</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>安全模式运行，禁用一些交互指令</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>累积模式，输出每个进程的总的 CPU 时间，包括已死的子进程</td>
+</tr>
+<tr>
+<td rowspan="20">交互命令</td>
+<td>space</td>
+<td>立即刷新</td>
+</tr>
+<tr>
+<td>k</td>
+<td>交互式杀死进程，提示输入进程编号 （默认发送信号15）</td>
+</tr>
+<tr>
+<td>r</td>
+<td>设定 renice，提示输入进程编号和 renice值</td>
+</tr>
+<tr>
+<td>s</td>
+<td>改变两次刷新时间间隔，以秒为单位</td>
+</tr>
+<tr>
+<td>n</td>
+<td>设定显示进程数， 0 为不作限制</td>
+</tr>
+<tr>
+<td>i</td>
+<td>隐藏空闲进程和僵尸进程</td>
+</tr>
+<tr>
+<td>S</td>
+<td>切换到累积时间模式</td>
+</tr>
+<tr>
+<td>l</td>
+<td>开关，在顶部显示 uptime 信息</td>
+</tr>
+<tr>
+<td>t</td>
+<td>开关，在顶部显示 进程和 CPU 状态</td>
+</tr>
+<tr>
+<td>m</td>
+<td>开关，在顶部显示 free 信息</td>
+</tr>
+<tr>
+<td>c</td>
+<td>显示方式切换： 进程名/进程启动状态</td>
+</tr>
+<tr>
+<td>A</td>
+<td>按进程启动顺序进行排序。由新到旧</td>
+</tr>
+<tr>
+<td>M</td>
+<td>按内存占用排序。由大到小</td>
+</tr>
+<tr>
+<td>N</td>
+<td>以进程编号排序。由大到小</td>
+</tr>
+<tr>
+<td>P</td>
+<td>按 CPU 占用排序。由大到小</td>
+</tr>
+<tr>
+<td>T</td>
+<td>按时间／累积时间排序</td>
+</tr>
+<tr>
+<td>f|F </td>
+<td>设定显示字段。设定完成后空格退出</td>
+</tr>
+<tr>
+<td>o|O</td>
+<td>设定显示字段的排序。大写向前移动，小写向后移动，空格退出</td>
+</tr>
+<tr>
+<td>h|?</td>
+<td>显示有关安全模式和累积模式的帮助信息</td>
+</tr>
+<tr>
+<td>W</td>
+<td>把当前的配置写到 ~/.toprc 中</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832735"></a>renice 优先级 进程</h3></div></div></div>
+<p>
+      重新设定进程优先级（通常无此必要）
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td rowspan="2">优先级表达式</td>
+<td>+|-|= nice值</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>nice 取值范围</td>
+<td>-20~19</td>
+</tr>
+<tr>
+<td rowspan="3">进程表达式</td>
+<td>-p 进程编号</td>
+<td>通过进程编号进行设定</td>
+</tr>
+<tr>
+<td>-g 进程群组编号</td>
+<td>通过进程群组编号</td>
+</tr>
+<tr>
+<td>-u 用户编号</td>
+<td class="auto-generated"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832801"></a>nohup 命令 [选项]</h3></div></div></div>
+<p>
+      将任务提交到后台，输出附加到 <code class="filename">~/nohup.out</code> 文件。即便用户退出登录，提交的命令仍继续执行。
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832821"></a>命令 &amp;</h3></div></div></div>
+<p>
+      背景执行此命令，如果用户退出登录，则命令停止执行
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832833"></a>命令1 ; 命令2 ; ......</h3></div></div></div>
+<p>
+      命令队列，从左向右，依次执行以 <strong class="userinput"><code>;</code></strong> 分隔的命令
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832851"></a>命令1 &amp;&amp; 命令2 &amp;&amp; ......</h3></div></div></div>
+<p>
+      命令队列，从左向右，依次执行以 <strong class="userinput"><code>&amp;&amp;</code></strong> 分隔的命令。前一个命令执行成功，后一个命令才能执行      
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832871"></a>Ctrl+z</h3></div></div></div>
+<p>
+      挂起当前任务
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832882"></a>jobs</h3></div></div></div>
+<p>
+      显示背景任务
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody><tr>
+<td>-l</td>
+<td>显示完整信息</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832911"></a>bg [任务编号]</h3></div></div></div>
+<p>
+      将挂起的任务背景执行
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832923"></a>fg [任务编号]</h3></div></div></div>
+<p>
+      将背景任务调到前台执行
+    </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch17s09.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch17.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17s11.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">用户管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 磁盘和内存管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

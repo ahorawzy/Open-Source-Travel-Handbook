@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>软件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch13.html" title="第 13 章 基础知识">
+<link rel="prev" href="ch13s05.html" title="路径">
+<link rel="next" href="ch13s07.html" title="配置方式">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">软件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch13s05.html">上一页</a> </td>
+<th width="60%" align="center">第 13 章 基础知识</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch13s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2817625"></a>软件</h2></div></div></div>
+<p>Linux 中没有 注册表 这个概念。安装软件，理论上讲，只要拷贝所有相关文件，并运行它的主程序就可以了。</p>
+<p>按照传统，一个软件通常分别拷贝到同级目录下的 bin、etc、lib、share等文件夹。</p>
+<div class="glosslist"><dl>
+<dt>
+bin
+  </dt>
+<dd><p>
+    可执行文件，程序的可执行文件通常在这个目录下。在环境变量中设定搜索路径，就可以直接执行，而不需要定位其路径。
+  </p></dd>
+<dt>
+etc
+  </dt>
+<dd><p>
+    配置文件，大部分系统程序的配置文件保存于 /etc 目录，便于集中修改。
+  </p></dd>
+<dt>
+lib
+  </dt>
+<dd><p>
+    库文件，集中在一起，方便共享给不同程序。相较不同的软件单独保存库文件，能够节约一些磁盘空间。
+  </p></dd>
+<dt>
+share
+  </dt>
+<dd><p>
+    程序运行所需要的其它资源，例如图标、文本。这部分文件是专有的，不需要共享；而且目录结构相对复杂，混放在一起比较混乱，所以单独存放。
+  </p></dd>
+</dl></div>
+<p> </p>
+<p>还有一些软件，占用一个单独的目录，所有的资源都在这个目录中。类似于
+  Windows 下的绿色软件，不推荐在 Linux 系统下这样作。</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+      执行时，系统找不到可执行文件（搜索所有路径，资源开销过大，是不现实的），需要定位其位置，像这样 <span class="command"><strong>/home/user/bin/可执行文件</strong></span> ，不够方便。
+    </li>
+<li>
+	许多系统软件需要协作运行，配置文件分别保存，定位它们非常麻烦
+      </li>
+<li>
+	如果程序使用的库文件，像图形库文件，都单独存放，那么磁盘空间的浪费会非常严重。
+      </li>
+</ul></div>
+<p>有一些大型软件，或者您布署的重要应用，您可以将它们单独安装在一个文件夹下。（通常源码安装支持这种方式)</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch13s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch13.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch13s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">路径 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 配置方式
+    </td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Lighttpd</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch23.html" title="第 23 章 服务器">
+<link rel="prev" href="ch23s02.html" title="LAMP">
+<link rel="next" href="ch23s04.html" title="PHP&amp;MySQL">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Lighttpd</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch23s02.html">上一页</a> </td>
+<th width="60%" align="center">第 23 章 服务器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch23s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2853285"></a>Lighttpd</h2></div></div></div>
+<p><strong class="userinput"><code>Lighttpd</code></strong>是一个新兴的、轻量级的 web 服务器，它开始越来越多的应用在一些重要场合，如：YouTobe、Sourceforge、豆瓣……</p>
+<p>Lighttpd 以安全、快速和内存消耗低著称，还专门为大型分布式连接环境做了优化，支持 FastCGI, CGI, Auth, 输出压缩(output compress), URL重写, Alias 等重要功能。</p>
+<p>Lighttpd 已经进入大多数发行版的软件仓库，安装方式见<a class="xref" href="ch16s03.html#pkg-manage" title="表 16.1. 包管理系统">表 16.1 “包管理系统”</a></p>
+<p>安装完成后，用启动脚本启动：<strong class="userinput"><code>/etc/init.d/lighttpd
+    start</code></strong>，见<a class="xref" href="ch15s04.html#init.d" title="手动控制服务">“手动控制服务”一节</a></p>
+<p><code class="filename">/etc/lighttpd/lighttpd.conf</code>为 Lighttpd 服务器的配置文件<sup>[<a name="id2853345" href="#ftn.id2853345" class="footnote">43</a>]</sup>：</p>
+<pre class="screen">
+<span class="database">## 网站根目录 映射在机器上的物理路径</span>
+server.document-root        = "/home/lighttpd/html/"
+
+<span class="database">## 如果网站目录中出现以下文件名，不用指定文件名便可直接访问</span>
+index-file.names            = ( "index.php", "index.html",
+                                "index.htm", "default.htm" )
+
+<span class="database">## Lighttpd 进程的归属用户</span>
+server.username             = "nobody"
+
+<span class="database">## Lighttpd 进程的归属群组</span>
+server.groupname            = "nobody"
+
+<span class="database">## 绑定到端口 默认为 80</span>
+#server.port                = 81
+
+<span class="database">## 绑定到地址 默认为 所有</span>
+#server.bind                = "127.0.0.1"
+
+<span class="database">## 访问日志 路径</span>
+accesslog.filename          = "/var/log/lighttpd/access.log"
+
+<span class="database">## 错误日志 路径</span>
+server.errorlog             = "/var/log/lighttpd/error.log"
+
+<span class="database">## 禁止访问以下文件</span>
+url.access-deny             = ( "~", ".inc" )  
+
+<span class="database">## 与目录列表相关的设置</span>
+#dir-listing.activate       = "enable"  
+#dir-listing.encoding       = "utf8"
+#dir-listing.show-readme       = "enable"  </pre>
+<p>配置文件中的<strong class="userinput"><code>server.modules</code></strong>字段决定<span class="application">Lighttpd</span>使用哪些扩展模块：</p>
+<pre class="screen">
+server.modules = ("mod_access","mod_fastcgi","mod_accesslog" )        </pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+  Lighttpd 通过 <strong class="userinput"><code>mod_fastcgi</code></strong> 模块支持 PHP
+</li>
+<li>
+<strong class="userinput"><code>mod_accesslog</code></strong> 模块为访问纪录
+</li>
+</ul></div>
+<p>其实在 <code class="filename">/etc/lighttpd/lighttpd.conf</code>
+	  文件中，这部分内容写在多行，方便用 <strong class="userinput"><code>#</code></strong> 作注释，禁用不需要的模块</p>
+<pre class="screen">
+server.modules              = (
+<span class="database">## 基础模块</span>
+    				"mod_access",
+<span class="database">## 访问纪录</span>
+    				"mod_accesslog" )   
+<span class="database">## fastcgi 支持</span>
+    				"mod_fastcgi",
+<span class="database">## cgi 支持</span>
+#                               "mod_cgi",
+<span class="database">## 路径绑定</span>
+#                               "mod_alias",
+<span class="database">##  代理 (转发页面)</span>
+#                               "mod_proxy",
+<span class="database">## 虚拟主机</span>
+#                               "mod_evhost",
+<span class="database">## 输出压缩</span>
+#                               "mod_compress",
+<span class="database">## 网址重写</span>
+#                               "mod_rewrite",
+<span class="database">## 用户认证</span>
+#                               "mod_auth",
+#                               "mod_redirect",
+#                               "mod_cml",
+#                               "mod_trigger_b4_dl",
+#                               "mod_status",
+#                               "mod_setenv",
+#                               "mod_simple_vhost",
+#                               "mod_userdir",
+#                               "mod_ssi",
+#                               "mod_usertrack",
+#                               "mod_expire",
+#                               "mod_secdownload",
+#                               "mod_rrdtool", </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2853611"></a>fastcgi 配置</h3></div></div></div>
+<p>在配置文件的<strong class="userinput"><code>server.modules</code></strong>字段中启用<strong class="userinput"><code>mod_fastcgi</code></strong>模块，然后检查以下内容：</p>
+<pre class="screen">
+<span class="database">### fastcgi 脚本扩展名</span>
+static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )      
+
+<span class="database">### fastcgi 服务器设置      </span>
+fastcgi.server             = ( ".php" =&gt;
+                               ( "localhost" =&gt;
+                                 (
+<span class="database"># TCP/IP 接口 (“套接字”)</span>
+                                   "socket" =&gt; "/tmp/php-fastcgi.socket",
+<span class="database"># PHP cgi 模式的可执行文件(PHP 有 cli 和 cgi 两种模式)</span>
+                                   "bin-path" =&gt; "/usr/bin/php-cgi"
+                                 )
+                               )
+                            )
+      </pre>
+<p>上面例子的第二部分，使用 Lighttpd 转发规则。大意为：
+      <strong class="userinput"><code>.php</code></strong>文件按以下方式处理 =&gt; 从<strong class="userinput"><code>localhost</code></strong>(本地)，发送到<strong class="userinput"><code>/tmp/php-fastcgi.socket</code></strong>接口，使用<strong class="userinput"><code>/usr/bin/php-cgi</code></strong>处理。写成一行比较直观：</p>
+<pre class="screen">
+    fastcgi.server  = ( ".php" =&gt; ( "localhost" =&gt; ( "socket" =&gt; "/tmp/php-fastcgi.socket", "bin-path" =&gt; "/usr/bin/php-cgi" )))</pre>
+<p>如果想要 fastcgi 和 PHP 协同工作，还需要对 PHP
+      作一些设置，见<a class="xref" href="ch23s04.html" title="PHP&amp;MySQL">“PHP&amp;MySQL”一节</a></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2853728"></a>proxy</h3></div></div></div>
+<p>该模块可以将文件转发到其它服务器进行处理，例如将<code class="filename">.jsp</code>文件转发到<span class="application">Tomcat</span>服务器</p>
+<pre class="screen">
+<span class="database">### 首先启用 mod_proxy 模块</span>
+<span class="database"># += 表示在原来设置上增加</span>
+servers.modules +=( "mod_proxy")
+
+<span class="database">### 设置 proxy 服务器转发规则    </span>
+proxy.server               = ( ".jsp" =&gt;
+                               ( "localhost" =&gt;
+                                 (
+<span class="database"># 将 .jsp 文件发送到 地址“127.0.0.1”的“8080”端口(也就是本机的 Tomcat 服务器)</span>
+                                   "host" =&gt; "127.0.0.1",
+                                   "port" =&gt; 8080
+                                 )
+                               )
+                             )    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="server-cgi"></a>CGI</h3></div></div></div>
+<p>Lighttpd 可以支持 cgi</p>
+<pre class="screen">
+<span class="database">### 启用 mod_cgi 模块</span>
+server.modules              += ("mod_cgi")
+
+<span class="database">### 设置 cgi 解释器</span>
+cgi.assign                 = ( ".pl"  =&gt; "/usr/bin/perl",
+                               ".cgi" =&gt; "/usr/bin/perl",
+                               ".py"  =&gt; "/usr/bin/python" )    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2853835"></a>路径绑定</h3></div></div></div>
+<p>将一个路径，映射到网站目录中</p>
+<pre class="screen">
+<span class="database">## 启用 mod_alias 模块</span>
+servers.modules +=( "mod_alias")    
+
+<span class="database">##  将 /home/lighttpd/html/man 映射到 http://host/docs</span>
+alias.url += ( "/docs" =&gt; "/home/lighttpd/html/man" )    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2853871"></a>虚拟主机</h3></div></div></div>
+<p>Lighttpd 可以建立多个虚拟主机，绑定在不同的网络接口</p>
+<pre class="screen">
+<span class="database">### 启用 mod_evhost 模块</span>
+servers.modules +=( "mod_evhost")
+
+<span class="database">### 虚拟主机绑定的网络接口</span>
+$HTTP["host"] == "192.168.1.2" 
+{
+<span class="database">### 虚拟主机可以使用独立的选项</span>
+dir-listing.activate       = "enable"
+dir-listing.encoding       = "utf8"
+dir-listing.show-readme       = "enable"
+<span class="database">### 虚拟主机根目录</span>
+server.document-root = "/home/user/html"
+<span class="database">### 虚拟主机路径绑定</span>
+alias.url = ( "/download/" =&gt; "/home/user/downloads/" )
+alias.url += ( "/pictures/" =&gt; "/home/user/pictures/" )
+}    </pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote">
+<p><sup>[<a name="ftn.id2853345" href="#id2853345" class="para">43</a>] </sup>查看<code class="filename">/etc/init.d/lighttpd</code>文件，可以看到类似字句：<br><strong class="userinput"><code>/usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf</code></strong></p>
+<p><span class="command"><strong>- f</strong></span> 选项指定配置文件</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch23s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch23.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch23s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">LAMP </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> PHP&amp;MySQL</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

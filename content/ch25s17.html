@@ -1,0 +1,291 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>大纲模式</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s16.html" title="服务器模式">
+<link rel="next" href="ch25s18.html" title="在 Emacs 中使用 sdcv">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">大纲模式</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s16.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s18.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="emacs-outline"></a>大纲模式</h2></div></div></div>
+<p>Emacs 的大纲模式(Outline mode)，是一个十分有用的模式。如果工程规模比较大，你应该用大纲来组织它。</p>
+<p>大纲模式通常作为辅模式使用，<span class="command"><strong>M-x outline-minor-mode</strong></span>启用。</p>
+<p> </p>
+<p>大纲模式可以根据代码的语法对结构进行识别，但是这种自动模式工作的不是很好，而且不够灵活</p>
+<p>另一种工作方式是查找特定的字串，来组织文档的结构。这种工作方式是可控制的，不过需要手动加入这些作为结构标识的字串。似乎有点麻烦，但是对于严谨的构思来说，你是需要列一个提纲的</p>
+<p>大纲模式默认以行首的 <strong class="userinput"><code>*</code></strong> 作为结构标识，每多一个 <strong class="userinput"><code>*</code></strong> 就是下一级分支。</p>
+<p>大纲模式默认的键绑定太过复杂，在配置文件中添加以下语句，将所有大纲模式操作的前缀键改为 Ctrl+o  </p>
+<pre class="screen">
+(setq outline-minor-mode-prefix [(control o)])</pre>
+<p>试着在文档中随便加入几个这样的标识</p>
+<pre class="screen">
+*主干一
+**分支一
+**分支二
+*主干二	    </pre>
+<p>进行一些简单的操作</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-o C-a</td>
+<td>全部显示</td>
+</tr>
+<tr>
+<td>C-o C-t</td>
+<td>显示主干</td>
+</tr>
+<tr>
+<td>C-o C-q</td>
+<td>全部隐藏</td>
+</tr>
+<tr>
+<td>C-o C-i</td>
+<td>显示下一级分支</td>
+</tr>
+<tr>
+<td>C-o C-k</td>
+<td>显示分支</td>
+</tr>
+<tr>
+<td>C-o C-e</td>
+<td>显示节点</td>
+</tr>
+<tr>
+<td>C-o C-d</td>
+<td>隐藏分支</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2868824"></a>定制结构标识</h3></div></div></div>
+<p>为了不影响代码的功能，通常要把结构标识放到注释中，这样作有可能会带来不便,例如在 XML 环境中就要像这样使用：</p>
+<pre class="screen">
+&lt;!--
+*结构标识
+--&gt;	    </pre>
+<p>这样会给你的工作制造出一些混乱，并且大纲模式是以行为单位进行识别的，也就是说<strong class="userinput"><code>&lt;!--</code></strong>属于上一个分支</p>
+<p>好在大纲模式可以通过正则表达式来定义结构标识，你可以把结构标识定义为下面这种形式</p>
+<pre class="screen">
+&lt;!--*结构标识--&gt;	    </pre>
+<p>通过设置<strong class="userinput"><code>outline-regexp</code></strong>定制标识：</p>
+<pre class="screen">setq outline-regexp "&lt;!\\<a name="emacs-outline31"></a><img src="images/callouts/1.png" alt="1" border="0">-<a name="emacs-outline32"></a><img src="images/callouts/2.png" alt="2" border="0">\\-\\*+<a name="emacs-outline33"></a><img src="images/callouts/3.png" alt="3" border="0"></pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline31"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">Elisp 语法中，<strong class="userinput"><code>\</code></strong> 有特殊意义，所以脱字符要用<strong class="userinput"><code>\\</code></strong>表示</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline32"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">正则表达式中 <strong class="userinput"><code>-</code></strong> 有特殊意义，所以前面要加脱字符</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline33"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">
+<strong class="userinput"><code>*+</code></strong> 表示一个或多个<strong class="userinput"><code>*</code></strong>
+</td>
+</tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2868958"></a>配置</h3></div></div></div>
+<p>完整的配置：</p>
+<div class="example">
+<a name="id2868967"></a><p class="title"><b>例 25.2. emacs 大纲模式</b></p>
+<div class="example-contents"><pre class="screen">
+(setq outline-minor-mode-prefix [(control o)])<a name="emacs-outline10"></a><img src="images/callouts/1.png" alt="1" border="0">
+
+(require 'docbook-xml-mode)<a name="emacs-outline15"></a><img src="images/callouts/2.png" alt="2" border="0">
+(add-hook 'docbook-xml-mode-hook<a name="emacs-outline11"></a><img src="images/callouts/3.png" alt="3" border="0">
+	  (function (lambda ()
+                  (setq outline-regexp "&lt;!\\-\\-\\*+<a name="emacs-outline12"></a><img src="images/callouts/4.png" alt="4" border="0">")
+		      (outline-minor-mode)<a name="emacs-outline13"></a><img src="images/callouts/5.png" alt="5" border="0">
+		      (hide-body)<a name="emacs-outline14"></a><img src="images/callouts/6.png" alt="6" border="0">
+      			)))    </pre></div>
+</div>
+<br class="example-break"><div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline10"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">更改大纲模式前缀键</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline10"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">加载 docbook-xml-mode</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline11"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">添加 docbook-xml-mode 钩子，运行下面代码<sup>[<a name="id2869047" href="#ftn.id2869047" class="footnote">47</a>]</sup>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline12"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">将<strong class="userinput"><code>&lt;!--*</code></strong>识别为标识</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline13"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">启动大纲模式作为辅模式</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-outline14"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">隐藏所有内容，只显示主干</td>
+</tr>
+</table></div>
+</div>
+<pre class="synopsis"></pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2869094"></a>操作列表</h3></div></div></div>
+<p><span class="emphasis"><em>显示、隐藏</em></span></p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th> </th>
+<th colspan="2">全部显示</th>
+<th colspan="2">显示分支</th>
+<th colspan="2">隐藏</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>全局</td>
+<td>show-all</td>
+<td>C-o C-a</td>
+<td>hide-body</td>
+<td>C-o C-t</td>
+<td>hide-sublevels</td>
+<td>C-o C-q<a name="emacs-out81"></a><img src="images/callouts/1.png" alt="1" border="0">
+</td>
+</tr>
+<tr>
+<td rowspan="3">分支</td>
+<td rowspan="3">show-subtree</td>
+<td rowspan="3">C-o C-s</td>
+<td>hide-leaves</td>
+<td>C-o C-l</td>
+<td rowspan="3">hide-subtree</td>
+<td rowspan="3">C-o C-d</td>
+</tr>
+<tr>
+<td>show-branches</td>
+<td>C-o C-k</td>
+</tr>
+<tr>
+<td>show-children</td>
+<td>C-o C-i</td>
+</tr>
+<tr>
+<td>节点</td>
+<td>show-entry</td>
+<td>C-o C-e</td>
+<td> </td>
+<td> </td>
+<td>hide-entry</td>
+<td>C-o C-c</td>
+</tr>
+<tr>
+<td>其它分支</td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td>hide-other</td>
+<td>C-o C-o</td>
+</tr>
+</tbody>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-out81"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">可以带数字参数，如<strong class="userinput"><code>M-2 C-o C-q</code></strong>显示第2层子结构</td>
+</tr></table></div>
+<p><span class="emphasis"><em>移动</em></span></p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th> </th>
+<th colspan="2">向前</th>
+<th colspan="2">向后</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>全局</td>
+<td>outline-next-visible-heading</td>
+<td>C-o C-n</td>
+<td>outline-previous-visible-heading</td>
+<td>C-o C-p</td>
+</tr>
+<tr>
+<td>同级</td>
+<td>outline-forward-same-level</td>
+<td>C-o C-f</td>
+<td>outline-backward-same-level</td>
+<td>C-o C-b</td>
+</tr>
+<tr>
+<td>返回上一级</td>
+<td colspan="2">outline-up-heading</td>
+<td colspan="2">C-o C-u</td>
+</tr>
+<tr></tr>
+</tbody>
+</table></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2869047" href="#id2869047" class="para">47</a>] </sup><code class="filename">docbook-xml-mode.el</code>中定义 docbook-xml-mode-hook，模式启动时运行钩子代码</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s16.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s18.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">服务器模式 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 在 Emacs 中使用 sdcv</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

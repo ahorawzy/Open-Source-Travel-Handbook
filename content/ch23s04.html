@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>PHP&amp;MySQL</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch23.html" title="第 23 章 服务器">
+<link rel="prev" href="ch23s03.html" title="Lighttpd">
+<link rel="next" href="ch23s05.html" title="PureFTPD">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">PHP&amp;MySQL</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch23s03.html">上一页</a> </td>
+<th width="60%" align="center">第 23 章 服务器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch23s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="php-setup"></a>PHP&amp;MySQL</h2></div></div></div>
+<p>PHP 的配置文件为 <code class="filename">/etc/php/php.ini</code>，如果与
+  Lighttpd 配合使用，请检查下面语句</p>
+<pre class="screen">
+cgi.fix_pathinfo=1  </pre>
+<p>在 web 服务器根目录下新建一个 <code class="filename">index.php</code> 文件，内容如下：</p>
+<pre class="screen">
+&lt;?php phpinfo(); ?&gt;  </pre>
+<p>访问这个页面，查看本服务器的 PHP 信息</p>
+<p> </p>
+<p>与 Lighttpd 和 PHP 一样，MySQL 也进入了大多数发行版的软件仓库，使用包管系统安装，参见<a class="xref" href="ch16s03.html#pkg-manage" title="表 16.1. 包管理系统">表 16.1 “包管理系统”</a></p>
+<p>MySQL 安装后，可能需要重设密码：</p>
+<pre class="screen">
+<span class="database">## 停止 MySQL 服务器</span>
+/etc/init.d/mysqld stop
+<span class="database">## 使用单用户维护模式运行</span>
+mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp;
+<span class="database">## 使用 root 身份，进入名为 <code class="filename">mysql</code> 的数据库</span>
+mysql -u root <code class="filename">mysql</code>
+<span class="database">## 更新 表<code class="filename">user</code> 中，<code class="filename">USER</code>项 值为“root”的行，</span>
+<span class="database">## 设定这一行 <code class="filename">Password</code>项 的值，PASSWORD()函数用来给密码加密    </span>
+mysql&gt; UPDATE <code class="filename">user</code> SET <code class="filename">Password</code>=PASSWORD('这里设置密码') where <code class="filename">USER</code>='root';
+mysql&gt; FLUSH PRIVILEGES;
+mysql&gt; quit
+<span class="database">## 重启 MySQL 服务器</span>
+/etc/init.d/mysqld restart
+
+<span class="database">## 测试 MySQL 是否运行 </span>
+$ mysqladmin -uroot -pmypasswd ping
+mysqld is alive
+<span class="database">## 测试 MySQL 密码</span>
+$ mysql -uroot -p
+Enter password:
+<span class="database">## 如果密码正确，会输出以下内容</span>
+Welcome to the MySQL monitor. Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.0.44-log Gentoo Linux mysql-5.0.44
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+mysql&gt;
+  </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch23s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch23.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch23s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Lighttpd </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> PureFTPD</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

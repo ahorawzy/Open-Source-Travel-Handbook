@@ -1,0 +1,467 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Zsh 配置文件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch30.html" title="第 30 章 终极 Shell -- ZSH">
+<link rel="prev" href="ch30s03.html" title="Zsh 的强大特性">
+<link rel="next" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Zsh 配置文件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch30s03.html">上一页</a> </td>
+<th width="60%" align="center">第 30 章 终极 Shell -- ZSH</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2903855"></a>Zsh 配置文件</h2></div></div></div>
+<div class="example">
+<a name="id2903860"></a><p class="title"><b>例 30.1. Zsh 配置文件 <code class="filename">.zshrc</code></b></p>
+<div class="example-contents">
+<pre class="screen">
+<span class="database">#命令提示符 {{{</span>
+RPROMPT=$(echo '%{\033[31m%}%D %T%{\033[m%}')
+PROMPT=$(echo '%{\033[34m%}%M%{\033[32m%}%/
+%{\033[36m%}%n %{\033[01;31m%}&gt;%{\033[33m%}&gt;%{\033[34m%}&gt;%{\033[m%} ')
+<span class="database">#}}}</span>
+
+<span class="database">#标题栏、任务栏样式{{{</span>
+case $TERM in (*xterm*|*rxvt*|(dt|k|E)term)
+   precmd () { print -Pn "\e]0;%n@%M//%/\a" }
+   preexec () { print -Pn "\e]0;%n@%M//%/\ $1\a" }
+   ;;
+esac
+<span class="database">#}}}</span>
+
+<span class="database">#关于历史纪录的配置 {{{</span>
+<span class="database">#历史纪录条目数量</span>
+export HISTSIZE=10000
+<span class="database">#注销后保存的历史纪录条目数量</span>
+export SAVEHIST=10000
+<span class="database">#历史纪录文件</span>
+#export HISTFILE=~/.zhistory
+<span class="database">#以附加的方式写入历史纪录</span>
+setopt INC_APPEND_HISTORY
+<span class="database">#如果连续输入的命令相同，历史纪录中只保留一个</span>
+setopt HIST_IGNORE_DUPS      
+<span class="database">#为历史纪录中的命令添加时间戳      </span>
+setopt EXTENDED_HISTORY      
+
+<span class="database">#启用 cd 命令的历史纪录，cd -[TAB]进入历史路径</span>
+setopt AUTO_PUSHD
+<span class="database">#相同的历史路径只保留一个</span>
+setopt PUSHD_IGNORE_DUPS
+
+<span class="database">#在命令前添加空格，不将此命令添加到纪录文件中</span>
+#setopt HIST_IGNORE_SPACE      
+<span class="database">#}}}</span>
+
+<span class="database">#每个目录使用独立的历史纪录{{{</span>
+cd() {
+    builtin cd "$@"                             <span class="database"># do actual cd</span>
+    fc -W                                       <span class="database"># write current history  file</span>
+    local HISTDIR="$HOME/.zsh_history$PWD"      <span class="database"># use nested folders for history</span>
+        if  [ ! -d "$HISTDIR" ] ; then          <span class="database"># create folder if needed</span>
+            mkdir -p "$HISTDIR"
+        fi
+        export HISTFILE="$HISTDIR/zhistory"     <span class="database"># set new history file</span>
+    touch $HISTFILE
+    local ohistsize=$HISTSIZE
+        HISTSIZE=0                              <span class="database"># Discard previous dir's history</span>
+        HISTSIZE=$ohistsize                     <span class="database"># Prepare for new dir's history</span>
+    fc -R                                       <span class="database">#read from current histfile</span>
+}
+mkdir -p $HOME/.zsh_history$PWD
+export HISTFILE="$HOME/.zsh_history$PWD/zhistory"
+
+function allhistory { cat $(find $HOME/.zsh_history -name zhistory) }
+function convhistory {
+            sort $1 | uniq |
+            sed 's/^:\([ 0-9]*\):[0-9]*;\(.*\)/\1::::::\2/' |
+            awk -F"::::::" '{ $1=strftime("%Y-%m-%d %T",$1) "|"; print }'  
+}
+<span class="database">#使用 histall 命令查看全部历史纪录</span>
+function histall { convhistory =(allhistory) |
+            sed '/^.\{20\} *cd/i\\' }
+<span class="database">#使用 hist 查看当前目录历史纪录</span>
+function hist { convhistory $HISTFILE }
+
+<span class="database">#全部历史纪录 top44</span>
+function top44 { allhistory | awk -F':[ 0-9]*:[0-9]*;' '{ $1="" ; print }' | sed 's/ /\n/g' | sed '/^$/d' | sort | uniq -c | sort -nr | head -n 44 }
+
+<span class="database">#}}}</span>
+
+<span class="database">#杂项 {{{</span>
+<span class="database">#允许在交互模式中使用注释  例如：</span>
+#cmd <span class="database">#这是注释</span>
+setopt INTERACTIVE_COMMENTS      
+      
+<span class="database">#启用自动 cd，输入目录名回车进入目录</span>
+<span class="database">#稍微有点混乱，不如 cd 补全实用</span>
+#setopt AUTO_CD
+      
+<span class="database">#扩展路径</span>
+<span class="database">#/v/c/p/p =&gt; /var/cache/pacman/pkg</span>
+setopt complete_in_word
+      
+<span class="database">#禁用 core dumps</span>
+limit coredumpsize 0
+
+<span class="database">#Emacs风格 键绑定</span>
+bindkey -e
+<span class="database">#设置 [DEL]键 为向后删除</span>
+bindkey "\e[3~" delete-char
+
+<span class="database">#以下字符视为单词的一部分</span>
+WORDCHARS='*?_-[]~=&amp;;!#$%^(){}&lt;&gt;'
+<span class="database">#}}}</span>
+
+<span class="database">#自动补全功能 {{{</span>
+setopt AUTO_LIST
+setopt AUTO_MENU
+<span class="database">#开启此选项，补全时会直接选中菜单项</span>
+<span class="database">#setopt MENU_COMPLETE</span>
+
+autoload -U compinit
+compinit
+
+<span class="database">#自动补全缓存</span>
+#zstyle ':completion::complete:*' use-cache on
+#zstyle ':completion::complete:*' cache-path .zcache
+#zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+<span class="database">#自动补全选项</span>
+zstyle ':completion:*:match:*' original only
+zstyle ':completion::prefix-1:*' completer _complete
+zstyle ':completion:predict:*' completer _complete
+zstyle ':completion:incremental:*' completer _complete _correct
+zstyle ':completion:*' completer _complete _prefix _correct _prefix _match _approximate
+
+<span class="database">#路径补全</span>
+zstyle ':completion:*' expand 'yes'
+zstyle ':completion:*' squeeze-shlashes 'yes'
+zstyle ':completion::complete:*' '\\'
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*:*:default' force-list always
+
+<span class="database">#彩色补全菜单 </span>
+eval $(dircolors -b) 
+export ZLSCOLORS="${LS_COLORS}"
+zmodload zsh/complist
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+<span class="database">#修正大小写</span>
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+<span class="database">#错误校正      </span>
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+<span class="database">#kill 命令补全      </span>
+compdef pkill=kill
+compdef pkill=killall
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:*:*:processes' force-list always
+zstyle ':completion:*:processes' command 'ps -au$USER'
+
+<span class="database">#补全类型提示分组 </span>
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
+zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
+zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
+<span class="database">#}}}</span>
+
+<span class="database">##行编辑高亮模式 {{{</span>
+<span class="database"># Ctrl+@ 设置标记，标记和光标点之间为 region</span>
+zle_highlight=(region:bg=magenta #选中区域 
+               special:bold      #特殊字符
+               isearch:underline)#搜索时使用的关键字
+<span class="database">#}}}</span>
+
+<span class="database">##空行(光标在行首)补全 "cd " {{{</span>
+user-complete(){
+    case $BUFFER in
+        "" )                       <span class="database"># 空行填入 "cd "</span>
+            BUFFER="cd "
+            zle end-of-line
+            zle expand-or-complete
+            ;;
+        "cd --" )                  <span class="database"># "cd --" 替换为 "cd +"</span>
+            BUFFER="cd +"
+            zle end-of-line
+            zle expand-or-complete
+            ;;
+        "cd +-" )                  <span class="database"># "cd +-" 替换为 "cd -"</span>
+            BUFFER="cd -"
+            zle end-of-line
+            zle expand-or-complete
+            ;;
+        * )
+            zle expand-or-complete
+            ;;
+    esac
+}
+zle -N user-complete
+bindkey "\t" user-complete
+<span class="database">#}}}</span>
+
+<span class="database">##在命令前插入 sudo {{{</span>
+<span class="database">#定义功能 </span>
+sudo-command-line() {
+    [[ -z $BUFFER ]] &amp;&amp; zle up-history
+    [[ $BUFFER != sudo\ * ]] &amp;&amp; BUFFER="sudo $BUFFER"
+    zle end-of-line                 <span class="database">#光标移动到行末</span>
+}
+zle -N sudo-command-line
+<span class="database">#定义快捷键为： [Esc] [Esc]</span>
+bindkey "\e\e" sudo-command-line
+<span class="database">#}}}</span>
+  
+<span class="database">#命令别名 {{{</span>
+alias -g cp='cp -i'
+alias -g mv='mv -i'
+alias -g rm='rm -i'
+alias -g ls='ls -F --color=auto'
+alias -g ll='ls -l'
+alias -g grep='grep --color=auto'
+alias -g ee='emacsclient -t'
+
+<span class="database">#[Esc][h] man 当前命令时，显示简短说明 </span>
+alias run-help &gt;&amp;/dev/null &amp;&amp; unalias run-help
+autoload run-help
+
+<span class="database">#历史命令 top10</span>
+alias top10='print -l  ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+<span class="database">#}}}</span>
+
+<span class="database">#路径别名 {{{</span>
+<span class="database">#进入相应的路径时只要 cd ~xxx</span>
+hash -d WWW="/home/lighttpd/html"
+hash -d ARCH="/mnt/arch"
+hash -d PKG="/var/cache/pacman/pkg"
+hash -d E="/etc/env.d"
+hash -d C="/etc/conf.d"
+hash -d I="/etc/rc.d"
+hash -d X="/etc/X11"
+hash -d BK="/home/r00t/config_bak"
+<span class="database">#}}}</span>
+    
+<span class="database">##for Emacs {{{</span>
+<span class="database">#在 Emacs终端 中使用 Zsh 的一些设置 不推荐在 Emacs 中使用它</span>
+if [[ "$TERM" == "dumb" ]]; then
+setopt No_zle
+PROMPT='%n@%M %/
+&gt;&gt;'
+alias ls='ls -F'
+fi 	
+<span class="database">#}}}</span>
+
+<span class="database">#{{{自定义补全</span>
+<span class="database">#补全 ping</span>
+zstyle ':completion:*:ping:*' hosts 192.168.128.1{38,} www.g.cn \
+       192.168.{1,0}.1{{7..9},}
+
+<span class="database">#补全 ssh scp sftp 等</span>
+my_accounts=(
+{r00t,root}@{192.168.1.1,192.168.0.1}
+kardinal@linuxtoy.org
+123@211.148.131.7
+)
+zstyle ':completion:*:my-accounts' users-hosts $my_accounts
+<span class="database">#}}}</span>
+
+<span class="database">####{{{</span>
+function calc { echo $(($@)) }
+function timeconv { date -d @$1 +"%Y-%m-%d %T" }
+
+<span class="database"># }}}</span>
+
+
+<span class="database">## END OF FILE #################################################################</span>
+<span class="database"># vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4 </span></pre>
+<p>这是一种效果超炫的提示符，把上面与提示符相关的配置语句注释掉，加入下面代码</p>
+<pre class="screen">
+<span class="database">#效果超炫的提示符</span>
+
+function precmd {
+
+local TERMWIDTH
+(( TERMWIDTH = ${COLUMNS} - 1 ))
+
+
+###
+# Truncate the path if it's too long.
+
+PR_FILLBAR=""
+PR_PWDLEN=""
+
+local promptsize=${#${(%):---(%n@%m:%l)---()--}}
+local pwdsize=${#${(%):-%~}}
+
+if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
+((PR_PWDLEN=$TERMWIDTH - $promptsize))
+else
+PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
+fi
+
+
+###
+# Get APM info.
+
+#if which ibam &gt; /dev/null; then
+#PR_APM_RESULT=`ibam --percentbattery`
+#elif which apm &gt; /dev/null; then
+#PR_APM_RESULT=`apm`
+#fi
+}
+
+
+setopt extended_glob
+preexec () {
+if [[ "$TERM" == "screen" ]]; then
+local CMD=${1[(wr)^(*=*|sudo|-*)]}
+echo -n "\ek$CMD\e\\"
+fi
+}
+
+setprompt () {
+###
+# Need this so the prompt will work.
+
+setopt prompt_subst
+
+
+###
+# See if we can use colors.
+
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+(( count = $count + 1 ))
+done
+PR_NO_COLOUR="%{$terminfo[sgr0]%}"
+
+
+###
+# See if we can use extended characters to look nicer.
+
+typeset -A altchar
+set -A altchar ${(s..)terminfo[acsc]}
+PR_SET_CHARSET="%{$terminfo[enacs]%}"
+PR_SHIFT_IN="%{$terminfo[smacs]%}"
+PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+PR_HBAR=${altchar[q]:--}
+#PR_HBAR=" "
+PR_ULCORNER=${altchar[l]:--}
+PR_LLCORNER=${altchar[m]:--}
+PR_LRCORNER=${altchar[j]:--}
+PR_URCORNER=${altchar[k]:--}
+
+
+###
+# Decide if we need to set titlebar text.
+
+case $TERM in
+xterm*)
+PR_TITLEBAR=$'%{\e]0;%(!.-=*[ROOT]*=- | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\a%}'
+;;
+screen)
+PR_TITLEBAR=$'%{\e_screen \005 (\005t) | %(!.-=[ROOT]=- | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\e\\%}'
+;;
+*)
+PR_TITLEBAR=''
+;;
+esac
+
+
+###
+# Decide whether to set a screen title
+if [[ "$TERM" == "screen" ]]; then
+PR_STITLE=$'%{\ekzsh\e\\%}'
+else
+PR_STITLE=''
+fi
+
+
+###
+# APM detection
+
+#if which ibam &gt; /dev/null; then
+#PR_APM='$PR_RED${${PR_APM_RESULT[(f)1]}[(w)-2]}%%(${${PR_APM_RESULT[(f)3]}[(w)-1]})$PR_LIGHT_BLUE:'
+#elif which apm &gt; /dev/null; then
+#PR_APM='$PR_RED${PR_APM_RESULT[(w)5,(w)6]/\% /%%}$PR_LIGHT_BLUE:'
+#else
+PR_APM=''
+#fi
+
+
+###
+# Finally, the prompt.
+
+PROMPT='$PR_SET_CHARSET$PR_STITLE${(e)PR_TITLEBAR}\
+$PR_CYAN$PR_SHIFT_IN$PR_ULCORNER$PR_BLUE$PR_HBAR$PR_SHIFT_OUT(\
+$PR_GREEN%(!.%SROOT%s.%n)$PR_GREEN@%m:%l\
+$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_HBAR${(e)PR_FILLBAR}$PR_BLUE$PR_HBAR$PR_SHIFT_OUT(\
+$PR_MAGENTA%$PR_PWDLEN&lt;...&lt;%~%&lt;&lt;\
+$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_URCORNER$PR_SHIFT_OUT\
+
+$PR_CYAN$PR_SHIFT_IN$PR_LLCORNER$PR_BLUE$PR_HBAR$PR_SHIFT_OUT(\
+%(?..$PR_LIGHT_RED%?$PR_BLUE:)\
+${(e)PR_APM}$PR_YELLOW%D{%H:%M}\
+$PR_LIGHT_BLUE:%(!.$PR_RED.$PR_WHITE)%#$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_NO_COLOUR '
+
+RPROMPT=' $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_BLUE$PR_HBAR$PR_SHIFT_OUT\
+($PR_YELLOW%D{%a,%b%d}$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_CYAN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
+
+PS2='$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_BLUE$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_LIGHT_GREEN%_$PR_BLUE)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
+}
+
+setprompt      </pre>
+</div>
+</div>
+<br class="example-break">
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch30s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch30.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Zsh 的强大特性 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 31 章 完美工作站 Archlinux</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

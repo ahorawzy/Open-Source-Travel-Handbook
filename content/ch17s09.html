@@ -1,0 +1,415 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>用户管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch17.html" title="第 17 章 核心工具集">
+<link rel="prev" href="ch17s08.html" title="权限管理">
+<link rel="next" href="ch17s10.html" title="进程管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">用户管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch17s08.html">上一页</a> </td>
+<th width="60%" align="center">第 17 章 核心工具集</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17s10.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2831205"></a>用户管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831210"></a>细节</h3></div></div></div>
+<p>
+        root 用户为根用户,也就是系统管理员,拥有全部权限
+    </p>
+<p>
+      一个用户只能拥有一个 群组编号 ，但是还可以归属于其它附加群组
+    </p>
+<p>
+      用户管理的重要配置文件：
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>/etc/passwd </td>
+<td>用户名 密码位 用户编号 归属群组编号 姓名 $HOME目录 登录Shell</td>
+</tr>
+<tr>
+<td>/etc/shadow</td>
+<td>用户名 已加密密码 密码改动信息 密码策略</td>
+</tr>
+<tr>
+<td>/etc/group</td>
+<td>群组名 密码位 群组编号 组内用户</td>
+</tr>
+<tr>
+<td>/etc/gshadow</td>
+<td>群组密码相关文件</td>
+</tr>
+<tr>
+<td>/etc/sudoers</td>
+<td>用户名 权限定义 权限</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+	请使用“<span class="command"><strong>visudo</strong></span>”命令修改<code class="filename">/etc/sudoers</code>，而不要直接编辑
+        </li>
+<li>
+	可以使用 <span class="command"><strong>pwconv</strong></span> 命令创建影子密码，将 <code class="filename">/etc/passwd</code> 文件中的密码转换到 <code class="filename">/etc/shadow</code> 文件
+    </li>
+</ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831321"></a>su [用户名]</h3></div></div></div>
+<p>
+      切换到其它用户，默认切换到 root用户。提示密码为目标用户密码
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-f</td>
+<td>快速切换，忽略配置文件</td>
+</tr>
+<tr>
+<td>- | -l</td>
+<td>重新登录</td>
+</tr>
+<tr>
+<td>-m |-p </td>
+<td>不更改环境变量</td>
+</tr>
+<tr>
+<td>-c 命令</td>
+<td>切换后执行命令，并退出切换</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831373"></a>sudo 命令</h3></div></div></div>
+<p>
+      以其它用户的身份执行命令，默认以 root 的身份执行。提示密码为当前用户密码
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-s</td>
+<td>切换为 root shell</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>切换为 root shell，并初始化</td>
+</tr>
+<tr>
+<td>-u 用户名|用户编号</td>
+<td>执行命令的身份</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>显示自己的权限</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831426"></a>passwd [用户名]</h3></div></div></div>
+<p>
+      设定用户密码
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-d</td>
+<td>清除密码</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>锁定账户</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>使密码过期，在下次登录时更改密码</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>显示密码认证信息</td>
+</tr>
+<tr>
+<td>-x 天数</td>
+<td>密码过期，最大使用时间</td>
+</tr>
+<tr>
+<td>-n 天数</td>
+<td>冻结密码，最小使用时间</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>更改 登录Shell</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>更改用户信息</td>
+</tr>
+</tbody>
+</table></div>
+<p>  
+      示例：
+    </p>
+<pre class="screen">
+$passwd
+Changing password for user
+(current) UNIX password:      #原密码
+Enter new UNIX password:      #新密码
+Retype new UNIX password:     #确认新密码    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831518"></a>gpasswd 群组名</h3></div></div></div>
+<p>
+      更改群组
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-a 用户名</td>
+<td>将用户加入群组</td>
+</tr>
+<tr>
+<td>-d 用户名</td>
+<td>将用户从群组中删除</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>删除密码</td>
+</tr>
+<tr>
+<td>-A 用户名</td>
+<td>将用户设置为群组管理员(群组管理员或 root 才可以使用 gpasswd 命令）</td>
+</tr>
+<tr>
+<td>-M 用户1,用户2……</td>
+<td>设置群组成员</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831575"></a>chsh -s Shell [用户名]</h3></div></div></div>
+<p>
+      更改登录 Shell
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831587"></a>usermod 用户名</h3></div></div></div>
+<p>
+      修改用户账号
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-d 目录</td>
+<td>设定 $HOME 目录</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>设定 $HOME 目录时自动建立该目录</td>
+</tr>
+<tr>
+<td>-s Shell</td>
+<td>修改用户 登录Shell</td>
+</tr>
+<tr>
+<td>-l 新登录名</td>
+<td>修改为新登录名</td>
+</tr>
+<tr>
+<td>-u 用户编号</td>
+<td>修改用户编号</td>
+</tr>
+<tr>
+<td>g 群组名</td>
+<td>修改用户归属群组</td>
+</tr>
+<tr>
+<td>-G 群组名</td>
+<td>修改用户归属辅组</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>锁定帐户</td>
+</tr>
+<tr>
+<td>-U</td>
+<td>解除锁定</td>
+</tr>
+<tr>
+<td>-e 过期时间</td>
+<td>设定用户账号过期时间</td>
+</tr>
+<tr>
+<td>-f 缓冲天数</td>
+<td>设定密码过期后多长时间关闭账号</td>
+</tr>
+<tr>
+<td>-c 字符串</td>
+<td>修改用户备注</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831692"></a>useradd 用户名</h3></div></div></div>
+<p>
+      新建用户
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-d 目录</td>
+<td>设定 $HOME 目录</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>自动建立 $HOME 目录</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>不自动建立 $HOME 目录</td>
+</tr>
+<tr>
+<td>-s Shell</td>
+<td>设定用户 登录Shell</td>
+</tr>
+<tr>
+<td>-u 用户编号</td>
+<td>设定用户编号</td>
+</tr>
+<tr>
+<td>-g 群组名</td>
+<td>设定用户归属群组</td>
+</tr>
+<tr>
+<td>-G 群组名</td>
+<td>设定用户归属附加群组</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>不建立以用户名为名称的群组</td>
+</tr>
+<tr>
+<td>-e 过期时间</td>
+<td>设定用户账号过期时间</td>
+</tr>
+<tr>
+<td>-f 缓冲天数</td>
+<td>设定密码过期后多长时间关闭账号</td>
+</tr>
+<tr>
+<td>-c 字符串</td>
+<td>设定用户备注</td>
+</tr>
+<tr>
+<td>-D [表达式]</td>
+<td>更改预设值 （预设值保存于 /etc/default/useradd 文件中）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+	新建用户规则保存于 <code class="filename">/etc/login.defs</code> 文件中
+    </li>
+<li>
+	新建用户默认文件保存于 <code class="filename">/etc/skel/</code> 目录中。新建用户时，系统自动拷贝此目录下的文件至新建用户的 <code class="filename">$HOME</code> 目录
+      </li>
+</ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831831"></a>userdel 用户名</h3></div></div></div>
+<p>
+      删除用户
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody><tr>
+<td>-r </td>
+<td>删除用户相关文件和目录</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2831861"></a>id [用户名]</h3></div></div></div>
+<p>
+      显示用户 用户编号 群组编号 归属附加群组
+    </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch17s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch17.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17s10.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">权限管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 进程管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>第 7 章 病毒</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="pt01.html" title="部分 I. 气候">
+<link rel="prev" href="ch06s13.html" title="附录: 我用来处理日常事务的 Linux 程序">
+<link rel="next" href="ch07s02.html" title="Windows 的缺陷">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">第 7 章 病毒</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch06s13.html">上一页</a> </td>
+<th width="60%" align="center">部分 I. 气候</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch07s02.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id2813558"></a>第 7 章 病毒</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="ch07.html#id2814200">引言</a></span></dt>
+<dt><span class="sect1"><a href="ch07s02.html">Windows 的缺陷</a></span></dt>
+<dt><span class="sect1"><a href="ch07s03.html">Unix 的健壮</a></span></dt>
+<dt><span class="sect1"><a href="ch07s04.html">历史</a></span></dt>
+</dl>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2814200"></a>引言</h2></div></div></div>
+<div class="epigraph">
+<p>这是一个非常流行的言论：</p>
+<p>Linux 下的病毒少，是因为 Linux 的使用者少，骇客显然不愿意浪费气力去攻击没有人使用的操作系统。</p>
+</div>
+<p>您可能已经知道了，互联网上用作重要用途的服务器，其中很大一部分是 Linux 系统，另外的一部分是 Unix 系统：） 如果骇客能够搞掉 Linux 系统的话，那么整个互联网就会陷于瘫痪！效果似乎更好一些。</p>
+<p>当然了，您一定会想：骇客也是人，他们也喜欢上网，兔子还不吃窝边草呢……兔子那么笨，连乌龟都跑不过……骇客们可比兔子要聪明的多了！它们总没有理由让自己无家可归吧?</p>
+<p>是的，我承认这一点……不过他们也不一定非得把互联网干掉。很多骇客作梦都想入侵美国军方的服务器，美军服务器中的绝密数据，我想拉登大叔一定愿意以重金买下的!</p>
+<p>如果骇客可以入侵任何一台主机<sup>[<a name="id2813602" href="#ftn.id2813602" class="footnote">16</a>]</sup>，他们为什么不去入侵美军的服务器，而要入侵您的电脑呢？</p>
+<p>有些人又会认为：这样的解释不能说明什么，Linux 比 Windows 安全也许只是偶然的，或许下一个版本的 Windows 会超过 Linux。</p>
+<p>个人倾向认为这种情况不可能出现，后面的论述基本摘自《UNIX 编程艺术》<sup>[<a name="id2814231" href="#ftn.id2814231" class="footnote">17</a>]</sup></p>
+<p> </p>
+<p>顺带提一下，与上面的观点相呼应，另一种论调也使人侧目：Windows 服务器占到了服务器操作系统xx%的份额。</p>
+<p>或许这个现象可以用80：20法则来解释：</p>
+<p><span class="emphasis"><em>占服务器总数80%的 Windows 提供了服务总量的20%</em></span></p>
+<p>请您务必注意，这只是举一个例子，Windows 服务器可能永远也不会占到服务器总数的80%！它提供的服务，以我个人的角度，我不认为可以达到20%，而且永远不会有那一天。</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2813602" href="#id2813602" class="para">16</a>] </sup>我看过一篇报道，美国海军的一个港口的指挥塔，以前用 Windows，每天不得不重启主机N次，后来实在扛不住，转用了 Linux。指挥塔只不过是指挥几艘小船靠个岸，负载不大，也不是特别重要，尚且不可以用 Windows，军方的中央服务器就更不可能了</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2814231" href="#id2814231" class="para">17</a>] </sup>这本书算是开源信仰的《福音书》，建议弄一本看看。由于这本书实在太长了，所以我就不全文摘抄了</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch06s13.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="pt01.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch07s02.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">附录: 我用来处理日常事务的 Linux 程序 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Windows 的缺陷</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

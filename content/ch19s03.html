@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>架构及原理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch19.html" title="第 19 章 图形界面">
+<link rel="prev" href="ch19s02.html" title="简介">
+<link rel="next" href="ch19s04.html" title="窗口管理器">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">架构及原理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch19s02.html">上一页</a> </td>
+<th width="60%" align="center">第 19 章 图形界面</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch19s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2845746"></a>架构及原理</h2></div></div></div>
+<p>
+      Xwindow 使用服务器－客户端架构。无论本地图形界面，还是远程图形界面，都以同样的流程工作。这样便不需要分别进行设计和维护。
+    </p>
+<pre class="screen">
+本地X客户端 ┐                        ┌ 键盘
+远程X客户端 ┼ X协议 ─ X服务器 ─ 驱动程序┼ 鼠标
+远程X客户端 ┘                        └ 显示器    </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2846379"></a>Xserver</h3></div></div></div>
+<p>
+      Xwindow 系统服务器端，通过驱动程序（硬件规范）来管理硬件资源。
+    </p>
+<p>
+      例如：当我们移动鼠标时，通过驱动程序<sup>[<a name="id2846395" href="#ftn.id2846395" class="footnote">32</a>]</sup> ，向 Xserver 发送信息： </p>
+<div class="literallayout"><p>    <br>
+      “向右移动200点，向上移动100点”（向右上移动）；“按下左键”……<br>
+</p></div>
+<p>
+      Xserver 作出如下响应：
+    </p>
+<div class="orderedlist"><ol type="1">
+<li>
+        上一次鼠标停止的坐标为 600,500
+      </li>
+<li>
+        向右 200，向上 100。现在鼠标位于坐标 800,600
+      </li>
+<li>
+        坐标 800,600 处，为窗口 Firefox 的“关闭”按钮
+      </li>
+<li>
+        根据预设动作，将 “点击 Firefox 窗口的关闭按钮” 翻译为 “关闭窗口 Firefox”
+      </li>
+<li>
+        向X客户端 Firefox 发送一个“退出”消息
+      </li>
+<li>
+        Xserver 通过显示子系统（显卡、显示器），全程显示鼠标的位置和移动
+      </li>
+</ol></div>
+<div class="itemizedlist"><ul type="disc"><li>
+      事实上，向程序发送“退出”信号，通常窗口管理器完成。为了描述方便，这里暂不区分。稍后，我们将向您介绍 <a class="link" href="ch19s04.html" title="窗口管理器">窗口管理器</a> 的其它一些细节。
+    </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2846487"></a>Xclient</h3></div></div></div>
+<p>
+      Xwindow 系统客户端，通过 X协议，实现与 Xserver 的交互。例如：
+    </p>
+<div class="orderedlist"><ol type="1">
+<li>
+        Xclient （假设 Firefox） 接收 Xserver 的消息： 输入焦点在地址栏的范围内，“linuxtoy.org”，回车
+      </li>
+<li>
+        Firefox 根据预设动作，将这些消息识别为 “打开链接 linuxtoy.org”
+      </li>
+<li>
+    Firefox 向域名服务器请求 链接 “linuxtoy.org”。域名服务器将这个请求转换为 “http://linuxtoy.org/” 和 IP地址211.148.131.7，发送回 Firefox
+  </li>
+<li>
+    Firefox 将 “http://linuxtoy.org/”显示在地址栏（向 Xserver 发送请求，在地址栏位置显示这个地址）
+  </li>
+<li>
+        Firefox 向地址 211.148.131.7 请示显示页面
+      </li>
+<li>
+        Firefox 将服务器发送回的页面显示在主窗口中
+      </li>
+</ol></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2846552"></a>Xprotocol</h3></div></div></div>
+<p>
+      Xwindow 系统协议，Xserver 和 Xclient 之间进行通信的规则
+    </p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2846395" href="#id2846395" class="para">32</a>] </sup>大多数的鼠标不需要专门的驱动程序，因为它们符合某一硬件规范，例如：有四个移动方向和三个键</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch19s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch19.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch19s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 窗口管理器</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>XML 语法</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s02.html" title="XML 简介">
+<link rel="next" href="ch27s04.html" title="DocBook 介绍">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">XML 语法</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s02.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2880677"></a>XML 语法</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2880683"></a>标记</h3></div></div></div>
+<p>XML 使用 <strong class="userinput"><code>&lt; &gt;</code></strong> 来定义标记</p>
+<p>所有的 XML 标记必须结束。<strong class="userinput"><code>&lt;para&gt;</code></strong>必须有一个与之配对的<strong class="userinput"><code>&lt;/para&gt;</code></strong>；或者使用空标记，例如<strong class="userinput"><code>&lt;para/&gt;</code></strong></p>
+<p>XML 标记大小写敏感。<strong class="userinput"><code>&lt;para&gt;</code></strong>和<strong class="userinput"><code>&lt;PARA&gt;</code></strong>是两个不同的标记；在 Docbook 中，所有的标记都是小写的</p>
+<p>标记必须正确的嵌套，不允许相互嵌套</p>
+<pre class="screen">
+&lt;section&gt;&lt;para&gt;&lt;/section&gt;&lt;/para&gt;  错误
+
+&lt;section&gt;&lt;para&gt;&lt;/para&gt;&lt;/section&gt;  正确  </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2880753"></a>元素</h3></div></div></div>
+<p>XML 使用开始标记和结束标记来定义元素。例如<strong class="userinput"><code>&lt;para&gt;段落&lt;/para&gt;</code></strong>；或者使用空标记，例如<strong class="userinput"><code>&lt;xref linkend="ln"/&gt;</code></strong></p>
+<p>元素可以带有一个或多个属性，也可以不带属性。属性值必须加引号，例如<strong class="userinput"><code>&lt;para id="p1"&gt;</code></strong></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2880788"></a>处理指令</h3></div></div></div>
+<p>使用<strong class="userinput"><code>&lt;? ?&gt;</code></strong>括起来，例如：<strong class="userinput"><code>&lt;?linebreak?&gt;</code></strong>插入一个断行符<a class="link" href="ch27s22.html#db-linebreak" title="断行符">参见</a></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2880818"></a>文件头部</h3></div></div></div>
+<pre class="screen">
+&lt;?<a name="docbook09"></a><img src="images/callouts/1.png" alt="1" border="0">xml version='1.0'<a name="docbook11"></a><img src="images/callouts/2.png" alt="2" border="0"> encoding="UTF-8"<a name="docbook12"></a><img src="images/callouts/3.png" alt="3" border="0">?&gt;
+&lt;!DOCTYPE<a name="docbook10"></a><img src="images/callouts/4.png" alt="4" border="0"> article<a name="docbook13"></a><img src="images/callouts/5.png" alt="5" border="0">
+PUBLIC "-//OASIS//DTD DocBook XML V4.5/zh_cn"<a name="docbook15"></a><img src="images/callouts/6.png" alt="6" border="0"> "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"<a name="docbook14"></a><img src="images/callouts/7.png" alt="7" border="0">&gt; </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook09"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">处理指令</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook11"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">XML 的版本是1.0</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook12"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">文档的编码是 UTF-8</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook10"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">开始声明 DTD(文档类型定义)</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook13"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">声明文档的根元素是 article</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook15"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">公共标识</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook14"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">系统标识</td>
+</tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="docbook-entity"></a>实体</h3></div></div></div>
+<p>给内容指定一个名称，通过名称引用。引用时以<strong class="userinput"><code>&amp;</code></strong>起始，<strong class="userinput"><code>;</code></strong>结束。</p>
+<p>这样定义一个实体</p>
+<pre class="screen">
+&lt;!ENTITY x "XML"&gt;    </pre>
+<p>输入<strong class="userinput"><code>&amp;x;</code></strong>，XML 会用 <strong class="userinput"><code>XML</code></strong> 替换它</p>
+<p>以上是内部实体，可以通过定义外部实体来引用外部文档</p>
+<pre class="screen">
+&lt;!ENTITY docbook SYSTEM "docbook.xml"&gt;    </pre>
+<p>输入<strong class="userinput"><code>&amp;docbook;</code></strong>，会将<code class="filename">docbook.xml</code>文件中的内容插入到当前位置</p>
+<p>内部实体和外部实体都是普通实体，只能够在 DTD 中定义</p>
+<pre class="screen">
+&lt;?xml version='1.0' encoding="UTF-8"?&gt;
+&lt;!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5/zh_cn"
+               "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" <a name="docbook21"></a><img src="images/callouts/1.png" alt="1" border="0">
+[
+&lt;!ENTITY x "XML"&gt;
+&lt;!ENTITY docbook SYSTEM "docbook.xml"&gt; <a name="docbook22"></a><img src="images/callouts/2.png" alt="2" border="0">
+]&gt;    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这里声明 DTD 的方法是引用外部 DTD</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">自己定义的实体为内部 DTD</td>
+</tr>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+ 内部 DTD 的定义优先于外部 DTD，如果你定义的实体外部 DTD 中已包含，引用时使用的是你自己的定义
+      </li></ul></div>
+<p>有一些特殊字符不能直接插入 XML 中，例如<strong class="userinput"><code>&lt;</code></strong>、<strong class="userinput"><code>&amp;</code></strong>、<strong class="userinput"><code>空格字符</code></strong><sup>[<a name="id2881092" href="#ftn.id2881092" class="footnote">50</a>]</sup>，使用<strong class="userinput"><code>&amp;lt;</code></strong>、<strong class="userinput"><code>&amp;amp;</code></strong>、<strong class="userinput"><code>&amp;nbsp;</code></strong><sup>[<a name="id2881114" href="#ftn.id2881114" class="footnote">51</a>]</sup>输入这些字符</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2881092" href="#id2881092" class="para">50</a>] </sup>不管有多个空格，XML 都认为只有一个</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2881114" href="#id2881114" class="para">51</a>] </sup>它们预先定义在外部 DTD 中<br>参见<code class="filename">/usr/share/xml/docbook/xml-dtd-4.5/ent/isonum.ent</code></p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">XML 简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> DocBook 介绍</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

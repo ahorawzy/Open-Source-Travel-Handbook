@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>登录 ftp服务器</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch42.html" title="第 42 章 使用 lftp">
+<link rel="prev" href="ch42s02.html" title="lftp 简介">
+<link rel="next" href="ch42s04.html" title="lftp 使用方法">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">登录 ftp服务器</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch42s02.html">上一页</a> </td>
+<th width="60%" align="center">第 42 章 使用 lftp</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch42s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2919806"></a>登录 ftp服务器</h2></div></div></div>
+<p>使用以下命令登录 ftp服务器：</p>
+<pre class="screen">
+lftp ftp://用户名[:密码]@服务器地址[:端口] <span class="database">#标准方式，推荐</span>
+lftp 用户名[:密码]@服务器地址[:端口]
+lftp 服务器地址 [-p 端口] -u 用户名[,密码]
+lftp 服务器地址[:端口] -u 用户名[,密码]   </pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+    如果不指定端口，默认 <strong class="userinput"><code>21</code></strong>
+</li>
+<li>
+如果不在命令中使用明文输入密码，连接时会询问密码(推荐)
+    </li>
+</ul></div>
+<p> </p>
+<p>可以使用“书签”收藏服务器站点，在 <span class="application">lftp</span> 中以下命令，为当前站点定义别名： </p>
+<pre class="screen">
+<span class="database">lftp &gt;</span>bookmark           <span class="database">#显示所有收藏</span>
+<span class="database">lftp &gt;</span>bookmark add 别名  <span class="database">#使用 <code class="filename">别名</code> 收藏当前站点</span> </pre>
+<p>使用别名登录 ftp服务器：</p>
+<pre class="screen">
+lftp 别名  </pre>
+<p>也可以编辑 <span class="application">lftp</span> 的配置文件
+    <code class="filename">~/.lftp/bookmarks</code> ，格式如下:</p>
+<pre class="screen">
+别名 ftp://用户名:密码@服务器地址:端口  </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch42s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch42.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch42s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">lftp 简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> lftp 使用方法</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

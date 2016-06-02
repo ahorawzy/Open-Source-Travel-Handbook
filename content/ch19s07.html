@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>字体</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch19.html" title="第 19 章 图形界面">
+<link rel="prev" href="ch19s06.html" title="配置文件">
+<link rel="next" href="ch20.html" title="第 20 章 国际化">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">字体</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch19s06.html">上一页</a> </td>
+<th width="60%" align="center">第 19 章 图形界面</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch20.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2847198"></a>字体</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2847204"></a>freetype 渲染引擎</h3></div></div></div>
+<p>
+      作为 Xorg 服务器的一个模块，freetype 的功能包括读取 Truetype 字体信息，如大小、分辨率、编码等，并以之为依据渲染字体 - freetype2.x 相对于 freetype1.x 增加了抗锯齿等功能 - ( <code class="filename">/etc/X11/xorg.conf</code> 的 Module 字段中，可以选择字体渲染模块 )
+    </p>
+<p>
+    freetype 只负责渲染字体。而查找字体，则可以由 X服务器、X客户端 或者 字体服务器来 完成。找到字体后，使用 freetype 引擎进行渲染
+    </p>
+<div class="glosslist"><dl>
+<dt>X核心字体</dt>
+<dd><p>X服务器根据X客户端的请求（字符编码），查找字体并进行渲染，然后显示</p></dd>
+<dt>Xft字体</dt>
+<dd><p>X客户端自行查找字体并进行渲染，X服务器只负责显示。由于 Xft字体 的渲染在客户端完成，所以它可以动态的加载，而不需要随同X服务器一同启动</p></dd>
+<dt>字体服务器</dt>
+<dd><p>当客户端请求字体时，X服务器将请求转发到字体服务器，由字体服务器查找字体，并使用 freetype 引擎渲染，将结果传回X服务器，X服务器进行显示</p></dd>
+</dl></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2847289"></a>X核心字体</h3></div></div></div>
+<p>
+      <code class="filename">/etc/X11/xorg.conf</code> 中可以配置X核心字体的搜索路径
+    </p>
+<pre class="screen">
+Section "Files"
+FontPath "/usr/X11R6/lib/X11/fonts/misc/"
+FontPath "/usr/X11R6/lib/X11/fonts/Type1/"
+FontPath "/usr/X11R6/lib/X11/fonts/Speedo/"
+FontPath "/usr/X11R6/lib/X11/fonts/100dpi/"
+FontPath "/usr/X11R6/lib/X11/fonts/75dpi/"
+EndSection    </pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+      当X客户端向X服务器请求显示文字的时候，X服务器会按上面列表的先后顺序查找字体。显示中文时，如果第一个路径中的字体不包含中文，则查找下面的路径，直到发现中文字体
+    </li>
+<li>
+        请将您偏好的字体放在靠前的位置
+      </li>
+</ul></div>
+<p>
+      要使安装的字体能够作为X核心字体使用，将字体的安装路径添加到上面的列表中，使用 <span class="application">mkfontscale</span> 、 <span class="application">mkfontdir</span> 扫瞄文件夹中的字体，并生成索引，就可以了（建议使用 <span class="application">ttmkfdir</span> 生成 <code class="filename">fonts.scale</code> ，将其复制为 <code class="filename">fonts.dir</code> ）
+    </p>
+<p>
+      字体的选择及显示风格，可以修改 GTK1 的配置文件，或者在<code class="filename">Xresources</code>文件中对程序单独进行定义
+    </p>
+<p>
+      事实上，在我们的日常应用中，X核心字体环境并不常见，使用 GTK1 图形库的程序、某些类型的终端……
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="xft-font"></a>XFT字体</h3></div></div></div>
+<p>
+      Xft字体相关选项在 <code class="filename">/etc/fonts/fonts.conf</code> 文件中配置
+    </p>
+<pre class="screen">
+&lt;dir&gt;/usr/share/X11/fonts&lt;/dir&gt;
+&lt;dir&gt;/usr/share/fonts&lt;/dir&gt;
+&lt;dir&gt;/usr/local/share/fonts&lt;/dir&gt;
+&lt;dir&gt;~/.fonts&lt;/dir&gt;    </pre>
+<p>
+      可以使用 <span class="command"><strong>fc-cache</strong></span> 命令，递归扫瞄上面目录中的字体（包括子文件夹中的字体），建立字体缓存
+    </p>
+<p>
+      多数支持 GTK2 或者 Qt 图形库的X客户端能够使用 Xft字体 渲染技术<sup>[<a name="id2847446" href="#ftn.id2847446" class="footnote">33</a>]</sup>
+    </p>
+<p>
+      安装字体，只要将字体拷贝到以上任意目录， <span class="command"><strong>fc-cache -fv</strong></span> 刷新字体缓存即可 （选项: <span class="command"><strong>-f</strong></span> 强制刷新; <span class="command"><strong>-v</strong></span> 显示过程）
+    </p>
+<p>
+      使用命令 <span class="command"><strong>fc-list</strong></span> 列出所有可用字体。字体的选择及显示风格，可以修改 GTK2 或者 Qt 的配置文件，建议使用图形界面配置<sup>[<a name="id2847495" href="#ftn.id2847495" class="footnote">34</a>]</sup>
+    </p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2847446" href="#id2847446" class="para">33</a>] </sup>GTK2 为 Gnome 使用的图形库，Qt 为 KDE 使用的图形库。相对来说，GTK2 图形库在程序的 GUI 设计中更加通用</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2847495" href="#id2847495" class="para">34</a>] </sup>一般情况下，桌面环境中附带了相关程序，例如 <span class="application">gnome-font-properties</span></p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch19s06.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch19.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch20.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">配置文件 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 20 章 国际化</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

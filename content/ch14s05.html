@@ -1,0 +1,270 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>bash</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch14.html" title="第 14 章 命令系统">
+<link rel="prev" href="ch14s04.html" title="帮助系统">
+<link rel="next" href="ch14s06.html" title="">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">bash</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch14s04.html">上一页</a> </td>
+<th width="60%" align="center">第 14 章 命令系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch14s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2820534"></a>bash</h2></div></div></div>
+<p>好了，现在我们换了一个遥控器，感觉顺手多了。现在来操练一下，下载一首 mp3：</p>
+<p>我们使用 <span class="application">wget</span> 这个程序，它非常可靠，完全值得您信赖。</p>
+<p>首先找到一个可以下载的地址，复制链接，在终端窗口内点击鼠标中键，把它粘贴进去。</p>
+<p>现在终端中大概是这种情形：</p>
+<pre class="screen">
+    http://linuxtoy.org/xxx.mp3  </pre>
+<p>按下 <strong class="userinput"><code>Ctrl+a</code></strong> 组合键，我们发现光标移动到了行首。输入 <strong class="userinput"><code>wget</code></strong> 和 <strong class="userinput"><code>空格</code></strong></p>
+<pre class="screen">
+    wget http://linuxtoy.org/xxx.mp3  </pre>
+<p>回车后，终端中出现一些信息，不一会儿工夫，mp3 便下载完成。</p>
+<p> </p>
+<p>使用 <strong class="userinput"><code>Ctrl+a</code></strong> 组合键，我们就不需要使用方向键来移动光标，方向键每次只能移动一个字符，没有效率</p>
+<p>您还可以使用 <strong class="userinput"><code>Ctrl+f</code></strong> 向前移动光标， <strong class="userinput"><code>Ctrl+b</code></strong> 向后移动光标， <strong class="userinput"><code>Ctrl+e</code></strong> 将光标移动到行末……（<a class="link" href="ch14s05.html#keybind" title="表 14.1. Emacs风格 键绑定">键绑定</a>）</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">Linux 的图形界面中，鼠标中键通常执行“粘贴”的操作，如果您的鼠标没有中键，您可以左右键同时按下。</td></tr>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2820651"></a>中止正在运行的程序</h3></div></div></div>
+<p>
+          如果一个命令持续时间很长，以致于不能够进行其它操作，可以使用 <strong class="userinput"><code>Ctrl+c</code></strong> 来强行中止它。
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2820671"></a>Ctrl+s</h3></div></div></div>  
+      有时您会不小心按下 <strong class="userinput"><code>Ctrl+s</code></strong> 这个组合键，Shell 便被冻结。尝试使用 <strong class="userinput"><code>Ctrl+q</code></strong> 组合键，看能否恢复正常。
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2820692"></a>键绑定</h3></div></div></div>
+<p>等等，有必要记这么多快捷键么？都这么复杂！</p>
+<p>我们强烈建议您记住，以大幅度的提高操作效率。而且这是 <span class="application">readline</span> 控件的键绑定，在任何使用 <span class="application">readline</span> 控件的程序中，您都可以使用它们。例如 <span class="application">bash</span>、<span class="application">lftp</span>、<span class="application">gdb</span> 等程序;同时，Linux 下倍受追捧的 <span class="application">Emacs</span> 编辑器，也是这种风格的键绑定（其实是 readline 使用了 Emacs风格 的键绑定才对），甚至 <span class="application">FireFox</span> 中，也可以使用类似风格的快捷键！（Linux 下主要有两种风格的键绑定，一种是 Emacs风格，另一种是 Vi风格，我们会在 <a class="xref" href="ch24.html" title="第 24 章 Vim 编辑器">第 24 章 <i>Vim 编辑器</i></a> 中介绍）</p>
+<p>现在列举一些 ReadLine 的键绑定，您可以自行尝试。（运行 <strong class="userinput"><code>man readline</code></strong> 命令，来查看 ReadLine 手册）</p>
+<p>先来了解一些约定：</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+	\C-a 表示 <strong class="userinput"><code>Ctrl+a</code></strong>
+</li>
+<li>
+\M-a 表示 <strong class="userinput"><code>Meta+a</code></strong>  Meta键 在 PC 中通常为 ALT键
+            </li>
+</ul></div>
+<div class="table">
+<a name="keybind"></a><p class="title"><b>表 14.1. Emacs风格 键绑定</b></p>
+<div class="table-contents"><table summary="Emacs风格 键绑定" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td> </td>
+<td colspan="2">向前</td>
+<td colspan="2">向后</td>
+</tr>
+<tr><td colspan="5">移动</td></tr>
+<tr>
+<td>行</td>
+<td>\C-a </td>
+<td>Ahead</td>
+<td>\C-e</td>
+<td>End</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>\C-f</td>
+<td rowspan="2">Forward</td>
+<td>\C-b</td>
+<td rowspan="2">Backward</td>
+</tr>
+<tr>
+<td>单词</td>
+<td>\M-f</td>
+<td>\M-b</td>
+</tr>
+<tr>
+<td>命令</td>
+<td>\C-n</td>
+<td>Next</td>
+<td>\C-p</td>
+<td>Previous</td>
+</tr>
+<tr><td colspan="5">删除</td></tr>
+<tr>
+<td>行</td>
+<td colspan="2">\C-u </td>
+<td colspan="2">\C-k</td>
+</tr>
+<tr>
+<td>字符</td>
+<td colspan="2">\C-h</td>
+<td colspan="2">\C-d</td>
+</tr>
+<tr>
+<td>单词</td>
+<td colspan="2">\C-w</td>
+<td colspan="2">\M-d </td>
+</tr>
+<tr><td colspan="5">搜索</td></tr>
+<tr>
+<td>搜索</td>
+<td colspan="4">\C-r (连续使用 C-r 可以查找下一个)</td>
+</tr>
+<tr>
+<td>浏览搜索结果</td>
+<td colspan="2">\M-n</td>
+<td colspan="2">\M-p</td>
+</tr>
+<tr><td colspan="5">其它</td></tr>
+<tr>
+<td>粘贴</td>
+<td colspan="4">C-y</td>
+</tr>
+<tr>
+<td>撤销</td>
+<td colspan="4">C--</td>
+</tr>
+<tr>
+<td>清空屏幕</td>
+<td colspan="4">C-l</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+      <span class="emphasis"><em>自动补全</em></span>
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>Tab</td>
+<td>使用频率最高的功能！</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>\C-o</td>
+<td>遍历补全</td>
+<td>（未定义）</td>
+</tr>
+<tr>
+<td>\M-?</td>
+<td>列出所有可能选项，相当于按两次 Tab键</td>
+<td>Alt+Shift+/</td>
+</tr>
+<tr>
+<td>\M-#</td>
+<td>注释掉当前命令，用于将当前命令暂存于历史纪录列表</td>
+<td>Alt+Shift+3</td>
+</tr>
+<tr>
+<td>\M-!</td>
+<td>补全命令，通常用来补全子命令，例如 ``sudo`` 的子命令</td>
+<td>Alt+Shift+1</td>
+</tr>
+<tr>
+<td>\M-~</td>
+<td>补全用户名</td>
+<td>Alt+Shift+`</td>
+</tr>
+<tr>
+<td>\M-@</td>
+<td>补全主机名</td>
+<td>Alt+Shift+2</td>
+</tr>
+<tr>
+<td>\M-$</td>
+<td>补全变量</td>
+<td>Alt+Shift+4</td>
+</tr>
+<tr>
+<td>\M-_</td>
+<td>补全历史纪录中的纪录</td>
+<td>Alt+Shift+-</td>
+</tr>
+<tr>
+<td>\M-* </td>
+<td>将所有可能选项放到命令行中</td>
+<td>Alt+Shift+8</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2821188"></a>自定义键绑定</h3></div></div></div>
+<p>通过修改 <code class="filename">/etc/inputrc</code> 文件，可以更改键绑定。建议您使用默认的键绑定，以避免不必要的烦恼。当然了，Emacs风格 的键绑定是通用的，随时都有可能用到。</p>
+<p>在文件中添加该行，可以将 ReadLine 的键绑定设为 VI风格。（Bash、Lftp 等使用 ReadLine 的软件同时生效）</p>
+<pre class="screen">
+set editing-mode vi    </pre>
+<p>  找到这一行：</p>
+<pre class="screen">
+      $if mode=emacs    </pre>
+<p>在它的下面添加如下内容</p>
+<pre class="screen">
+"\C-o": menu-complete
+
+###这两行不是必须的，视情况而定###
+"\C-p": non-incremental-reverse-search-history
+"\C-n": non-incremental-forward-search-history</pre>
+<p>重新登录 Shell，您就可以使用 <strong class="userinput"><code>\C-o</code></strong> （Ctrl+o）来遍历补全。假如您的文件名为中文，或者出现乱码时，您可以使用 <strong class="userinput"><code>\M-*</code></strong> 将所有文件名放入命令行，再删除多余的，这真是麻烦极了！简单一点的方法是使用 <strong class="userinput"><code>\C-o</code></strong> 遍历补全，将所有可能的选项轮流放入命令行。</p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">使用 Vim编辑器, <span class="command"><strong>vi /etc/inputrc</strong></span> ，在插入模式下使用 <strong class="userinput"><code>Ctrl+v</code></strong> 组合键。按下 <strong class="userinput"><code>Ctrl+o</code></strong> ，这时编辑区新增一个 ^O 字符，等价于 <strong class="userinput"><code>\C-o</code></strong>
+</td></tr>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch14s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch14.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch14s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">帮助系统 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr>
+</table>
+</div>
+</body>
+</html>

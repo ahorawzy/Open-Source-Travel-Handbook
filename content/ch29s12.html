@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>数学公式</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s11.html" title="列表">
+<link rel="next" href="ch29s13.html" title="打印字体配置文件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">数学公式</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s11.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s13.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2898635"></a>数学公式</h2></div></div></div>
+<p>数学环境</p>
+<pre class="screen">
+\placeformula[1]                <span class="database">%给数学公式编号[引用标记]</span>
+\startformula			<span class="database">%数学环境起始声明</span>
+y=x^2
+\stopformula			<span class="database">%数学环境结束声明</span>
+
+这是行内的数学环境 $\int_0^1 x^2 dx$    </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2898672"></a>运算符</h3></div></div></div>
+<p>可以直接使用的基本运算符有：</p>
+<pre class="screen">
++ - = &lt; &gt;    </pre>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>数学符号</th>
+<th>命令</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>±</td>
+<td>\pm</td>
+</tr>
+<tr>
+<td>×</td>
+<td>\times</td>
+</tr>
+<tr>
+<td>÷</td>
+<td>\div</td>
+</tr>
+<tr>
+<td>*</td>
+<td>\ast</td>
+</tr>
+<tr>
+<td>★</td>
+<td>\star</td>
+</tr>
+<tr>
+<td>●</td>
+<td>\bullet</td>
+</tr>
+<tr>
+<td>○</td>
+<td>\circ</td>
+</tr>
+<tr>
+<td>·</td>
+<td>\cdot</td>
+</tr>
+<tr>
+<td>≤</td>
+<td>\leq</td>
+</tr>
+<tr>
+<td>《</td>
+<td>\ll</td>
+</tr>
+<tr>
+<td>≥</td>
+<td>\geq</td>
+</tr>
+<tr>
+<td>》</td>
+<td>\gg</td>
+</tr>
+<tr>
+<td>≡</td>
+<td>\equiv</td>
+</tr>
+<tr>
+<td>～</td>
+<td>\sim</td>
+</tr>
+<tr>
+<td>≈</td>
+<td>\approx</td>
+</tr>
+<tr>
+<td>≠</td>
+<td>\neq</td>
+</tr>
+<tr>
+<td>∩</td>
+<td>\cap</td>
+</tr>
+<tr>
+<td>∪</td>
+<td>\cup</td>
+</tr>
+<tr>
+<td>∈</td>
+<td>\in</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2898840"></a>上标、下标</h3></div></div></div>
+<p>使用 <strong class="userinput"><code>^</code></strong> 输入上标</p>
+<pre class="screen">
+勾股定理 $3^2 + 4^2 = 5^2$    <span class="database">%<strong class="userinput"><code>^2</code></strong>为指数</span>
+二的十次方 $2^{10} = 1024$    <span class="database">%如果指数不止一位，要使用<strong class="userinput"><code>{}</code></strong>括起来</span></pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s11.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s13.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">列表 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 打印字体配置文件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

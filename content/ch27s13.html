@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>列表</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s12.html" title="特殊字符">
+<link rel="next" href="ch27s14.html" title="表格">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">列表</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s12.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s14.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2882484"></a>列表</h2></div></div></div>
+<p>最普通的列表为无序列表和有序列表：</p>
+<pre class="screen">
+&lt;itemizedlist&gt; <a name="docbook-li-01"></a><img src="images/callouts/1.png" alt="1" border="0">
+  &lt;listitem&gt;<a name="docbook-li-02"></a><img src="images/callouts/2.png" alt="2" border="0">
+    列表项内容，可以使用<span class="command"><strong>para</strong></span>、<span class="command"><strong>formalpara</strong></span>等
+  &lt;/listitem&gt;
+&lt;/itemizedlist&gt;</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">无序列表；有序列表为<span class="command"><strong>orderedlist</strong></span>，每个项自动编号</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-02"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">列表项</td>
+</tr>
+</table></div>
+<div class="glosslist"><dl>
+<dt>
+       词汇列表
+    </dt>
+<dd><p>词汇列表每一项包括一个词汇标题和词汇定义，标题粗体，定义缩进。这本身就是一个词汇列表</p></dd>
+</dl></div>
+<pre class="screen">
+&lt;glosslist&gt;<a name="docbook-li-11"></a><img src="images/callouts/1.png" alt="1" border="0">
+    &lt;glossentry&gt;<a name="docbook-li-12"></a><img src="images/callouts/2.png" alt="2" border="0">
+        &lt;glossterm&gt;词汇标题&lt;/glossterm&gt;<a name="docbook-li-13"></a><img src="images/callouts/3.png" alt="3" border="0">
+        &lt;glossdef&gt;<a name="docbook-li-14"></a><img src="images/callouts/4.png" alt="4" border="0">
+             &lt;para&gt;词汇定义&lt;/para&gt;<a name="docbook-li-15"></a><img src="images/callouts/5.png" alt="5" border="0">
+        &lt;/glossdef&gt;
+    &lt;/glossentry&gt;
+&lt;/glosslist&gt;      </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">词汇列表</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">列表项</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-13"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">词汇标题</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-14"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">词汇定义</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-li-15"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">词汇定义必须为<span class="command"><strong>para</strong></span>元素</td>
+</tr>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2882662"></a>Callout 列表</h3></div></div></div>
+<p>在引用的代码块中加记号，并在外部注释。如果你要解释一个比较复杂的概念，<span class="command"><strong>calloutlist</strong></span>通常是最好的选择</p>
+<pre class="screen">
+&lt;screen&gt;
+这里会有一个数字<strong class="userinput"><code>1</code></strong>&lt;co id="1"/&gt;<a name="docbook-cl01"></a><img src="images/callouts/1.png" alt="1" border="0">的记号
+它就是 callout &lt;co id="2"/&gt; <a name="docbook-cl03"></a><img src="images/callouts/2.png" alt="2" border="0">  
+&lt;/screen&gt;    
+    
+&lt;calloutlist&gt;<a name="docbook-cl04"></a><img src="images/callouts/3.png" alt="3" border="0">  
+  &lt;callout arearefs="1"&gt;这里是记号<strong class="userinput"><code>1</code></strong>的说明&lt;/callout&gt;<a name="docbook-cl02"></a><img src="images/callouts/4.png" alt="4" border="0">
+  &lt;callout arearefs="2"&gt;第二个记号的说明&lt;/callout&gt;    
+&lt;/calloutlist&gt;    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-cl01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">使用<strong class="userinput"><code>&lt;co id="1"/&gt;</code></strong>作记号</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-cl03"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">第二个记号</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-cl04"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">calloutlist 列表，每一个项都用数字编号</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-cl02"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">callout 元素作为解释，使用<strong class="userinput"><code>arearefs=""</code></strong>引用</td>
+</tr>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s12.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s14.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">特殊字符 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 表格</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

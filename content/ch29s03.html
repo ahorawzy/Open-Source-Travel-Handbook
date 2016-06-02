@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LaTeX</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s02.html" title="TeX 简介">
+<link rel="next" href="ch29s04.html" title="Latex 结构化写作">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">LaTeX</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s02.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2895628"></a>LaTeX</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2895634"></a>部署 LaTeX</h3></div></div></div>
+<p>安装 <span class="application">texlive-core</span></p>
+<p>新建 <code class="filename">a.tex</code> 文件，内容如下：</p>
+<pre class="screen">
+\documentclass[11pt,a4paper]{article}
+
+<span class="database">%加入了一些针对XeTeX的改进并且加入了 \XeTeX 命令来输入漂亮的XeTeX logo</span>
+\usepackage{xltxtra}
+<span class="database">%启用一些LaTeX中的功能</span>
+\usepackage{xunicode}
+
+<span class="database">%%%% fontspec 宏包 %%%%</span>
+\usepackage{fontspec}           
+<span class="database">% 指定字体</span>
+\setmainfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+\setsansfont[BoldFont=Adobe Heiti Std]{Adobe Kaiti Std}
+<span class="database">%\setmonofont{Bitstream Vera Sans Mono}</span>
+
+<span class="database">%%%% 版面 %%%%</span>
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1in]{geometry} 
+<span class="database">% 设置行距</span>
+\linespread{1.3}                
+
+<span class="database">%%%% 缩进 %%%%</span>
+<span class="database">% 自动首行缩进</span>
+\usepackage{indentfirst}        
+<span class="database">% 设置首行缩进的距离</span>
+\setlength{\parindent}{2.22em}  
+
+
+<span class="database">%连字符</span>
+\defaultfontfeatures{Mapping=tex-text}
+<span class="database">%中文断行</span>
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+    
+<span class="database">%以下为正文部分  </span>
+\begin{document}
+<span class="database">% 生成目录</span>
+\tableofcontents  
+<span class="database">% 章节  </span>
+\section{\XeLaTeX}  
+XeTeX 可以使用系统自带的字体，而不需要再另外生成
+<span class="database">% 章节  </span>
+\section{……}  
+\end{document}  </pre>
+<p>使用 <strong class="userinput"><code>fc-list</code></strong>
+  命令查看可用字体，根据实际情况修改 <span class="database">% 指定字体</span> 下面的几行</p>
+<p>使用以下命令生成 PDF</p>
+<pre class="screen">
+xelatex a.tex  </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2895814"></a>安装宏包</h3></div></div></div>
+<p>LaTeX 只是一个基本框架，通过宏包扩展其功能。例如：</p>
+<div class="glosslist"><dl>
+<dt>fontspec</dt>
+<dd><p>指定字体</p></dd>
+<dt>geometry</dt>
+<dd><p>设置版面</p></dd>
+<dt>color</dt>
+<dd><p>使用色彩</p></dd>
+<dt>hyperref</dt>
+<dd><p>设置链接</p></dd>
+<dt>listings</dt>
+<dd><p>代码引用环境</p></dd>
+<dt>titlesec</dt>
+<dd><p>设置标题样式</p></dd>
+<dt>titletoc</dt>
+<dd><p>设置目录样式</p></dd>
+<dt>indentfirst</dt>
+<dd><p>首行缩进(这是中文的排版习惯)</p></dd>
+<dt>xltxtra</dt>
+<dd><p>XeTeX 扩展功能</p></dd>
+</dl></div>
+<p>到 <a class="ulink" href="http://www.ctan.org/" target="_top">CTAN</a> 下载宏包，解压后移动到 LaTeX 能找到的目录，使用以下命令刷新：</p>
+<pre class="screen">
+sudo texhash    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2895973"></a>学习 LaTeX</h3></div></div></div>
+<p>推荐两本 LaTeX 的书：</p>
+<div class="itemizedlist"><ul type="disc">
+<li><a class="ulink" href="http://bbs.ctex.org/viewthread.php?tid=40736&amp;extra=page%3D1" target="_top">lshort-zh-cn 4.20</a></li>
+<li><a class="ulink" href="http://bbs.ctex.org/viewthread.php?tid=43774&amp;extra=page%3D1" target="_top">lnotes</a></li>
+</ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">TeX 简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Latex 结构化写作</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

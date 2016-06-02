@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>gcc 编译器</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch18.html" title="第 18 章 编译工具链">
+<link rel="prev" href="ch18s03.html" title="编译过程">
+<link rel="next" href="ch18s05.html" title="自动化编译">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">gcc 编译器</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch18s03.html">上一页</a> </td>
+<th width="60%" align="center">第 18 章 编译工具链</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch18s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2841967"></a>gcc 编译器</h2></div></div></div>
+<p><span class="application">gcc</span> 是 GNU 推出的功能强大、性能优越的多平台编译器，是 GNU 的代表作品之一。它能将C、C++语言源程序、汇编语言源程序和目标程序编译、链接成可执行文件，如果没有给出可执行文件的名字，gcc 将生成一个名为 <code class="filename">a.out</code> 的文件。</p>
+<p><span class="application">gcc</span> 通过后缀来区分输入文件的类型：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>后缀</th>
+<th>类型</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>.c</td>
+<td>C语言源代码文件</td>
+</tr>
+<tr>
+<td>.a</td>
+<td>由目标文件构成的档案库文件</td>
+</tr>
+<tr>
+<td>.C|.cc|.cxx</td>
+<td>C++源代码文件</td>
+</tr>
+<tr>
+<td>.h</td>
+<td>程序所包含的头文件</td>
+</tr>
+<tr>
+<td>.i</td>
+<td>预处理过的C源代码文件</td>
+</tr>
+<tr>
+<td>.ii</td>
+<td>预处理过的C++源代码文件</td>
+</tr>
+<tr>
+<td>.m</td>
+<td>Objective-C源代码文件</td>
+</tr>
+<tr>
+<td>.o</td>
+<td>编译后的目标文件</td>
+</tr>
+<tr>
+<td>.s</td>
+<td>汇编语言源代码文件</td>
+</tr>
+<tr>
+<td>.S</td>
+<td>预编译的汇编语言源代码文件</td>
+</tr>
+</tbody>
+</table></div>
+<pre class="synopsis"></pre>
+<p>前面我们已经使用 <span class="application">gcc</span> 编译了一个程序：<strong class="userinput"><code>cc Hello.c</code></strong></p>
+<p><span class="application">gcc</span> 还有许多选项：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-c</td>
+<td>只编译，不链接成为可执行文件</td>
+</tr>
+<tr>
+<td>-o 文件名</td>
+<td>设定输出文件名。默认为<code class="filename">a.out</code>
+</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>加入调试符号(默认)。<a name="build-21"></a><img src="images/callouts/1.png" alt="1" border="0">
+</td>
+</tr>
+<tr>
+<td>-O</td>
+<td>编译、链接时进行优化，耗时比较多，但产生的可执行文件执行效率更高</td>
+</tr>
+<tr>
+<td>-O2</td>
+<td>更高的优化级别，耗时更多</td>
+</tr>
+</tbody>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">可以使用 <span class="application">gdb</span> 进行调试<p>使用下面的命令去掉调试符号：</p>
+<pre class="screen">strip --strip-unneeded a.out
+strip --strip-debug a.out</pre>
+<p>不要在库文件上使用 <span class="command"><strong>--strip-unneeded</strong></span></p>
+</td>
+</tr></table></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch18s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch18.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch18s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">编译过程 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 自动化编译</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

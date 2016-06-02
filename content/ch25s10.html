@@ -1,0 +1,158 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>窗格和缓冲区管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s09.html" title="">
+<link rel="next" href="ch25s11.html" title="寄存器管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">窗格和缓冲区管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s09.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s11.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="emacs-win-buff"></a>窗格和缓冲区管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2866874"></a>多窗格</h3></div></div></div>
+<div class="table">
+<a name="id2866879"></a><p class="title"><b>表 25.9. Emacs 窗格</b></p>
+<div class="table-contents"><table summary="Emacs 窗格" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-x 2</td>
+<td>M-x split-window-vertically</td>
+<td>分隔出两个垂直窗格，水平分隔线</td>
+</tr>
+<tr>
+<td>C-x 3</td>
+<td>M-x split-window-horizontally</td>
+<td>分隔出两个水平窗格，垂直分隔线</td>
+</tr>
+<tr>
+<td>C-x 1</td>
+<td>M-x delete-other-window</td>
+<td>只保留当前窗格</td>
+</tr>
+<tr>
+<td>ESC ESC ESC</td>
+<td>M-x keyboard-escape-quit</td>
+<td>只保留当前窗格</td>
+</tr>
+<tr>
+<td>C-x 0</td>
+<td>M-x delete-window</td>
+<td>关闭当前窗格</td>
+</tr>
+<tr>
+<td>C-x o</td>
+<td>M-x other-window</td>
+<td>在下一个窗格中激活光标</td>
+</tr>
+<tr>
+<td>C-M-v</td>
+<td>M-x scroll-other-window</td>
+<td>向下卷动下一个窗格，使用负参数可以向上卷动</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc"><li>
+<span class="emphasis"><em>下一个窗格</em></span>: 垂直分隔，则先左后右；水平分隔，则先上后下。如果窗格还有子窗格，则先遍历其子窗格后，再遍历其它窗格，以此递归。
+
+	  </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2866996"></a>多缓冲区</h3></div></div></div>
+<p>
+	        Emacs 中，打开新的缓冲区，原有缓冲区并不会关闭
+	  </p>
+<div class="table">
+<a name="id2867008"></a><p class="title"><b>表 25.10. Emacs 缓冲区</b></p>
+<div class="table-contents"><table summary="Emacs 缓冲区" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-x C-b</td>
+<td>M-x list-buffers</td>
+<td>查看缓冲区列表</td>
+</tr>
+<tr>
+<td>C-x b</td>
+<td>M-x switch-to-buffer</td>
+<td>切换到其它缓冲区</td>
+</tr>
+<tr>
+<td>C-x k</td>
+<td>M-x kill-buffer</td>
+<td>关闭当前缓冲区</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc">
+<li>
+	    切换到其它缓冲区时，默认上一次使用的缓冲区(可以用 TAB 补全)
+	  </li>
+<li>
+	      使用多窗格时，缓冲区操作只对当前窗格有效
+	    </li>
+<li>
+<p>建议使用 ibuffer.el 这个扩展。 Emacs 自带，在配置文件中添加如下语句</p>
+<pre class="screen">
+;;========== ibuffer
+(require 'ibuffer)
+(global-set-key ( kbd "C-x C-b ")' ibuffer)   </pre>
+</li>
+<li>
+<p>另一个缓冲区列表的扩展（Emacs 自带）</p>
+<pre class="screen">
+;;CRM bufer list
+(global-set-key "\C-x\C-b" 'electric-buffer-list) </pre>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s09.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s11.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top"> </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 寄存器管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

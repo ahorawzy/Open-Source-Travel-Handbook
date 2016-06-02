@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Zsh 简介</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch30.html" title="第 30 章 终极 Shell -- ZSH">
+<link rel="prev" href="ch30.html" title="第 30 章 终极 Shell -- ZSH">
+<link rel="next" href="ch30s03.html" title="Zsh 的强大特性">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Zsh 简介</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch30.html">上一页</a> </td>
+<th width="60%" align="center">第 30 章 终极 Shell -- ZSH</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch30s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2903339"></a>Zsh 简介</h2></div></div></div>
+<div class="epigraph">
+<p> zsh: The last shell you’ll ever need!</p>
+<p>
+    Z 是最后一个字母，所以它是终极 Shell。
+  </p>
+</div>
+<p>zsh 拥有很多非常实用的功能</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2902715"></a>提示符</h3></div></div></div>
+<p>
+      Zsh 的命令提示符令人印象深刻。它支持右侧对齐的提示符，并且可以配置成这个样子的：
+    </p>
+<div class="screenshot"><div><img src="images/zsh/zsh1.gif"></div></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2902741"></a>自动补全</h3></div></div></div>
+<p>
+      Zsh 的自动补全功能十分强大，可以根据上下文补全命令、选项、文件名、进程、用户名、变量、权限符等。不需要记忆繁多的快捷键，只要按 <strong class="userinput"><code>Tab</code></strong> 就可以了。
+    </p>
+<div class="screenshot"><div><img src="images/zsh/zsh2.gif"></div></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2903378"></a>路径别名</h3></div></div></div>
+<p>
+      Zsh 拥有贴心的路径别名。假设有一个很长的路径，例如 <code class="filename">/home/lighttpd/html</code>，可以把这个路径命名为 <code class="filename">~WWW</code>。
+    </p>
+<div class="screenshot"><div><img src="images/zsh/zsh3.gif"></div></div>
+<p>也可以使用 <span class="command"><strong>cd</strong></span> 历史纪录，<strong class="userinput"><code>cd -(TAB)</code></strong></p>
+<div class="screenshot"><div><img src="images/zsh/zsh4.png"></div></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2903433"></a>后缀别名</h3></div></div></div>
+<p>zsh 还可以设定后缀别名</p>
+<pre class="screen">
+<span class="database">#alias 默认为命令别名</span>
+alias ls='ls -F --color=auto'
+<span class="database">#使用选项 -s 定义后缀别名，键入扩展名为“xml”的文件名，自动使用 emacs 打开</span>
+alias <strong class="userinput"><code>-s</code></strong> xml=emacs    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2903472"></a>键绑定</h3></div></div></div>
+<p>
+      Zsh 默认使用 Emacs风格 的键绑定，习惯 Bash 键绑定的朋友无需重新适应。Zsh 兼容大多数主流 Shell，像 <span class="application">Bash</span>、<span class="application">Csh</span> 等。
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2903500"></a>错误校正</h3></div></div></div>
+<p>
+      Zsh 还拥有错误校正的功能
+    </p>
+<div class="screenshot"><div><img src="images/zsh/crct11.jpg"></div></div>
+<p>
+      -- directory -- 是补全类型提示
+    </p>
+<p>
+      /etc/x11 [tab] 后被修正为 /etc/X11 ，补全类型提示变成了 -- corrections --
+    </p>
+<div class="screenshot"><div><img src="images/zsh/crct21.jpg"></div></div>
+<p>这个功能不是单纯的修正大小写，而是各种拼写错误。
+比如说上面的例子，如果输入的是 11 或者 s11，它一样会修正为 X11    </p>
+<p>
+	  有一个前提，就是每次修正，只允许有一处字符错误。
+两个以上的错误，除非可以匹配其它的选项，否则就不能修正，
+12 就不能修正为 X11 ，除非候选里有 X12、Y12、Z12……
+	</p>
+<p>
+在配置文件里找到这一行，修改容错字数	  
+	</p>
+<pre class="screen">
+zstyle ':completion:*:approximate:*' max-errors 1 numeric		</pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch30.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch30.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch30s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 30 章 终极 Shell -- ZSH </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Zsh 的强大特性</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

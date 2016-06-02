@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>第 43 章   Firefox 使用技巧</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="pt03.html" title="部分 III. 景观">
+<link rel="prev" href="ch42s05.html" title="中文乱码">
+<link rel="next" href="ch43s02.html" title="扩展">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">第 43 章   Firefox 使用技巧</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch42s05.html">上一页</a> </td>
+<th width="60%" align="center">部分 III. 景观</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch43s02.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id2920595"></a>第 43 章   Firefox 使用技巧</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="ch43.html#id2920630">Firefox高级设置</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="ch43.html#id2921127">urlclassifier3.sqlite</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="ch43s02.html">扩展</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="ch43s02.html#id2921738">我用的扩展</a></span></dt></dl></dd>
+</dl>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2920630"></a>Firefox高级设置</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2921127"></a>urlclassifier3.sqlite</h3></div></div></div>
+<p>
+    urlclassifier3.sqlite文件用于记录Firefox从Google抓取的反钓鱼网站和恶意站点数据的,但是这个文件大小在默认情况下会不断地增长,通过设置"urlclassifier.updatecachemax"可以限制urlclassifier3.sqlite的大小.
+  </p>
+<p>
+    在Linux版本下"urlclassifier.updatecachemax"默认为104857600 (100 MB)
+  </p>
+<p>
+    在地址栏输入about:config，出现一个警告，点击同意后进行高级设置。在过滤器中输入上面字串，改它的值为20971520（20m）。删除urlclassifier3.sqlite重新启动Firefox就可以了
+  </p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch42s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="pt03.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch43s02.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">中文乱码 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 扩展</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s19.html" title="DocBook 编辑软件">
+<link rel="next" href="ch27s21.html" title="使用 CSS 定制外观">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">发布</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s19.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s21.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="docbook-publish"></a>发布</h2></div></div></div>
+<p>使用<span class="application">xsltproc</span>将它发布为 Html</p>
+<pre class="screen">
+xsltproc  /usr/share/xml/docbook/xsl-stylesheets-1.73.2/<a name="docbook-publish-01"></a><img src="images/callouts/1.png" alt="1" border="0">html/<a name="docbook-publish-02"></a><img src="images/callouts/2.png" alt="2" border="0">html.xsl<a name="docbook-publish-03"></a><img src="images/callouts/3.png" alt="3" border="0"> docbook.xml </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<span class="application">xsl-stylesheets</span>目录，里面包含可以发布的格式。该路径可能会因系统的不同而改变</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-02"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">发布为 Html 格式所需要的 xsl 文件</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-03"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">发布为单独的 html 页面。如果需要分页，使用<code class="filename">chunk.xsl</code>
+</td>
+</tr>
+</table></div>
+<p>这是最简单的发布。有的时候，我们需要进行一些控制，例如使用 CSS、设定输出目录等，可以在命令中加入参数：</p>
+<pre class="screen">
+xsltproc --output ../html/<a name="docbook-publish-11"></a><img src="images/callouts/1.png" alt="1" border="0">                \
+--stringparam html.stylesheet docbook.css <a name="docbook-publish-12"></a><img src="images/callouts/2.png" alt="2" border="0">\
+/usr/share/xml/docbook/xsl-stylesheets-1.73.2/html/html.xsl <a name="docbook-publish-13"></a><img src="images/callouts/3.png" alt="3" border="0"> \
+docbook.xml  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">设定输出目录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">使用 CSS 样式表</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-publish-13"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">使用 XSL 样式表</td>
+</tr>
+</table></div>
+<p>这个命令有点长，我们可以把相关参数写入参数样式表<code class="filename">param.xsl</code>，使用命令<span class="command"><strong>xsltproc param.xsl docbook.xml</strong></span>发布</p>
+<p>下面是一个参数样式表的例子，复制保存：</p>
+<div class="example">
+<a name="id2884429"></a><p class="title"><b>例 27.1. DocBook 参数样式表</b></p>
+<div class="example-contents"><pre class="screen">
+&lt;?xml version='1.0'?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0"&gt;
+
+<span class="database">&lt;!--调用样式表--&gt;</span>
+&lt;xsl:import href="/usr/share/xml/docbook/xsl-stylesheets-1.73.2/html/chunk.xsl"/&gt;
+
+&lt;xsl:param name="chunker.output.encoding" select="'utf-8'"/&gt; 
+<span class="database">&lt;!--标准信息所使用的语言--&gt;</span>
+&lt;xsl:param name="l10n.gentext.language" select="'zh_cn'"/&gt;
+<span class="database">&lt;!--指定样式表--&gt;</span>
+&lt;xsl:param name="html.stylesheet" select="'docbook.css'"/&gt;
+<span class="database">&lt;!--对于警告类信息是否使用图形 0 1--&gt;</span>
+&lt;xsl:param name="admon.graphics" select="1"/&gt;
+
+<span class="database">&lt;!--生成的 HTML 文件存放的起始目录--&gt;</span>
+<span class="database">&lt;!--如果没有在 Makefile 或命令中指定，取消这里的注释</span>
+<span class="database">&lt;xsl:param name="base.dir" select="'../html/'"/&gt;</span>
+<span class="database">--&gt;</span>
+
+<span class="database">&lt;!--生成的 HTML 文件内容是否进行缩排 yes no--&gt;</span>
+&lt;xsl:param name="chunker.output.indent" select="'yes'"/&gt;
+<span class="database">&lt;!--给节编号 0 1--&gt;</span>
+&lt;xsl:param name="section.autolabel" select="0"/&gt;
+<span class="database">&lt;!--节的编号是否包含章的编号 0 1--&gt;</span>
+&lt;xsl:param name="section.label.includes.component.label" select="1"/&gt;
+<span class="database">&lt;!--表格边框的属性是否使用预设 CSS 来指定--&gt;</span>
+&lt;xsl:param name="table.borders.with.css" select="0"/&gt;
+<span class="database">&lt;!--参考书目是否进行编号--&gt;</span>
+&lt;xsl:param name="bibliography.numbered" select="1"&gt;&lt;/xsl:param&gt;
+
+
+<span class="database">&lt;!--目录深度--&gt;</span>
+&lt;xsl:param name="toc.max.depth" select="2"/&gt;
+<span class="database">&lt;!--sect#页面上显示目录--&gt;</span>
+&lt;xsl:param name="generate.section.toc.level" select="0"/&gt;
+<span class="database">&lt;!--sect#可以生成目录条目--&gt;</span>
+&lt;xsl:param name="toc.section.depth" select="2"/&gt;
+<span class="database">&lt;!--目录中收录哪些内容--&gt;</span>
+<span class="database">&lt;!--包括 toc,title,figure,table,example,equation --&gt;</span>
+<span class="database">&lt;!-- nop 为空 --&gt;</span>
+&lt;xsl:param name="generate.toc"&gt;
+appendix  toc
+article/appendix  nop
+article   toc,title
+book      toc,title,example
+chapter   toc,title
+part      toc,title
+preface   toc,title
+qandadiv  toc
+qandaset  toc
+reference toc,title
+sect1     toc
+sect2     toc
+sect3     toc
+sect4     toc
+sect5     toc
+section   toc
+set       toc,title
+&lt;/xsl:param&gt;
+
+<span class="database">&lt;!--在源码中插入 &lt;?linebreak?&gt; 标记，生成 Html 时替换为&lt;br&gt; --&gt;</span>
+&lt;xsl:template match="processing-instruction('linebreak')"&gt;
+&lt;br/&gt;
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;  </pre></div>
+</div>
+<br class="example-break"><p>将偷懒进行到底，使用下面 <code class="filename">Makefile</code>，在工作目录下键入<span class="command"><strong>make</strong></span>就可以了<sup>[<a name="id2884638" href="#ftn.id2884638" class="footnote">57</a>]</sup></p>
+<pre class="screen">
+OBJECT = all
+SOURCE =  docbook.xml
+PARAM = param.xsl
+ARG = --output html/
+COMPILER = xsltproc
+
+$(OBJECT):$(SOURCE) $(PARAM)
+<a name="docbook-mf"></a><img src="images/callouts/1.png" alt="1" border="0">	$(COMPILER) $(ARG) $(PARAM) $(SOURCE)
+
+clean:
+<a name="docbook-mf1"></a><img src="images/callouts/2.png" alt="2" border="0">	rm -rf ../html/*.html</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-mf"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这里一定要用 TAB，而不能用空格字符</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-mf1"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">同上</td>
+</tr>
+</table></div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2884638" href="#id2884638" class="para">57</a>] </sup>在 Emacs 中 <span class="command"><strong>M-x compile</strong></span> 效果更好，如果有错误还能够直接定位</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s19.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s21.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">DocBook 编辑软件 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 使用 CSS 定制外观</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

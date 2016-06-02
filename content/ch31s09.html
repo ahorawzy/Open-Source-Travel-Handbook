@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Pacman</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+<link rel="prev" href="ch31s08.html" title="Compiz Fusion">
+<link rel="next" href="ch31s10.html" title="编译系统">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Pacman</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch31s08.html">上一页</a> </td>
+<th width="60%" align="center">第 31 章 完美工作站 Archlinux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31s10.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2908280"></a>Pacman</h2></div></div></div>
+<p>Pacman 是 Archlinux 默认的包管理工具，由 Archlinux 的创始人 Judd  Vinet 开发。Pacman 可以很好的处理依赖关系、通过网络使用软件仓库。使用 Pacman，你不仅可以更新 Archlinux 的整个系统，而且能够对包进行管理，包括安装、删除、升级等。同时，Pacman 也允许你搜索包和查看有关包的信息。</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2908299"></a>配置</h3></div></div></div>
+<p>Pacman 的配置文件为 <code class="filename">/etc/pacman.conf</code>，可以在其中设定使用的软件源分支</p>
+<pre class="screen">
+[core]
+<span class="database"># 在这里添加你的首选服务器，它们将被优先使用</span>
+Include = /etc/pacman.d/mirrorlist
+
+[extra]
+<span class="database"># 在这里添加你的首选服务器，它们将被优先使用</span>
+Include = /etc/pacman.d/mirrorlist
+
+[community]
+<span class="database"># 在这里添加你的首选服务器，它们将被优先使用</span>
+Include = /etc/pacman.d/mirrorlist
+
+<span class="database">#[testing]</span>
+<span class="database">#Include = /etc/pacman.d/mirrorlist</span>
+
+<span class="database"># 自定义软件仓库的示例</span>
+<span class="database">#[custom]</span>
+<span class="database">#Server = file:///home/custompkgs  </span>
+
+<span class="database"># archlinuxfr 软件仓库    </span>
+[archlinuxfr]
+Server = http://repo.archlinux.fr/i686    </pre>
+<p>指定 Pacman 使用的下载工具</p>
+<pre class="screen">
+<span class="database"># 默认(不指定的情况下)为 wget</span>
+#XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
+<span class="database"># 使用 aria2 下载 ，删除下一行行首注释符 <strong class="userinput"><code>#</code></strong></span>
+#XferCommand = aria2c -s 5 -m 5 -d / -o %o %u
+<span class="database"># 使用 curl 下载    </span>
+#XferCommand = /usr/bin/curl %u &gt; %o    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2908424"></a>命令</h3></div></div></div>
+<p>Pacman 是一个命令行工具，这意味着当你执行下面的命令时，必须在终端或控制台中进行。</p>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2908437"></a>更新系统</h4></div></div></div>
+<p>在 Archlinux 中，使用一条命令即可对整个系统进行更新：</p>
+<pre class="screen">
+pacman -Syu      </pre>
+<p>如果你已经使用 <span class="command"><strong>pacman -Sy</strong></span> 将本地的包数据库与远程的仓库进行了同步，也可以只执行：</p>
+<pre class="screen">
+pacman -Su      </pre>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2908473"></a>安装软件包</h4></div></div></div>
+<p>这个命令你应该见过无数次了：</p>
+<pre class="screen">
+pacman -S <span class="application">软件包名称</span>      </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+如果同时安装多个包，用空格分隔包名
+      </li></ul></div>
+<p>其它用法：</p>
+<pre class="screen">
+<span class="database"># 先同步包数据库再安装</span>
+pacman -Sy <span class="application">软件包名称</span>
+<span class="database"># 显示一些操作信息后执行安装      </span>
+pacman -Sv <span class="application">软件包名称</span>
+<span class="database"># 安装本地软件包，其扩展名为 pkg.tar.gz</span>
+pacman -U <span class="application">软件包名称</span></pre>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2908552"></a>删除软件包</h4></div></div></div>
+<pre class="screen">
+<span class="database"># 只删除软件包，不删除该软件包的依赖</span>
+pacman -R <span class="application">软件包名称</span>
+<span class="database"># 删除软件包的同时，也将删除其依赖</span>
+pacman -Rs <span class="application">软件包名称</span>
+<span class="database"># 删除软件包、依赖关系、配置文件</span>
+pacman -Rsn <span class="application">软件包名称</span>	
+<span class="database"># 删除包时不检查依赖</span>
+pacman -Rd <span class="application">软件包名称</span>           </pre>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2908618"></a>搜索</h4></div></div></div>
+<p>通过关键字搜索软件包</p>
+<pre class="screen">
+pacman -Ss <strong class="userinput"><code>关键字</code></strong>      </pre>
+<p>搜索已安装的包</p>
+<pre class="screen">
+<span class="database"># 查看软件包信息</span>
+pacman -Qi <span class="application">软件包名称</span>      
+<span class="database"># 列出软件包的文件</span>
+pacman -Ql <span class="application">软件包名称</span> 
+<span class="database"># 查看某一文件属于哪个软件包</span>
+pacman -Qo <code class="filename">文件名</code>      </pre>
+<p>假如想知道某一程序的相关信息，可以配合 <span class="command"><strong>whereis</strong></span> 使用 pacman</p>
+<pre class="screen">
+  <strong class="userinput"><code>whereis sudo</code></strong>      
+sudo: <code class="filename">/usr/bin/sudo</code> /usr/share/man/man8/sudo.8.gz
+
+  <strong class="userinput"><code>pacman -Qo /usr/bin/sudo</code></strong>      
+/usr/bin/sudo is owned by <span class="application">sudo</span> 1.6.9p18-1
+
+  <strong class="userinput"><code>pacman -Qi sudo</code></strong>      
+<span class="database">Name           </span>: sudo
+<span class="database">Version        </span>: 1.6.9p18-1
+<span class="database">URL            </span>: http://www.sudo.ws/sudo/
+<span class="database">Licenses       </span>: custom  ISC
+<span class="database">Groups         </span>: None
+<span class="database">Provides       </span>: None
+<span class="database">Depends On     </span>: glibc  pam
+<span class="database">Optional Deps  </span>: None
+<span class="database">Required By    </span>: None
+<span class="database">Conflicts With </span>: None
+<span class="database">Replaces       </span>: None
+<span class="database">Installed Size </span>: 308.00 K
+<span class="database">Packager       </span>: Allan McRae &lt;allan@archlinux.org&gt;
+<span class="database">Architecture   </span>: i686
+<span class="database">Build Date     </span>: Sat 15 Nov 2008 06:17:33 AM CST
+<span class="database">Install Date   </span>: Fri 21 Nov 2008 12:20:07 PM CST
+<span class="database">Install Reason </span>: Explicitly installed
+<span class="database">Install Script </span>: No
+<span class="database">Description    </span>: Give certain users the ability to run some commands as root
+      
+  <strong class="userinput"><code>pacman -Ql sudo</code></strong>      
+<span class="database">sudo</span> /etc/
+<span class="database">sudo</span> /etc/pam.d/
+<span class="database">sudo</span> /etc/pam.d/sudo
+<span class="database">sudo</span> /etc/sudoers
+<span class="database">sudo</span> /usr/
+<span class="database">sudo</span> /usr/bin/
+<span class="database">sudo</span> /usr/bin/sudo
+<span class="database">sudo</span> /usr/bin/sudoedit
+<span class="database">sudo</span> /usr/lib/
+<span class="database">sudo</span> /usr/lib/sudo_noexec.so
+<span class="database">sudo</span> /usr/sbin/
+<span class="database">sudo</span> /usr/sbin/visudo
+<span class="database">sudo</span> /usr/share/
+<span class="database">sudo</span> /usr/share/licenses/
+<span class="database">sudo</span> /usr/share/licenses/sudo/
+<span class="database">sudo</span> /usr/share/licenses/sudo/LICENSE
+<span class="database">sudo</span> /usr/share/man/
+<span class="database">sudo</span> /usr/share/man/man5/
+<span class="database">sudo</span> /usr/share/man/man5/sudoers.5.gz
+<span class="database">sudo</span> /usr/share/man/man8/
+<span class="database">sudo</span> /usr/share/man/man8/sudo.8.gz
+<span class="database">sudo</span> /usr/share/man/man8/sudoedit.8.gz
+<span class="database">sudo</span> /usr/share/man/man8/visudo.8.gz      </pre>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2909006"></a>其他</h4></div></div></div>
+<pre class="screen">
+<span class="database"># 只下载软件包，不安装</span>
+pacman -Sw <span class="application">软件包名称</span>
+<span class="database"># Pacman 下载的软件包缓存于 /var/cache/pacman/pkg/ 目录。清理未安装的包</span>
+pacman -Sc
+<span class="database"># 清理所有缓存的文件</span>
+pacman -Scc
+<span class="database"># 搜索孤立软件包</span>
+pacman -Qdt      </pre>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch31s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch31.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31s10.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Compiz Fusion </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 编译系统</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>如何写作科技文档</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="index.html" title="开源世界旅行手册">
+<link rel="prev" href="pr05.html" title="导读">
+<link rel="next" href="pt01.html" title="部分 I. 气候">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">如何写作科技文档</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="pr05.html">上一页</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="pt01.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="preface" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id2769381"></a>如何写作科技文档</h2></div></div></div>
+<p>科技文档相对特殊，把它写得通俗易懂而又不失简洁，几乎是一件不可能完成的任务。</p>
+<p>尽管如此，通过有意识的使用一些技巧，还是能够尽可能的接近这个目标。
+    我这里有一些个人的经验，请看下面的三种表述:</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<span class="emphasis"><em>第一个例子<sup>[<a name="id2804878" href="#ftn.id2804878" class="footnote">1</a>]</sup></em></span><pre class="screen">
+就像前面提到的，所有USE标记都声明在USE变量里面。
+为了让用户能方便地查找和选择USE标记，我们提供了一份默认的USE设定。
+这些设定是我们觉得Gentoo用户通常都要用到的USE标记的集合。
+这个默认设置在make.defaults文件──你的profile的一部分──里声明。
+
+你的系统使用的profile是符号链接/etc/make.profile所指向的目录。
+每个profile叠加于某个更大的profile之上，最终的结果是这些profile的并集。
+初始profile是base profile（/usr/portage/profiles/base）。     </pre>
+</li>
+<li>
+<span class="emphasis"><em>第二个例子</em></span><pre class="screen">
+/etc/make.profile/目录是一个符号链接，里面包含一些make.defaults文件，实际指向的是以下文件，
+可以在这些文件中设置USE标记(不可更改)    </pre>
+</li>
+<li>
+<span class="emphasis"><em>第三个例子</em></span><pre class="screen">
+/etc/make.profile/目录是一个符号链接，里面包含一些make.defaults文件，放置开发者设置的USE标记：    </pre>
+</li>
+</ul></div>
+<p><b>目的明确. </b>
+    手把手的操作步骤与宏观的概念描述、面向新手与面向老手，肯定会有很大的不同。要根据需要决定你的方向</p>
+<p>第一个例子是给忠实用户使用的权威官方文档，后面例子中是向新手介绍的简要说明，目的不一样，所以介绍的详细程度不同</p>
+<p><b>简明清晰. </b>
+    在有些时候，要改变一下思路，从另一个角度叙述(在翻译文档时，这种技巧比较有用)。</p>
+<p>第二个例子是最常见的介绍方式，它暴露了过于复杂的细节：实际指向、不可更改，而没有说明关键细节：开发者设置，还有一些冗余信息：可以在这些文件中设置</p>
+<p>第三个例子中，在介绍了USE的概念之后，说明这些USE是开发者设置的，就可以暗示很多事情。如果说“系统默认、不可更改……”你最好说明为什么，因为“不可更改”这种声音，对于Linux用户来说无疑有些刺耳……</p>
+<p><b>控制复杂度. </b>
+  描述的复杂度必须控制，不要假定用户对Linux很熟悉……如果所有的文档都使用这样的假定，那么大多数用户很难熟悉Linux</p>
+<p>在分析了自己的目的之后，你要有一个取舍。你要确定读者是否需要明白什么是“profile”</p>
+<p>针对“profile”，如果不深入解释，有点虎头蛇尾，而科技文档的一个很重要的特点是“完整”；如果解释，则增加了一个不必要的分支</p>
+<p><b>不要过度隐喻. </b>
+    对于软件，只要不是在源代码的层面上描述，都算作隐喻。只是有的隐喻不明显，如启动、运行(它们的喻体是符号化的“系统”)；而有些隐喻则比较形象，例如电视机、遥控器</p>
+<p>如果不是难以描述的概念，不要用隐喻</p>
+<p>如果确实需要使用形象的隐喻，特别是在短时间内多次使用，请确保喻体的相关性。电视机:系统、遥控器:终端 这样的比喻容易理解，而电视机:系统、手机:终端 的隐喻，多少令人费解</p>
+<p><b>限制术语的使用. </b>
+术语本身拥有需要解释的特点。
+    像第一个例子中的“并集”，这是集合中的术语，并不是每个读者都熟悉集合的概念；而“并集”指多个集合相加，熟悉集合概念的读者，可能会深究被加在一起的集合……如果不引入这个术语也可以解释清楚，那么不要引入它</p>
+<p><b>基础概念. </b>
+    不要认为介绍基础概念是吃力不讨好的工作，尽管读者可以从操作步骤中得出基础概念
+    </p>
+<p>既然大多数的描述都是隐喻，在描述基础概念的时候，不要顾忌使用隐喻。读者得到一个基本概念之后，可以更容易的理解接下来的描述。(“解释学之弧”)</p>
+<p><b>雕琢实例. </b>
+不要试图通过一个实例阐释许多个概念，不要随手抓一个什么东西当作实例。应该构建最简化的实例，每个实例只讲一件事(K&amp;R 《The C Programming Language》)    </p>
+<p><b>充分利用文档工具的特性. </b>
+    脚注，calloutlist    </p>
+<p>多数文档工具都可以使用脚注，使用脚注作简短的说明，可以确保在不增加分支的情况下，对概念作必要的说明</p>
+<p>calloutlist用来作密集注释。虽然你可以把这部分内容分成多段描述，但是使用calloutlist，可以清晰的列出主干，更容易阅读<sup>[<a name="id2783162" href="#ftn.id2783162" class="footnote">2</a>]</sup></p>
+<p><b>厚积薄发. </b>
+    控制表达的冲动。很多文档作者都容易犯这样的错误，旁征博引、滔滔不绝……(《鸟哥私房菜》)可能你知道的确实挺详细，但请记住，你不是自说自话，而是写给读者。请考虑一下读者希望看到什么内容，而不是你想写什么内容</p>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2804878" href="#id2804878" class="para">1</a>] </sup>本例来自<a class="ulink" href="http://www.gentoo.org/doc/zh_cn/handbook/" target="_top">gentoo中文手册</a></p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2783162" href="#id2783162" class="para">2</a>] </sup>另一方面，只有 DocBook 支持 calloutlist，这意味着，如果从 DocBook 转换到其它格式，calloutlist 将会制造一些麻烦<br> 在代码环境中使用的注释，很大程度上可以替代 calloutlist的作用 </p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="pr05.html">上一页</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="pt01.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">导读 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 部分 I. 气候</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

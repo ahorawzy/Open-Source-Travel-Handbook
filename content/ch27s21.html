@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>使用 CSS 定制外观</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s20.html" title="发布">
+<link rel="next" href="ch27s22.html" title="技巧">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">使用 CSS 定制外观</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s20.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s22.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2884697"></a>使用 CSS 定制外观</h2></div></div></div>
+<p>DocBook 输出为 Html 时，如果不使用 CSS 控制，那么它的外观将比较“朴素”</p>
+<p>如果自己写一个 CSS 未免太麻烦，可以随便找一个 DocBook 写的文档，将里面的 CSS 文件拿来修改<sup>[<a name="id2884714" href="#ftn.id2884714" class="footnote">58</a>]</sup></p>
+<p>通过例子简单介绍下 CSS</p>
+<pre class="screen">
+body<a name="docbook-css01"></a><img src="images/callouts/1.png" alt="1" border="0"> {<a name="docbook-css10"></a><img src="images/callouts/2.png" alt="2" border="0">
+  font-family: verdana, tahoma, helvetica, arial, sans-serif;<a name="docbook-css02"></a><img src="images/callouts/3.png" alt="3" border="0">
+  text-align: left;<a name="docbook-css03"></a><img src="images/callouts/4.png" alt="4" border="0">
+  background: #fff;<a name="docbook-css04"></a><img src="images/callouts/5.png" alt="5" border="0">
+  color: #222;<a name="docbook-css05"></a><img src="images/callouts/6.png" alt="6" border="0">
+  margin: 1em;<a name="docbook-css06"></a><img src="images/callouts/7.png" alt="7" border="0">
+  padding: 0;<a name="docbook-css07"></a><img src="images/callouts/8.png" alt="8" border="0">
+  font-size: 1em;<a name="docbook-css08"></a><img src="images/callouts/9.png" alt="9" border="0">
+  line-height: 1.2em<a name="docbook-css09"></a><img src="images/callouts/10.png" alt="10" border="0">
+}  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">选择符，<span class="command"><strong>body</strong></span>标记中的内容如果没有专门指定，都应用花括号中定义的样式</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css10"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">花括号中的内容为样式定义</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css02"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">字体</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css03"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">文字左对齐</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css04"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">背景色</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css05"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">文字色</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css06"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">页边距</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css07"><img src="images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left">内部页边距</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css08"><img src="images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left">行高</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css09"><img src="images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left">行距</td>
+</tr>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<span class="command"><strong>em</strong></span>是相对尺寸，当前字体的尺寸=1em；<span class="command"><strong>px</strong></span>是绝对尺寸，像素，由显示器分辨率决定；<br>  字体默认为 16px 大小，也就是说 1em=16px
+    </li></ul></div>
+<p> </p>
+<p>看看我们生成的 Html 文件的源码</p>
+<pre class="screen">
+&lt;div class="navheader"<a name="docbook-css11"></a><img src="images/callouts/1.png" alt="1" border="0">&gt;
+&lt;div class="navfooter"&gt;  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">给一个元素指定一个类</td>
+</tr></table></div>
+<p>这里的页眉和页脚，使用的都是<span class="command"><strong>div</strong></span>标记，只不过类不同，怎么样为它们分别指定样式呢？在 CSS 文件中找到相关段落：</p>
+<pre class="screen">
+div<strong class="userinput"><code>.</code></strong><a name="docbook-css12"></a><img src="images/callouts/1.png" alt="1" border="0">navheader {
+  border-bottom: 1px solid #dbddec;
+}
+
+div.navfooter {
+  border-top: 1px solid #dbddec;
+}  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css12"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">类选择符，表示类为<span class="command"><strong>navheader</strong></span>的<span class="command"><strong>div</strong></span>标记，应用花括号中的样式</td>
+</tr></table></div>
+<p> </p>
+<p>如果想对包含某一类的所有标记定义样式，可以单独使用类选择符</p>
+<pre class="screen">
+.command {
+color: red;
+}  </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+      不管<span class="command"><strong>command</strong></span>这个类出现在什么标记中，它都应用该样式
+    </li></ul></div>
+<p> </p>
+<p>如果需要对多个不同的标记定义同一个样式，使用分组选择符</p>
+<pre class="screen">
+div.navheader<strong class="userinput"><code>,</code></strong><a name="docbook-css13"></a><img src="images/callouts/1.png" alt="1" border="0"> div.navfooter {
+  background: #ecedef;
+  margin: 0;
+  padding: 0.1em .5em;
+}  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css13"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">分组选择符</td>
+</tr></table></div>
+<p> </p>
+<p>空格为包含选择符</p>
+<pre class="screen">
+table tr td<a name="docbook-css14"></a><img src="images/callouts/1.png" alt="1" border="0"> {
+border:dashed #999;
+  text-align: left;
+}  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css14"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">表示<span class="command"><strong>table</strong></span>标记中的<span class="command"><strong>tr</strong></span>标记中的<span class="command"><strong>rd</strong></span>标记</td>
+</tr></table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2885119"></a>代码块的样式</h3></div></div></div>
+<p>我在 DocBook 中使用 <span class="command"><strong>screen</strong></span> 输出代码块，看看如何定义它的样式</p>
+<pre class="screen">
+.screen {
+  color: #000;
+  background-color: #e9e9e9;
+  font-weight: normal;
+  border: 1px dotted #666699;<a name="docbook-css20"></a><img src="images/callouts/1.png" alt="1" border="0">
+  max-height:20em; <a name="docbook-css21"></a><img src="images/callouts/2.png" alt="2" border="0">
+  overflow:auto;<a name="docbook-css22"></a><img src="images/callouts/3.png" alt="3" border="0">
+}    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css20"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">定义边框粗细、类型、颜色。<sup>[<a name="id2885174" href="#ftn.id2885174" class="footnote">59</a>]</sup>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css21"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">定义最大高度</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css22"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">代码块超出上面定义的最大高度时，加入一个滚动条</td>
+</tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2885200"></a>简单表格的样式</h3></div></div></div>
+<p>我用简单表格来放置一些需要排列整齐的文字</p>
+<pre class="screen">
+.informaltable <a name="docbook-css23"></a><img src="images/callouts/1.png" alt="1" border="0">table {
+ border:0;<a name="docbook-css24"></a><img src="images/callouts/2.png" alt="2" border="0">
+ border-top:dashed #999; <a name="docbook-css25"></a><img src="images/callouts/3.png" alt="3" border="0">
+ border-width:1px 1px 1px 1px;
+ margin-left: 10px;
+ margin-right: auto;
+}  
+
+.informaltable table th,<a name="docbook-css26"></a><img src="images/callouts/4.png" alt="4" border="0"> .informaltable table tr td {
+ border-right:0;
+ border-bottom:dashed #999;<a name="docbook-css27"></a><img src="images/callouts/5.png" alt="5" border="0">
+ border-width: 0 1px 1px 0;
+ padding: 0.2em 0.4em 0.2em 0.8em;
+ text-align: left;<a name="docbook-css28"></a><img src="images/callouts/6.png" alt="6" border="0">
+}    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css23"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">包含选择符，类为<strong class="userinput"><code>informaltable</code></strong>的(div)标记，包含的<strong class="userinput"><code>table</code></strong>标记，应用下面的样式</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css24"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<span class="command"><strong>table</strong></span>标记设定的边框为表格顶部和左边的边框，取消</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css25"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">设定顶部的边框为点划线</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css26"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">分组选择符，分别选中表头和表体的单元格</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css27"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">表格底部和右边的边框由单元格设定<sup>[<a name="id2885320" href="#ftn.id2885320" class="footnote">60</a>]</sup>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-css28"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">文字对齐</td>
+</tr>
+</table></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2884714" href="#id2884714" class="para">58</a>] </sup>这个东西你不想要的时候满地都是，一旦你想找一个，可能还真找不到，没关系，可以用我的改。我也是改别人的：）</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2885174" href="#id2885174" class="para">59</a>] </sup>边框类型包括：solid实线、dashed点划线、dotted虚线、double双线、groove槽状、ridge脊状、inset凹陷、outset凸出</p></div>
+<div class="footnote"><td>
+<sup>[<a name="ftn.id2885320" href="#id2885320" class="entry">60</a>] </sup>确实很别扭，但这不关 DocBook 的事，别忘了我们是通过 CSS 对 Html 进行定义</td></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s20.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s22.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">发布 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 技巧</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

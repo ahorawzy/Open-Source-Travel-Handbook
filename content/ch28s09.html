@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>通过网络协作</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch28.html" title="第 28 章 Git 版本控制系统">
+<link rel="prev" href="ch28s08.html" title="通过文件协作">
+<link rel="next" href="ch28s10.html" title="gitweb">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">通过网络协作</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch28s08.html">上一页</a> </td>
+<th width="60%" align="center">第 28 章 Git 版本控制系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch28s10.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2892524"></a>通过网络协作</h2></div></div></div>
+<p>git 提供相当灵活的协作方式，最常见的方式为：协作者获得原始版本库的镜像，并在上面工作；发起者从协作者那里获取更新</p>
+<p>协作者通过<span class="command"><strong>git clone</strong></span>创建一个镜像版本库：</p>
+<pre class="screen">
+git clone user@url:~/path [local]</pre>
+<p>网络对于 git 来说是透明的，凡是可以访问的位置，如 http、ftp、ssh……，甚至本地路径，对于 git 来说没有什么区别。</p>
+<p>通过以下命令，创建一个本机原始版本库<code class="filename">sandbox</code>的镜像<code class="filename">project</code>，是允许的：</p>
+<pre class="screen">
+git clone ~/sandbox project  </pre>
+<p>对于没有指定协议的远程路径，git 默认使用 ssh</p>
+<pre class="screen">
+<code class="envar">(ssh://)</code>user<strong class="userinput"><code>@</code></strong>127.0.0.1<strong class="userinput"><code>:</code></strong>~/sandbox  </pre>
+<p>使用<span class="command"><strong>git pull</strong></span>获取协作者版本库中的内容：</p>
+<pre class="screen">
+git pull user@127.0.0.1:~/sanbox<a name="git-pull-1"></a><img src="images/callouts/1.png" alt="1" border="0"> master<a name="git-pull-2"></a><img src="images/callouts/2.png" alt="2" border="0">[:newest<a name="git-pull-3"></a><img src="images/callouts/3.png" alt="3" border="0">]    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-pull-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">版本库</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-pull-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">分支名称</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-pull-3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">版本名称(可选。使用版本ID、版本标签，请不要使用“HEAD”)</td>
+</tr>
+</table></div>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">
+<span class="command"><strong>git pull</strong></span>
+  基于“版本”操作，也就是说，只有提交后才可以进行；这个命令会比较两个版本的时间戳，只获取更新的版本</td></tr>
+</table></div>
+<p>当发起者进行了更新后，协作者应从发起者那里获取最新的原始版本库，并将当前工作迁移到最新的原始版本库基础上</p>
+<pre class="screen">
+git fetch origin         <span class="database">#获取最新原始版本库</span>
+git rebase origin/master <span class="database">#将工作迁移到最新原始版本库 </span></pre>
+<p>这时发起者再次使用 <span class="command"><strong>git pull</strong></span> 从协作者那里获取更新……</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch28s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch28.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch28s10.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">通过文件协作 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> gitweb</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

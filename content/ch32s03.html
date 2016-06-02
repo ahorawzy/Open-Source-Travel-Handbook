@@ -1,0 +1,293 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch32.html" title="第 32 章 组织你的意念：Emacs org mode">
+<link rel="prev" href="ch32s02.html" title="引子">
+<link rel="next" href="ch32s04.html" title="标签">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center"></th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch32s02.html">上一页</a> </td>
+<th width="60%" align="center">第 32 章 组织你的意念：Emacs org mode</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch32s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2913002"></a>简介</h3></div></div></div>
+<p><span class="application">Org-mode</span> 主要包含标签、待办、日程表几大部分</p>
+<p><b>规模效应. </b>
+如果资料只有几十几百条，借助分类的方式可以有效管理，但是资料的条目超过了一定的数量，标签更管用。好比传统的邮箱，使用分类的方式管理邮件；而 Gmail 由于起点容量很大，所以提供了标签    </p>
+<p><b>组织. </b>
+    提供了标签进行宏观控制，别外还有日程表作为快速通道
+    </p>
+<p><b>构思与发布. </b>
+    Org-mode 不但可以整理思路，而且拥有比较完善的发布功能
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2913050"></a>配置</h3></div></div></div>
+<p>首先对 <span class="application">Org-mode</span> 进行一些简单的配置，在 <code class="filename">.emacs</code> 文件中写入：</p>
+<pre class="screen">
+(setq org-hide-leading-stars t) <a name="org-01"></a><img src="images/callouts/1.png" alt="1" border="0">
+ (define-key global-map "\C-ca" 'org-agenda) <a name="org-02"></a><img src="images/callouts/2.png" alt="2" border="0">
+ (setq org-log-done 'time) <a name="org-03"></a><img src="images/callouts/3.png" alt="3" border="0"> </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">只高亮显示最后一个代表层级的 <span class="command"><strong>*</strong></span>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-02"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<strong class="userinput"><code>C-c a</code></strong> 进入日程表</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-03"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">给已完成事项打上时间戳。可选 <span class="command"><strong>note</strong></span>，附加注释</td>
+</tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2913142"></a>建立一个 org 文件</h3></div></div></div>
+<p>新建一个名为 <code class="filename">sandbox.org</code> 的文件<sup>[<a name="id2913156" href="#ftn.id2913156" class="footnote">82</a>]</sup>，头部内容如下：</p>
+<pre class="screen">
+#+STARTUP: overview <a name="org-11"></a><img src="images/callouts/1.png" alt="1" border="0">
+#+TAGS: { 桌面(d) 服务器(s) }  编辑器(e) 浏览器(f) 多媒体(m) 压缩(z)<a name="org-12"></a><img src="images/callouts/2.png" alt="2" border="0">
+#+TAGS:  { @Windows(w)  @Linux(l) }  <a name="org-15"></a><img src="images/callouts/3.png" alt="3" border="0">
+#+TAGS:  { 糟糕(1) 凑合(2) 不错(3) 很好(4) 极品(5) } 
+#+SEQ_TODO: TODO(T) WAIT(W) | DONE(D!) CANCELED(C@) <a name="org-13"></a><img src="images/callouts/4.png" alt="4" border="0">
+#+COLUMNS: %10ITEM  %10PRIORITY %15TODO %65TAGS   <a name="org-14"></a><img src="images/callouts/5.png" alt="5" border="0">  </pre>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">这里的内容可以随时更改，但是要记得在改后用 <strong class="userinput"><code>C-c C-c</code></strong> 刷新设置</td></tr>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">启动时概览</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">设定标签，括弧中的为标签快捷键（如果没有指定，默认为首字母）。可以设置在多行中</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-15"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">花括号为标签组，组中的标签只能选一个</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-13"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">设定待办状态。将项设置为 <strong class="userinput"><code>|</code></strong> 后面的状态时（DONE CANCELED），会打上 CLOSED 标志</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#org-14"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">设定列视图</td>
+</tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2913280"></a>大纲</h3></div></div></div>
+<p>在这个新建的文件中插入下面内容：</p>
+<pre class="screen">
+* 工作
+** Emacs
+   神之编辑器
+*** org-mode
+    组织你的意念
+** Vim
+   编辑器之神
+** EmEditor
+* 娱乐
+** Mplayer
+   全能播放器
+* 网络
+** firefox
+** IE
+** PureFTPD
+* 其它
+** WinRAR   </pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<strong class="userinput"><code>*</code></strong> 之后有一个空格，一定不能省略
+      </li>
+<li>
+        每一个 <strong class="userinput"><code>*</code></strong> 代表一级分支，<strong class="userinput"><code>***</code></strong> 就代表第三级分支
+      </li>
+</ul></div>
+<p>现在你的 Emacs 应该显示这样的内容</p>
+<p>  <img src="images/org/1.png"></p>
+<p>其实这就是一个大纲模式，只是 Org-mode 用更醒目的色彩来显示，并且快捷键方便一些</p>
+<p>按下 <strong class="userinput"><code>S-TAB</code></strong>，会显示概览：</p>
+<p>    <img src="images/org/2.png">    </p>
+<p>把光标定位在 <strong class="userinput"><code>* 工作</code></strong> 这一行，按几下 TAB</p>
+<p>    <img src="images/org/3.png">        </p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top"><p>连续按下 <strong class="userinput"><code>TAB</code></strong> 键，会在显示分支、全部显示、全部隐藏几种状态间循环切换，<strong class="userinput"><code>S-TAB</code></strong> 作用于全部分支</p></td></tr>
+</table></div>
+<p>以下快捷键控制 Org-mode 显示</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-c C-a</td>
+<td>全部显示</td>
+</tr>
+<tr>
+<td>C-c C-x b</td>
+<td>在一个新缓冲区中显示当前分支</td>
+</tr>
+</tbody>
+</table></div>
+<p>当一个 <code class="filename">org</code> 文件内容很多时，使用 Emacs 的快捷键移动就很没有效率，可以使用 Org-mode 内建的移动键</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th> </th>
+<th>向前</th>
+<th>向后</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>同级</td>
+<td>C-c C-f</td>
+<td>C-c C-b</td>
+</tr>
+<tr>
+<td>跨级</td>
+<td>C-c C-n</td>
+<td>C-c C-p</td>
+</tr>
+<tr>
+<td>上一级</td>
+<td colspan="2">C-c C-u</td>
+</tr>
+<tr>
+<td>跳转</td>
+<td colspan="2">C-c C-j</td>
+</tr>
+</tbody>
+</table></div>
+<p>对分支结构进行修改：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>C-RET</td>
+<td>加入新的同级标识</td>
+</tr>
+<tr>
+<td>M-left</td>
+<td>将当前项提升一级</td>
+</tr>
+<tr>
+<td>M-right</td>
+<td>将当前项降低一级</td>
+</tr>
+<tr>
+<td>M-S-left</td>
+<td>将当前分支提升一级</td>
+</tr>
+<tr>
+<td>M-S-right</td>
+<td>将当前分支降低一级</td>
+</tr>
+<tr>
+<td>M-S-up</td>
+<td>将当前分支向上移动</td>
+</tr>
+<tr>
+<td>M-S-down</td>
+<td>将当前分支向下移动</td>
+</tr>
+<tr>
+<td>C-c C-x C-k</td>
+<td>删除当前分支</td>
+</tr>
+<tr>
+<td>C-c C-x M-w</td>
+<td>复制当前分支</td>
+</tr>
+<tr>
+<td>C-c C-x C-y</td>
+<td>粘贴分支</td>
+</tr>
+<tr>
+<td>C-c C-w</td>
+<td>移动当前分支</td>
+</tr>
+<tr>
+<td>C-c *</td>
+<td>为当前分支加入内容</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2913629"></a>内容</h3></div></div></div>
+<p>可以在项标题下随意的插入内容。通过下面方式插入链接：</p>
+<pre class="screen">
+[[链接地址][链接名称]]    </pre>
+<p>如果不想定义链接的名称，可以这样：</p>
+<pre class="screen">
+[[链接地址]]    </pre>
+<p>如果想修改这个链接，在链接后按下 <strong class="userinput"><code>backspace</code></strong></p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2913156" href="#id2913156" class="para">82</a>] </sup>Emacs 打开扩展名为 <code class="filename">.org</code> 的文件时自动进入 Org-mode</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch32s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch32.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch32s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">引子 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 标签</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

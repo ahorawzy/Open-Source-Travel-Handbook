@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>简介</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch21.html" title="第 21 章   内核">
+<link rel="prev" href="ch21.html" title="第 21 章   内核">
+<link rel="next" href="ch21s03.html" title="启动流程">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">简介</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch21.html">上一页</a> </td>
+<th width="60%" align="center">第 21 章   内核</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch21s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2850154"></a>简介</h2></div></div></div>
+<p>内核是系统的引擎，它是一个系统运行起来的先决条件。</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+    内核管理硬件，是程序和硬件之间的接口
+  </li>
+<li>
+      内核对进程进行调度，将硬件资源分配给不同任务，使系统可以同时运行多个任务
+    </li>
+<li>
+      内核对内存进行管理，将内存空间分配给任务，将使用不频繁的页面转移到交换分区
+    </li>
+<li>
+      内核还管理文件系统，进程间通信和网络
+    </li>
+</ul></div>
+<p>内核包含几个重要的子系统：</p>
+<div class="glosslist"><dl>
+<dt>进程调度（SCHED）</dt>
+<dd><p>控制进程对CPU的访问。当需要选择下一个进程运行时，由调度程序选择最值得运行的进程。可运行进程实际上是仅等待CPU资源的进程，如果某个进程在等待其它资源，则该进程是不可运行进程。Linux使用了比较简单的基于优先级的进程调度算法选择新的进程。</p></dd>
+<dt>内存管理（MM）</dt>
+<dd><p>允许多个进程安全的共享主内存区域。Linux的内存管理支持虚拟内存，即在计算机中运行的程序，其代码，数据，堆栈的总量可以超过实际内存的大小，操作系统只是把当前使用的程序块保留在内存中，其余的程序块则保留在磁盘中。必要时，操作系统负责在磁盘和内存间交换程序块。内存管理从逻辑上分为硬件无关部分和硬件有关部分。硬件无关部分提供了进程的映射和逻辑内存的对换；硬件相关的部分为内存管理硬件提供了虚拟接口。</p></dd>
+<dt>虚拟文件系统（VirtualFileSystem,VFS）</dt>
+<dd><p>隐藏了各种硬件的具体细节，为所有的设备提供了统一的接口，VFS提供了多达数十种不同的文件系统。虚拟文件系统可以分为逻辑文件系统和设备驱动程序。逻辑文件系统指Linux所支持的文件系统，如ext2,fat等，设备驱动程序指为每一种硬件控制器所编写的设备驱动程序模块</p></dd>
+<dt>网络接口（NET）</dt>
+<dd><p>提供了对各种网络标准的存取和各种网络硬件的支持。网络接口可分为网络协议和网络驱动程序。网络协议部分负责实现每一种可能的网络传输协议。网络设备驱动程序负责与硬件设备通讯，每一种可能的硬件设备都有相应的设备驱动程序。</p></dd>
+<dt>进程间通讯(IPC)</dt>
+<dd><p>支持进程间各种通信机制。</p></dd>
+</dl></div>
+<p>处于中心位置的进程调度，所有其它的子系统都依赖它，因为每个子系统都需要挂起或恢复进程。一般情况下，当一个进程等待硬件操作完成时，它被挂起；当操作真正完成时，进程被恢复执行。例如，当一个进程通过网络发送一条消息时，网络接口需要挂起发送进程，直到硬件成功地完成消息的发送，当消息被成功的发送出去以后，网络接口给进程返回一个代码，表示操作的成功或失败。其他子系统以相似的理由依赖于进程调度。</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch21.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch21.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch21s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 21 章   内核 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 启动流程</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

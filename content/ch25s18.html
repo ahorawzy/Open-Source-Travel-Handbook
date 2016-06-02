@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>在 Emacs 中使用 sdcv</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s17.html" title="大纲模式">
+<link rel="next" href="ch25s19.html" title="Windows 下字体设置">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">在 Emacs 中使用 sdcv</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s17.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s19.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2869431"></a>在 Emacs 中使用 sdcv</h2></div></div></div>
+<p>	
+	    在 Emacs 配置文件中加入以下代码
+	  </p>
+<pre class="screen">
+(global-set-key (kbd "C-c d<a name="emacs-sdcv-1"></a><img src="images/callouts/1.png" alt="1" border="0">") 'kid-sdcv-to-buffer)
+(defun kid-sdcv-to-buffer ()
+  (interactive)
+  (let ((word (if mark-active
+                  (buffer-substring-no-properties (region-beginning) (region-end))
+                  (current-word nil t))))
+    (setq word (read-string (format "Search the dictionary for (default %s): " word)
+                            nil nil word))
+    (set-buffer (get-buffer-create "*sdcv*"))
+    (buffer-disable-undo)
+    (erase-buffer)
+    (let ((process (start-process-shell-command "sdcv" "*sdcv*" "sdcv" "-n" word)))
+      (set-process-sentinel
+       process
+       (lambda (process signal)
+         (when (memq (process-status process) '(exit signal))
+           (unless (string= (buffer-name) "*sdcv*")
+             (setq kid-sdcv-window-configuration (current-window-configuration))
+             (switch-to-buffer-other-window "*sdcv*")
+	      (local-set-key (kbd "d<a name="emacs-sdcv-2"></a><img src="images/callouts/2.png" alt="2" border="0">") 'kid-sdcv-to-buffer)
+             (local-set-key (kbd "q<a name="emacs-sdcv-3"></a><img src="images/callouts/3.png" alt="3" border="0">") (lambda ()
+                                        (interactive)
+                                        (bury-buffer)
+                                        (unless (null (cdr (window-list))) ; only one window
+                                          (delete-window)))))
+           (goto-char (point-min)))))))) 	  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-sdcv-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">如果选中区域则查询区域内容，否则查询当前光标所在单词。查询结果显示在一个叫做 *sdcv* 的缓冲区</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-sdcv-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">在 *sdcv* 里面按 q，将它隐藏到缓冲区列表的结尾</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs-sdcv-3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">在 *sdcv* 里面按 d 查询当前单词</td>
+</tr>
+</table></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s17.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s19.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">大纲模式 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Windows 下字体设置</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

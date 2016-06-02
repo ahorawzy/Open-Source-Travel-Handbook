@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>安装 X.Org</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+<link rel="prev" href="ch31s04.html" title="更新系统">
+<link rel="next" href="ch31s06.html" title="安装桌面环境">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">安装 X.Org</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch31s04.html">上一页</a> </td>
+<th width="60%" align="center">第 31 章 完美工作站 Archlinux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2907169"></a>安装 X.Org</h2></div></div></div>
+<p>X.Org 是 X Window 的开源实现。如果我们要在 Archlinux 中运行图形化的程序，那么 X.Org 是必不可少的。执行命令：</p>
+<pre class="screen">
+pacman -S xorg  </pre>
+<p>该指令将为你安装 X.Org 所必需的包，包括 X.Org 服务器、工具、字体、键盘驱动、鼠标驱动、显卡驱动等等</p>
+<p>需要注意的是，默认的 X.Org 安装可能并没有包含你的显卡驱动程序。因此，你需要单独为你的显卡安装驱动。你可以通过下列命令来进行搜索：</p>
+<pre class="screen">
+pacman -Ss xf86-video        <span class="database">#搜索相关驱动</span>
+pacman -S xf86-video-vmware  <span class="database">#安装 VMware 驱动</span>  
+pacman -S nvidia             <span class="database">#安装 nVIDIA 驱动</span>   
+pacman -S nvidia-96xx        <span class="database">#安装旧版 nVIDIA 驱动</span>  
+pacman -S nvidia-71xx           </pre>
+<p>X.Org 对于即插即用的支持越来越好，不过有时还是要使用 <span class="application">xorgconfig</span> 工具来生成 <code class="filename">xorg.conf</code> 文件。<span class="application">xorgconfig</span> 是一个交互式的程序，它会向你问一些有关鼠标、键盘、显示器、显卡等方面的问题。根据你的实际情况回答即可。</p>
+<p>如果需要，可以手工调整 X.Org 配置文件，参见<a class="xref" href="ch19s06.html#xserver" title="X服务器">“X服务器”一节</a></p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch31s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch31.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">更新系统 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 安装桌面环境</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

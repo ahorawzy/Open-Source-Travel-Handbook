@@ -1,0 +1,204 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宏</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s13.html" title="Shell 模式">
+<link rel="next" href="ch25s15.html" title="文件管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">宏</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s13.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s15.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2867543"></a>宏</h2></div></div></div>
+<p>
+	        记录一系列操作，在需要的时候运行
+	  </p>
+<p>
+	    例如给一个单词加 " ，可以分解为以下操作:
+	  </p>
+<pre class="screen">
+    M-b 移动到词首
+    "
+    M-f 移动到词尾
+    "	  </pre>
+<p>
+	  这种重复的操作往往需要经常执行，手动未免太没有效率。我们可以把这些操作制作成宏，然后运行这个宏
+	  </p>
+<p>
+当然，这只是最简单的宏。结合正则表达式进行匹配，以宏进行操作，可以完成许多复杂的操作
+	  </p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2867585"></a>定义与运行</h3></div></div></div>
+<div class="table">
+<a name="id2867590"></a><p class="title"><b>表 25.14. Emacs 宏</b></p>
+<div class="table-contents"><table summary="Emacs 宏" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>开始录制</td>
+<td>C-x ( (M-x kmacro-start-macro)</td>
+<td>F3 (M-x kmacro-start-macro-or-insert-counter)</td>
+</tr>
+<tr>
+<td>结束录制</td>
+<td>C-x ) (M-x kmacro-end-macro)</td>
+<td rowspan="2">F4 (M-x kmacro-end-or-call-macro)</td>
+</tr>
+<tr>
+<td>播放</td>
+<td>C-x e (M-x kmacro-end-and-call-macro)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2867642"></a>宏队列</h3></div></div></div>
+<p>与 剪切队列 类似，Emacs 中也有 宏队列 的概念： 当一个新的宏被定义，原有的宏并不消失，只是在宏队列中的位置被挤到后面。</p>
+<p>
+	      <strong class="userinput"><code>C-x C-k</code></strong>进入宏队列，以下的操作可以在宏队列中连续进行
+	    </p>
+<div class="table">
+<a name="id2867664"></a><p class="title"><b>表 25.15. Emacs 宏队列</b></p>
+<div class="table-contents"><table summary="Emacs 宏队列" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr><td colspan="3">基本操作</td></tr>
+<tr>
+<td>C-n</td>
+<td>M-x kmacro-cycle-ring-next</td>
+<td>下翻</td>
+</tr>
+<tr>
+<td>C-p</td>
+<td>M-x kmacro-cycle-ring-previous</td>
+<td>上翻</td>
+</tr>
+<tr>
+<td>C-d</td>
+<td>M-x kmacro-delete-ring-head</td>
+<td>删除当前宏</td>
+</tr>
+<tr>
+<td>C-k</td>
+<td>M-x kmacro-end-or-call-macro-repeat</td>
+<td>运行当前宏</td>
+</tr>
+<tr><td colspan="3">命名与保存</td></tr>
+<tr>
+<td>n (name)</td>
+<td>M-x kmacro-name-last-macro</td>
+<td>命名</td>
+</tr>
+<tr>
+<td>b</td>
+<td>M-x kmacro-bind-to-key</td>
+<td>绑定</td>
+</tr>
+<tr>
+<td> </td>
+<td>M-x insert-kbd-macro</td>
+<td>在缓冲区中插入宏定义</td>
+</tr>
+<tr><td colspan="3">宏编辑器</td></tr>
+<tr>
+<td>C-e</td>
+<td>M-x kmacro-edit-macro</td>
+<td>编辑</td>
+</tr>
+<tr>
+<td>e</td>
+<td>M-x edit-kbd-macro</td>
+<td>编辑指定名称的宏</td>
+</tr>
+<tr>
+<td>l</td>
+<td>M-x kmacro-edit-lossage</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr><td colspan="3">询问执行</td></tr>
+<tr>
+<td>q</td>
+<td>M-x kbd-macro-query</td>
+<td>在播放宏时，将进行询问确认</td>
+</tr>
+<tr><td colspan="3">计数器</td></tr>
+<tr>
+<td>C-i</td>
+<td>M-x kmacro-insert-counter</td>
+<td>将宏计数器的数值插入缓冲区</td>
+</tr>
+<tr>
+<td>C-c</td>
+<td>M-x kmacro-set-counter</td>
+<td>    为宏计数器设置一个数值</td>
+</tr>
+<tr>
+<td>C-a</td>
+<td>M-x kmacro-add-counter</td>
+<td>给宏计数器添加一个前缀参数</td>
+</tr>
+<tr>
+<td>C-f</td>
+<td>M-x kmacro-set-format</td>
+<td>给宏计数器指定一个将要插入的特殊值</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc">
+<li>
+		保存为文件，使用 <span class="command"><strong>M-x load-file</strong></span> 加载
+		      </li>
+<li>
+			    保存到配置文件中，启动时加载
+			  </li>
+</ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s13.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s15.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Shell 模式 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 文件管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>部署 ConTeXt</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s05.html" title="ConTeXt 简介">
+<link rel="next" href="ch29s07.html" title="">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">部署 ConTeXt</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s05.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2896413"></a>部署 ConTeXt</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2896421"></a>安装</h3></div></div></div>
+<p>目前，只有 ConTeXt Minimals （ConTEXt最小包）提供了最新的 ConTeXt 版本，而且可以与系统内其它 TeX 发行版和睦相处</p>
+<p>ConTeXt Minimals 通过脚本安装，安装脚本会下载安装文件到当前目录。为了避免混乱，有必要手动为 ConTeXt Minimals 创建目录</p>
+<pre class="screen">
+export CTXDIR=/opt/context<a name="context-s-1"></a><img src="images/callouts/1.png" alt="1" border="0">
+mkdir -p $CTXDIR
+cd $CTXDIR        </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-s-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这是推荐的目录</td>
+</tr></table></div>
+<p>使用 <span class="application">rsync</span> 下载 ConTeXt Minimals 的安装脚本：</p>
+<pre class="screen">
+rsync -ptv rsync://contextgarden.net/minimals/setup/linux/first-setup.sh .    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+同样，安装脚本也使用 <span class="application">rsync</span> 下载安装文件。这种方式只下载升级过的文件，便于增量更新；也能够最大程度的降低网络不稳定所带来的影响
+    </li></ul></div>
+<p>执行安装脚本<sup>[<a name="id2896503" href="#ftn.id2896503" class="footnote">64</a>]</sup>(第一次安装可能会等待较长时间)</p>
+<pre class="screen">
+./first-setup.sh    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+升级到最新版本，也使用这个脚本
+    </li></ul></div>
+<p>下载完所有文件后，安装脚本会自动配置 ConTeXt Minimals
+      <sup>[<a name="id2896534" href="#ftn.id2896534" class="footnote">65</a>]</sup>
+</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2896563"></a>快速通道</h3></div></div></div>
+<p>新建一个 <code class="filename">ctx</code> 文件，内容如下：</p>
+<pre class="screen">
+export CTEXDIR=/opt/context<a name="context-e-1"></a><img src="images/callouts/1.png" alt="1" border="0">
+source $CTEXDIR/tex/setuptex $CTEXDIR/tex <a name="context-e-2"></a><img src="images/callouts/2.png" alt="2" border="0">
+export OSFONTDIR="/usr/share/fonts/adobe" <a name="context-e-3"></a><img src="images/callouts/3.png" alt="3" border="0">   </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这里的目录为 ConTeXt Minimals 安装目录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">ConTeXt 需要设置一些环境变量才能正常工作，使用 <code class="filename">setuptex</code> 脚本</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">
+<code class="envar">OSFONTDIR</code> 为字体路径变量，设置为系统中字体的实际路径，见<a class="xref" href="ch29s06.html#context-font" title="字体设置">“字体设置”一节</a>
+</td>
+</tr>
+</table></div>
+<p>执行 <strong class="userinput"><code>source ctx</code></strong> 命令，设置好需要的环境变量，ConTeXt 工作环境便准备就绪</p>
+<p> </p>
+<p>新建一个 <code class="filename">a.tex</code> 文件，内容如下：</p>
+<pre class="screen">
+% a.tex      <span class="database">%这里是注释</span>
+\starttext   <span class="database">%正文开始</span>
+Hello World. <span class="database">%正文内容</span>
+\stoptext    <span class="database">%正文结束</span> </pre>
+<p>执行 <strong class="userinput"><code>context a.tex</code></strong> 命令，会得到 <code class="filename">a.pdf</code> 文件</p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">执行 <strong class="userinput"><code>context --purge</code></strong> 命令清除中间文件。<br>但保留中间文件可以提高编译速度</td></tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="context-font"></a>字体设置</h3></div></div></div>
+<p>下面是一个包含中文的 <code class="filename">chinese.tex</code> 文件</p>
+<pre class="screen">
+\usetypescriptfile[zhfonts]     <span class="database">%加载打印字体配置文件(typescript) <code class="filename">zhfonts.tex</code></span>
+\usetypescript[myscript]        <span class="database">%使用打印字体配置文件中定义打印字体的脚本 <code class="filename">myscript</code></span>
+\setupbodyfont[myfont,rm,11pt]  <span class="database">%设置正文字体</span>
+    
+\setupindenting[always,2em,first]                  <span class="database">%设置中文缩进格式(首行缩进两字)</span>
+\setupheads[indentnext=yes]                        <span class="database">%每节的首段也要缩进</span>
+\setupinterlinespace[big]                          <span class="database">%设置行距(big=1.5倍)      </span>
+\setupwhitespace[medium]                           <span class="database">%设置段间距[small, medium, big]</span>
+\definepapersize[SCREEN][width=21cm,height=29.7cm] <span class="database">%设置页面尺寸</span>
+\setuppapersize[SCREEN][SCREEN]                    <span class="database">%纸张尺寸，通常和页面尺寸相同。(除非在印刷用纸上实现多页排版)    </span>
+    
+\starttext
+世界，你好！
+\stoptext    </pre>
+<p><code class="filename">打印字体配置文件</code>(typescript) 文件是一个 TeX 文件，要求与 <code class="filename">chinese.tex</code> 文件在同一目录，或者位于 ConTeXt Minimals 可以检索到的某个目录中<sup>[<a name="id2896863" href="#ftn.id2896863" class="footnote">66</a>]</sup>
+    </p>
+<p>新建一个<code class="filename">打印字体配置文件</code>(typescript)，名为 <code class="filename">zhfonts.tex</code>，内容如下：</p>
+<pre class="screen">
+% engine=luatex
+% \ctxlua{fonts.collections.trace = true}
+\let\synchronizetext\relax
+\synchronizemathfontsfalse
+
+\spaceskip .25em plus .25em \relax
+
+\definefontfeature[zh][mode=node,script=hang,lang=zhs]
+
+\starttypescript [serif] [zhfont]
+    \definefontsynonym
+	[ZhSerif][name:AdobeSongStd-Light][features=zh]
+    \definefontsynonym
+	[ZhSerifBold][name:AdobeHeitiStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhSerifItalic][name:AdobeKaitiStd-Regular][features=zh]
+    \definefontsynonym 
+	[ZhSerifBoldItalic][name:AdobeHeitiStd-Regular][features=zh]
+
+    \definefontfallback
+	[WesternSerif][name:TeXGyrePagella-Regular][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSerifBold][name:TeXGyrePagella-Bold][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSerifItalic][name:TeXGyrePagella-Italic][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSerifBoldItalic][name:TeXGyrePagella-BoldItalic][0x0000-0x0400][force=yes]
+ 
+   \definefontsynonym 
+	[Serif][ZhSerif][fallbacks=WesternSerif]
+    \definefontsynonym
+	[SerifBold][ZhSerifBold][fallbacks=WesternSerifBold]
+    \definefontsynonym
+	[SerifItalic][ZhSerifItalic][fallbacks=WesternSerifItalic]
+    \definefontsynonym
+	[SerifBoldItalic][ZhSerifBoldItalic][fallbacks=WesternSerifBoldItalic]
+\stoptypescript
+
+\starttypescript [sans][zhfont]
+    \definefontsynonym 
+	[ZhSans][name:AdobeKaitiStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhSansBold][name:AdobeHeitiStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhSansItalic][name:AdobeKaitiStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhSansBoldItalic][name:AdobeHeitiStd-Regular][features=zh]
+
+    \definefontfallback
+	[WesternSans][name:TeXGyreAdventor-Regular][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSansBold][name:TeXGyreAdventor-Bold][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSansItalic][name:TeXGyreAdventor-Italic][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternSansBoldItalic][name:TeXGyreAdventor-BoldItalic][0x0000-0x0400][force=yes]
+
+    \definefontsynonym
+	[Sans][ZhSans][fallbacks=WesternSans]
+    \definefontsynonym
+	[SansBold][ZhSansBold][fallbacks=WesternSansBold]
+    \definefontsynonym
+	[SansItalic][ZhSansItalic][fallbacks=WesternSansItalic]
+    \definefontsynonym
+	[SansBoldItalic][ZhSansBoldItalic][fallbacks=WesternSansBoldItalic]
+\stoptypescript
+
+\starttypescript [mono][zhfont]
+    \definefontsynonym 
+	[ZhMono][name:AdobeFangsongStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhMonoBold][name:AdobeHeitiStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhMonoItalic][name:AdobeFangsongStd-Regular][features=zh]
+    \definefontsynonym
+	[ZhMonoBoldItalic][name:AdobeHeitiStd-Regular][features=zh]
+
+    \definefontfallback
+	[WesternMono][name:TeXGyreCursor-Regular][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternMonoBold][name:TeXGyreCursor-Bold][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternMonoItalic][name:TeXGyreCursor-Italic][0x0000-0x0400][force=yes]
+    \definefontfallback
+	[WesternMonoBoldItalic][name:TeXGyreCursor-BoldItalic][0x0000-0x0400][force=yes]
+
+    \definefontsynonym
+	[Mono][ZhMono][fallbacks=WesternMono]
+    \definefontsynonym
+	[MonoBold][ZhMonoBold][fallbacks=WesternMonoBold]
+    \definefontsynonym
+	[MonoItalic][ZhMonoItalic][fallbacks=WesternMonoItalic]
+    \definefontsynonym
+	[MonoBoldItalic][ZhMonoBoldItalic][fallbacks=WesternMonoBoldItalic]
+\stoptypescript
+
+\starttypescript[myscript]
+    \definetypeface[myfont][rm][serif][zhfont]
+    \definetypeface[myfont][ss][sans][zhfont]
+    \definetypeface[myfont][tt][mono][zhfont]
+\stoptypescript    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+    如何定制字体参阅<a class="xref" href="ch29s13.html" title="打印字体配置文件">“打印字体配置文件”一节</a>
+</li></ul></div>
+<p>下载中文字体<sup>[<a name="id2897104" href="#ftn.id2897104" class="footnote">67</a>]</sup>，安装，并设置 <code class="envar">OSFONTDIR</code> 变量：</p>
+<pre class="screen">
+export OSFONTDIR="/usr/share/fonts/adobe"<a name="context-e-31"></a><img src="images/callouts/1.png" alt="1" border="0">    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-31"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">中文字体的安装路径，建议写入
+	<code class="filename">ctx</code> 文件<sup>[<a name="id2897150" href="#ftn.id2897150" class="footnote">68</a>]</sup>
+</td>
+</tr></table></div>
+<p>执行以下命令刷新文档数据库：</p>
+<pre class="screen">
+context --generate    </pre>
+<p> </p>
+<p>最后，使用 <code class="filename">chinese.tex</code> 文件生成 PDF</p>
+<pre class="screen">
+  context chinese.tex</pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2896503" href="#id2896503" class="para">64</a>] </sup>需要
+	  <span class="application">ruby</span> 支持</p></div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id2896534" href="#id2896534" class="para">65</a>] </sup> 期间可能会出现几次如下提示：</p>
+<pre class="screen">
+! I can't find file `core-swd'.    </pre>
+<p>键入<strong class="userinput"><code>core-swd.mkii</code></strong>即可</p>
+</div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id2896863" href="#id2896863" class="para">66</a>] </sup>如 <code class="envar">$TEXMFLOCAL</code><code class="filename">/tex/context/third</code></p>
+<pre class="screen">
+mkdir -p $TEXMFLOCAL/tex/context/third<a name="context-e-21"></a><img src="images/callouts/1.png" alt="1" border="0">
+mv zhfonts.tex $TEXMFLOCAL/tex/context/third<a name="context-e-22"></a><img src="images/callouts/2.png" alt="2" border="0">
+context --generate<a name="context-e-23"></a><img src="images/callouts/3.png" alt="3" border="0">    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">在 <code class="envar">$TEXMFLOCAL</code> 目录下新建第三方目录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">将 <code class="filename">zhfonts.tex</code> 文件移动到该目录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#context-e-23"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">刷新一下文档数据库，就可以使用该字体配置文件了</td>
+</tr>
+</table></div>
+</div>
+<div class="footnote"><p><sup>[<a name="ftn.id2897104" href="#id2897104" class="para">67</a>] </sup>这个配置文件使用 <span class="application">Adobe Creative Suite 4</span> 中附带的四种字体</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2897150" href="#id2897150" class="para">68</a>] </sup>前面给出的
+	    <code class="filename">ctx</code> 文件已设置此变量</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">ConTeXt 简介 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr>
+</table>
+</div>
+</body>
+</html>

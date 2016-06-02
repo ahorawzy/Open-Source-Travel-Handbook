@@ -1,0 +1,433 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>磁盘和内存管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch17.html" title="第 17 章 核心工具集">
+<link rel="prev" href="ch17s10.html" title="进程管理">
+<link rel="next" href="ch17s12.html" title="硬件管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">磁盘和内存管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch17s10.html">上一页</a> </td>
+<th width="60%" align="center">第 17 章 核心工具集</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17s12.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2832939"></a>磁盘和内存管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832944"></a>细节</h3></div></div></div>
+<p> Linux 中，设备用<code class="filename">/dev/</code>目录下的文件表示。例如</p>
+<pre class="screen">
+/dev/hda1 第一块硬盘的第一主分区
+/dev/hdb5 第二块硬盘的第一逻辑分区
+/dev/sda4 第一块 SATA 硬盘的第四主分区，或者扩展分区
+/dev/null 黑洞设备    </pre>
+<p>
+      关于磁盘设备，详见<a class="xref" href="ch08.html#partition" title="分区概念">“分区概念”一节</a>
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2832980"></a>mount 设备文件 [挂载路径]</h3></div></div></div>
+<p>
+      挂载文件系统
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-t</td>
+<td>指定文件系统的类型</td>
+<td>通常不必指定，mount 自动检测</td>
+</tr>
+<tr>
+<td rowspan="9">常见类型</td>
+<td>reiserfs</td>
+<td> ReiserFS 3.6版</td>
+</tr>
+<tr>
+<td>xfs</td>
+<td>SGI 技术</td>
+</tr>
+<tr>
+<td>jfs</td>
+<td>IBM 技术</td>
+</tr>
+<tr>
+<td>ext3 </td>
+<td>Linux 传统文件系统</td>
+</tr>
+<tr>
+<td>vfat</td>
+<td>fat fat32</td>
+</tr>
+<tr>
+<td>ext2</td>
+<td>Linux 传统文件系统，不带日志</td>
+</tr>
+<tr>
+<td>ntfs </td>
+<td>WINNT</td>
+</tr>
+<tr>
+<td>iso9660</td>
+<td>光盘</td>
+</tr>
+<tr>
+<td>smbfs</td>
+<td>Windows 文件共享</td>
+</tr>
+<tr>
+<td>-o [选项1] [选项2] .....</td>
+<td class="auto-generated"> </td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td rowspan="13">选项</td>
+<td>loop</td>
+<td>环设备。光盘、ISO 映像文件等，通常用于挂载映像文件（而不是设备文件）</td>
+</tr>
+<tr>
+<td>bind</td>
+<td>绑定。将一个目录（而不是设备文件）挂载到另一个目录</td>
+</tr>
+<tr>
+<td>ro | rw</td>
+<td>只读 readonly；可读写 read-write</td>
+</tr>
+<tr>
+<td>sync | async</td>
+<td>同步模式|异步模式。决定修改是否立即写入文件系统</td>
+</tr>
+<tr>
+<td>atime | noattime</td>
+<td>读取时是否修改访问时间。对于写入敏感设备，例如闪存、软盘，建议使用 noatime</td>
+</tr>
+<tr>
+<td>auto | noauto</td>
+<td>自动挂载模式</td>
+</tr>
+<tr>
+<td>exec | noexec</td>
+<td>是否允许执行</td>
+</tr>
+<tr>
+<td>defaults</td>
+<td>使用预设的选项 rw, suid, dev, exec, auto, nouser, async</td>
+</tr>
+<tr>
+<td>iocharset=UTF-8</td>
+<td>指定字符集，可简写为 utf8</td>
+</tr>
+<tr>
+<td>codepage=936</td>
+<td>指定代码页，可简写为 cp936  西文系统代码页为 437</td>
+</tr>
+<tr>
+<td>umask=权限掩码<a name="man-disk11"></a><img src="images/callouts/1.png" alt="1" border="0">
+</td>
+<td>设定权限掩码</td>
+</tr>
+<tr>
+<td>uid=用户编号</td>
+<td>设定归属用户</td>
+</tr>
+<tr>
+<td>gid=群组编号</td>
+<td>设定归属群组</td>
+</tr>
+<tr>
+<td>remount</td>
+<td>以不同选项重新挂载</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>-L 卷标</td>
+<td>挂载带有特殊卷标的分区</td>
+<td class="auto-generated"> </td>
+</tr>
+</tbody>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#man-disk11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+权限掩码=777-目标权限（三位） | 7777-目标权限（四位）
+	<p>
+假如权限掩码为 022 ，则目标权限为 755 rwxr-xr-x	  
+	</p>
+<p>
+	  可以使用 <span class="command"><strong>umask</strong></span> 命令设置权限掩码
+	</p>
+</td>
+</tr></table></div>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">	挂载 NTFS 分区时请使用 <span class="command"><strong>utf8</strong></span> 选项；挂载 FAT 分区时请使用 <span class="command"><strong>iocharset=utf8,codepage=936</strong></span> 选项，以避免乱码
+    </td></tr>
+</table></div>
+<p>
+      <span class="command"><strong>mount -a</strong></span>
+    </p>
+<p>
+      挂载 <code class="filename">/etc/fstab</code> 文件中定义的所有设备。示例：
+    </p>
+<pre class="screen">
+sudo mount -t iso9660 -o loop /dev/cdrom0 /media/cdrom
+sudo mount -t vfat -o remount iocharset=utf8,codepage=936  /dev/hda5 /media/hda5    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833269"></a>umount 设备文件 | 挂载路径</h3></div></div></div>
+<p>
+      卸载已挂载文件系统
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833282"></a>df</h3></div></div></div>
+<p>
+      查看已挂载文件系统的磁盘空间占用
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-a</td>
+<td>显示所有文件系统的磁盘使用情况，包括0块（block）的文件系统，如<code class="filename">/proc 文件系统</code>
+</td>
+</tr>
+<tr>
+<td>-T</td>
+<td>显示文件系统类型</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>以 k 字节为单位显示</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>显示 i节点 信息，而不是磁盘块</td>
+</tr>
+<tr>
+<td>-t 文件系统类型</td>
+<td>显示指定类型的文件系统的磁盘空间使用情况</td>
+</tr>
+<tr>
+<td>-x 文件系统类型</td>
+<td>列出排除指定类型文件系统的磁盘空间使用情况（与 t 选项相反）</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>只显示本地文件系统</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833362"></a><td>free</td>
+</h3></div></div></div>
+<p>
+      查看内存、缓冲区、交换空间的占用
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-b</td>
+<td>以字节为单位显示数值</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>以千字节为单位显示数值</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>以兆字节为单位显示数值</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>以吉字节为单位显示数值</td>
+</tr>
+<tr>
+<td>-l </td>
+<td>显示内存占用峰值</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>不显示缓冲区占用</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>统计结果</td>
+</tr>
+<tr>
+<td>-s 秒</td>
+<td>刷新频率</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833440"></a>sync</h3></div></div></div>
+<p>
+      同步文件系统。将缓冲区中的数据写入文件系统
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833452"></a>fdisk 磁盘设备文件</h3></div></div></div>
+<p>
+      分区表修改工具(磁盘设备文件应为整块磁盘，而不是磁盘中的分区。例如 <code class="filename">/dev/sda</code> ，而不是 <code class="filename">/dev/sda1</code>)
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead></thead>
+<tbody>
+<tr>
+<td>m</td>
+<td>使用帮助</td>
+</tr>
+<tr>
+<td>l</td>
+<td>查看已知文件系统类型</td>
+</tr>
+<tr>
+<td>p</td>
+<td>显示分区信息</td>
+</tr>
+<tr>
+<td>n</td>
+<td>新建分区 （p:主分区 l:扩展分区 参见 <a class="xref" href="ch08.html#partition" title="分区概念">“分区概念”一节</a> )</td>
+</tr>
+<tr>
+<td>d</td>
+<td>删除分区</td>
+</tr>
+<tr>
+<td>t</td>
+<td>改变分区类型</td>
+</tr>
+<tr>
+<td>w</td>
+<td>将改动写入分区表</td>
+</tr>
+<tr>
+<td>q</td>
+<td>放弃改动并退出</td>
+</tr>
+</tbody>
+</table></div>
+<p>
+      <span class="command"><strong>fdisk -l</strong></span> 查看所有磁盘分区信息
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833560"></a>cfdisk</h3></div></div></div>
+<p>
+      更加友善的分区表修改工具
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833571"></a>mkfs.文件系统类型 分区设备文件</h3></div></div></div>
+<p>
+      将分区格式化为文件系统。示例：
+    </p>
+<pre class="screen">
+sudo mkfs.reiserfs /dev/hda1
+sudo mkfs.xfs /dev/sda1    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2833591"></a>hdparm 磁盘设备文件</h3></div></div></div>
+<p>
+      设置硬盘参数
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-d 0|1</td>
+<td>DMA 模式开关</td>
+</tr>
+<tr>
+<td>-a 0|1</td>
+<td>预读模式开关</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>性能测试</td>
+</tr>
+<tr>
+<td>-T</td>
+<td>缓存性能测试</td>
+</tr>
+<tr>
+<td>-c 0|1|3</td>
+<td>32位传输模式开关</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>显示柱面，扇区等信息</td>
+</tr>
+<tr>
+<td>-i|-I</td>
+<td>显示磁盘信息</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch17s10.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch17.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17s12.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">进程管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 硬件管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>第 3 章 版本号的迷雾</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="pt01.html" title="部分 I. 气候">
+<link rel="prev" href="ch02s03.html" title="命令选项，从a到z">
+<link rel="next" href="ch04.html" title="第 4 章   Vim 还是 Emacs">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">第 3 章 版本号的迷雾</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch02s03.html">上一页</a> </td>
+<th width="60%" align="center">部分 I. 气候</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id2808013"></a>第 3 章 版本号的迷雾</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="ch03.html#id2808651"></a></span></dt>
+<dd><dl>
+<dt><span class="sect2"><a href="ch03.html#id2808047">发行版</a></span></dt>
+<dt><span class="sect2"><a href="ch03.html#id2808838">内核</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<p>有时我会听到这种说法：我安装了 9.0 版的 Linux，然后……</p>
+<p>目前最新的内核为 2.6.27 版，何来 9.0
+  版之说？根据经验，我大概可以揣测出，9.0 为某一发行版的版本</p>
+<p>需要指出的是，Linux
+  并不是一个完整的系统，它只是内核。没有内核系统不能运行，什么都干不了；但只有内核还是什么都干不了，一个完整的系统，是包含内核在内的一系列软件工具包</p>
+<p>开源运动由许多独立的软件项目构成，如果最终用户需要自行获取这些软件包，然后把它们组装起来，成为可以运行的系统，就会浪费很多时间；而且组装一个系统并不是一件容易的事情，恐怕大多数用户无法作到。</p>
+<p>于是出现了一些组织或个人，将内核和其它软件组装在一起，作为一个完整的系统发布，这就是发行版。安装大多数发行版，如 ubuntu、archlinux，就是通过安装程序，将已经组装起来的系统安装到计算机上</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2808047"></a>发行版</h3></div></div></div>
+<p>各种发行版都有自己的版本命名方式，有些通过发布时间来命名，像 archlinux：</p>
+<pre class="screen">
+archlinux 2008.06  </pre>
+<p>表示2008年6月发布该版本</p>
+<p>很多发行版除了版本号，还有发布代号。比如 ubuntu，选择一种动物作为吉祥物^_^!!</p>
+<pre class="screen">
+7.04 - Feisty Fawn 
+7.10 - Gutsy Gibbon 
+8.04 - Hardy Heron   
+8.10<a name="ver-1"></a><img src="images/callouts/1.png" alt="1" border="0"> - Intrepid Ibex<a name="ver-2"></a><img src="images/callouts/2.png" alt="2" border="0">
+9.04 - Jaunty Jackalope</pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">发布时间为 08 年 10 月</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">无畏的北山羊</td>
+</tr>
+</table></div>
+<p>ubuntu 每6个月发布一次新版，所以比较隆重一点；而 archlinux 是滚动更新，发布新版只是便于新用户安装</p>
+<p>一些历史悠久的发行版，倾向使用序数作版本号，例如：</p>
+<pre class="screen">
+Fedora Core 10  
+openSUSE 11
+Debian 5.0
+FreeBSD 8.0  </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+严格的说，FreeBSD 并不是 Linux 发行版，因为它使用的不是 Linux 内核      
+    </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2808838"></a>内核</h3></div></div></div>
+<p>Linux 内核的开发，在两个分支上同时进行，稳定分支和实验分支。稳定分支相当健壮，可用于生产环境；而实验分支中包含一些新的特性，还不够成熟；待实验分支的代码经过充分测试，被证明足够成熟，便会被转移到稳定分支</p>
+<p>这种开发模式既保证了有一个可靠的稳定版用于生产，又保证了能够大胆的在内核中应用新技术，大部分开源项目都使用此模式开发(包括 FreeBSD 等)</p>
+<p>来看看内核版本号</p>
+<pre class="screen">
+2<a name="ver-k-1"></a><img src="images/callouts/1.png" alt="1" border="0">.6<a name="ver-k-2"></a><img src="images/callouts/2.png" alt="2" border="0">.27<a name="ver-k-3"></a><img src="images/callouts/3.png" alt="3" border="0">-2<a name="ver-k-4"></a><img src="images/callouts/4.png" alt="4" border="0">-i686<a name="ver-k-5"></a><img src="images/callouts/5.png" alt="5" border="0">    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-k-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">主版本号。革命性改进，这个版本号在几年内应该不会升级</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-k-2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">次版本号。重大改进，偶数为稳定分支，奇数为实验分支</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-k-3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">修正版本号。重大修正</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-k-4"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">修补版本号。一些 BUGS 的修补</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#ver-k-5"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">目标架构。i686 表示
+      intel奔腾Ⅱ或以上级别 CPU</td>
+</tr>
+</table></div>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch02s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="pt01.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">命令选项，从a到z </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 4 章   Vim 还是 Emacs</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

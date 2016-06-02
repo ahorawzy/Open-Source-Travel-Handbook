@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch14.html" title="第 14 章 命令系统">
+<link rel="prev" href="ch14s05.html" title="bash">
+<link rel="next" href="ch14s07.html" title="设定您的默认 Shell">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center"></th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch14s05.html">上一页</a> </td>
+<th width="60%" align="center">第 14 章 命令系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch14s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="glob"></a>通配符</h3></div></div></div>
+<p>使用 <span class="emphasis"><em>?</em></span> 代表任意单个字符。例如 ???lo ，表示 lo 前有三个字符，它可以匹配 Hello</p>
+<p>使用 <span class="emphasis"><em>*</em></span> 代表随意几个任意字符。例如 *.iso ，代表所有 iso 格式的文件。</p>
+<p>您可以将遍历补全和通配符结合使用，以提高效率。例如：</p>
+<pre class="screen">
+cd */   则遍历补全只补全文件夹
+chmview *.chm 则遍历补全只补全 chm 文件    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2821344"></a>任务管理</h3></div></div></div>
+<div class="glosslist"><dl>
+<dt>
+&amp;
+    </dt>
+<dd>
+<p>
+在命令的末尾加上一个 &amp; 符号，表示背景任务，例如：
+	  </p>
+<pre class="screen">
+wget http://www.download.net/xxx/mp3 &amp;</pre>
+</dd>
+<dt>
+;
+    </dt>
+<dd><p>
+    使用 ; 将多个命令连结起来，则表示任务按顺序执行
+	  </p></dd>
+<dt>
+&amp;&amp;
+    </dt>
+<dd><p>
+    使用 &amp;&amp; 将多个命令连结起来，则表示只有前面的命令执行成功，后面的命令才能得以执行
+	  </p></dd>
+<dt>
+``
+    </dt>
+<dd>
+<p>
+	    `(命令)` ，如果一个命令中包含以 `` （Esc键 下方的按键）括起来的子命令，那么子命令将被优先执行，执行结果被代入上一级命令继续执行，例如创建一个以当前时间命名的文件：</p>
+<pre class="screen">
+touch `date +%m.%d_%H:%M:%S`</pre>
+<p>
+	  </p>
+<p>touch 命令能够创建一个文件，它的操作对象，为 date +%m%d%H%M%S 命令的输出 06.06_06:06:60</p>
+<p>这样，我们创建了一个名为 06.06_06:06:60 的文件（六月六日六时六分刚过六十秒-_-!）</p>
+</dd>
+<dt>
+Ctrl+z
+    </dt>
+<dd>
+<p>
+将当前 Shell 中的任务挂起,这个时候任务的状态为
+	  </p>
+<pre class="screen">
+[1]+  Stopped   xxx	  </pre>
+</dd>
+<dt>
+bg
+    </dt>
+<dd>
+<p>
+将挂起的任务背景运行。这时它的状态为
+	  </p>
+<pre class="screen">
+[1]+ xxx &amp;</pre>
+</dd>
+<dt>
+fg
+    </dt>
+<dd><p>
+将背景任务调到前台执行
+	  </p></dd>
+<dt>
+jobs
+    </dt>
+<dd>
+<p>
+查看背景任务，方括号中的数字为命令的任务编号
+	  </p>
+<p>如果后台运行多个任务，您可以在 bg 或者 fg 后跟任务编号，作为操作对象，例如：</p>
+<pre class="screen">bg 2</pre>
+</dd>
+</dl></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2821483"></a>管道、重定向</h3></div></div></div>
+<div class="glosslist"><dl>
+<dt>
+&gt;
+    </dt>
+<dd>
+<p>
+		重定向符号，它的作用是将命令的输出重定向到一个文件中。比如我们想把命令 <span class="command"><strong>ls</strong></span> 的结果保存为 <code class="filename">FileList</code> 文件，作一个清单，我们可以使用重定向符号来完成它：
+	  </p>
+<pre class="screen">
+ls -l &gt; FileList</pre>
+</dd>
+<dt>
+&gt;&gt;
+    </dt>
+<dd><p>
+作用与 &gt; 基本相同，不同点在于， &gt;&gt; 以追加的方式，将命令的输出写入文件的末尾。
+	</p></dd>
+<dt>
+&lt;
+    </dt>
+<dd><p>
+是从文件到命令的重定向，将文件的内容作为命令的输入。
+	</p></dd>
+<dt>
+|
+    </dt>
+<dd>
+<p>
+为管道符号，它的作用是将前一个命令的输出，作为下一个命令的输入。假设一个目录下的文件太多，使用 ls 命令不能够在屏幕中完全显示，这个时候您可以将 ls 命令的输出，通过管道符号，作为浏览器 less 的输入。就可以使用浏览器的功能翻页、查找：
+	  </p>
+<pre class="screen">
+ls -al | less</pre>
+</dd>
+</dl></div>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">
+<span class="application">less</span> 浏览器的键绑定几乎与 <span class="application">man</span> 相同，请参阅<a class="xref" href="ch14s04.html" title="帮助系统">“帮助系统”一节</a>
+</td></tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2821581"></a>脱字符</h3></div></div></div>
+<p>Shell 中的一些功能是通过特殊符号作为控制字符来实现的，上面已经介绍了很多了。这产生一个问题，如果一个文件名中，刚好包含了这些字符，比如 ; ，就很难对它进行操作。使用 <span class="application">less</span> 浏览这个文件</p>
+<pre class="screen">
+less ;xxx    </pre>
+<p><span class="application">less</span> 会很快返回一个错误信息，因为并没有一个文件名作为操作对象。接着，Shell 会报告，系统中没有 <span class="application">xxx</span> 这个命令。</p>
+<p>这是因为 Shell 将文件名中的 ; 解析为按顺序执行命令。</p>
+<p>或者您的文件名以空白起始，而在 Shell 中，无论多少个空格，都将被解析为一个分隔符。您甚至不能使用命令重命名此文件。</p>
+<p>这个时候就要用到脱字符 <span class="emphasis"><em>\</em></span> 了，它能够将一个具有特殊涵义的字符转换普通字符。上面的两个任务，可以在文件名中每个特殊字符前加一个 \ ，像这样</p>
+<pre class="screen">
+less \;xxx
+less \ \xxx
+less \;\ \&amp;\xxx    </pre>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top">也可以使用 " 将文件名括起来，例如 <span class="command"><strong>less "; &amp;xxx"</strong></span> ，在很多情况下，这样甚至更方便。</td></tr>
+</table></div>
+<p>脱字符在 Shell 中也可以作为换行符，在一个命令的末尾添加一个 \ ，然后回车，在下一行继续输入命令剩余的部分，将一个命令拆分为多行且不影响它的执行（如果执行一个很长的命令，请将它拆分为多行以便于阅读）</p>
+<p>事实上换行符也符合脱字符的定义。回车键有两个涵义，一个是 执行 （Enter），另一个 换行 （折线箭头）。在 Shell 中它作为控制字符 执行 ，使用脱字符后，它便代表排版字符 换行 了。</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch14s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch14.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch14s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">bash </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 设定您的默认 Shell</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

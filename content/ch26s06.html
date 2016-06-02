@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>限定符</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch26.html" title="第 26 章 正则表达式">
+<link rel="prev" href="ch26s05.html" title="字符类">
+<link rel="next" href="ch26s07.html" title="分支条件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">限定符</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch26s05.html">上一页</a> </td>
+<th width="60%" align="center">第 26 章 正则表达式</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch26s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2877942"></a>限定符</h2></div></div></div>
+<p>在上一小节中的表格中，我们知道 <strong class="userinput"><code>.</code></strong> 可以匹配除换行符以外的任意字符，使用<strong class="userinput"><code>.</code></strong>匹配下列文本：</p>
+<pre class="screen">
+expression  </pre>
+<p>但是<strong class="userinput"><code>.</code></strong>每次只匹配一个字符，如果想一次匹配多个，则要使用限定符</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>限定符</th>
+<th>作用</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配零次或多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配一次或多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配零次或一次</td>
+</tr>
+<tr>
+<td>{3}</td>
+<td>匹配三次</td>
+</tr>
+<tr>
+<td>{3,5}</td>
+<td>匹配三到五次</td>
+</tr>
+<tr>
+<td>{3,}</td>
+<td>匹配三次或以上</td>
+</tr>
+</tbody>
+</table></div>
+<p>下面通过实例了解限定符的区别。 <code class="filename">es</code> 的匹配结果</p>
+<pre class="screen">
+expr<strong class="userinput"><code>es</code></strong>sion  </pre>
+<p> <code class="filename">es+</code> 的匹配结果(e，一个或多个 s)</p>
+<pre class="screen">
+expr<strong class="userinput"><code>ess</code></strong>ion</pre>
+<p> <code class="filename">es*</code> 的匹配结果(e，零或多个 s)</p>
+<pre class="screen">
+<strong class="userinput"><code>e</code></strong>xpr<strong class="userinput"><code>ess</code></strong>ion  </pre>
+<p> <code class="filename">es?</code> 的匹配结果(e，零或一个 s)</p>
+<pre class="screen">
+<strong class="userinput"><code>e</code></strong>xpr<strong class="userinput"><code>es</code></strong>sion  </pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2878142"></a>贪婪与懒惰</h3></div></div></div>
+<p>使用限定符进行匹配时，默认匹配尽可能多的字符。无论用
+      <strong class="userinput"><code>.*</code></strong> 还是 <strong class="userinput"><code>.+</code></strong> 匹配下列文本，都会匹配全部</p>
+<pre class="screen">
+<strong class="userinput"><code>expression</code></strong>    </pre>
+<p>这种方式称为“贪婪模式”。在限定符之后加
+      <strong class="userinput"><code>?</code></strong> 则匹配尽可能少的字符，称为“懒惰模式”<sup>[<a name="id2878189" href="#ftn.id2878189" class="footnote">49</a>]</sup></p>
+<p>例如，使用贪婪模式<strong class="userinput"><code>a.+b</code></strong>匹配：</p>
+<pre class="screen">
+<strong class="userinput"><code>aaabab</code></strong>    </pre>
+<p>使用懒惰模式<strong class="userinput"><code>a.+?b</code></strong>匹配：</p>
+<pre class="screen">
+<strong class="userinput"><code>aaab</code></strong>ab    </pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2878189" href="#id2878189" class="para">49</a>] </sup> <strong class="userinput"><code>.+</code></strong> 
+      匹配一个或多个任意字符，在贪婪模式中，它匹配尽可能多的字符；而懒惰模式中(<strong class="userinput"><code>.+?</code></strong>)，则只匹配一个字符；<strong class="userinput"><code>.{3,5}</code></strong>在贪婪模式中尽可能匹配5个字符，在懒惰模式中(<strong class="userinput"><code>.{3,5}?</code></strong>)只匹配3个字符；<strong class="userinput"><code>?</code></strong> 和 <strong class="userinput"><code>*</code></strong> 这样可以匹配零次的限定符，在懒惰模式下不匹配任何字符(<strong class="userinput"><code>.*?</code></strong>、<strong class="userinput"><code>.??</code></strong>)</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch26s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch26.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch26s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">字符类 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 分支条件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

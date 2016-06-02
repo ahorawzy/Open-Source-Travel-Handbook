@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>命令</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch13.html" title="第 13 章 基础知识">
+<link rel="prev" href="ch13s02.html" title="Shell">
+<link rel="next" href="ch13s04.html" title="Linux 程序、进程">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">命令</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch13s02.html">上一页</a> </td>
+<th width="60%" align="center">第 13 章 基础知识</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch13s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2816991"></a>命令</h2></div></div></div>
+<p>坦白的说，冷不丁见到那么老长的一串命令，谁都会毛骨悚然。</p>
+<p>也许您使用过
+  DOS，留下这种印象：命令先放一边，光是正确的输入目录、文件名都够瞧的。而且
+  DOS 不区分大小写，要是像 Linux 一样区分大小写，那多恐怖啊！！！</p>
+<p>其实 Linux 命令行具有补全功能，非常实用。假设有这样一个命令：</p>
+<pre class="screen">
+command path/file      </pre>
+<p>如果只有一个以 <strong class="userinput"><code>c</code></strong> 起始的命令，键入 <strong class="userinput"><code>c</code></strong> ，再按一次 <strong class="userinput"><code>tab</code></strong> 键，系统将自动补全该命令余下的部分。 只要 <strong class="userinput"><code>c</code></strong> <strong class="userinput"><code>tab</code></strong> 两次按键，就可以完成 <span class="command"><strong>command</strong></span> 的输入。</p>
+<p> </p>
+<p>现在我们来了解命令的语法结构，这一部分相当重要，您可得看仔细。</p>
+<p>我们知道，任何语言都有特定的语法结构，以我们的中文为例：</p>
+<pre class="screen">
+我们<a name="base11"></a><img src="images/callouts/1.png" alt="1" border="0">郑重地<a name="base12"></a><img src="images/callouts/2.png" alt="2" border="0">推荐<a name="base13"></a><img src="images/callouts/3.png" alt="3" border="0">您Linux<a name="base14"></a><img src="images/callouts/4.png" alt="4" border="0">！  </pre>
+<p>这个句子的语法尽管简单，却是大部分的命令行采用的句型。让我们看一下，这个句子里都有些什么：</p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#base11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">主语，Linux 命令的执行者当然是用户，所以主语一概省略。</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#base13"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">一个动词，作为谓语而存在。Linux 命令中，这一部分是必须的。这一部分也是不同命令之间最根本的区别方式，所以它通常作为命令名，写在最前面。键入 date 命令，您可以查看当前的时间日期。</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#base12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">状语，用来修饰谓语。与之相对应，Linux 命令可以使用选项来精细调节程序的行为。为了与命令的操作对象相区别，选项前通常要加 - 或者 -- 符号。原则上，在命令名之后，选项的位置可以随意，但是为了养成一个良好的习惯，我们建议您在命令名后直接跟选项。</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#base14"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">	这两个部分都是宾语，它们是命令的操作对象。大部分的命令只有一个操作对象，也有一些命令是双宾语结构的，具有一个直接宾语和一个间接宾语。<p>比如 拷贝 这个命令<span class="application"> cp </span>(copy)<sup>[<a name="id2817151" href="#ftn.id2817151" class="footnote">19</a>]</sup></p>
+</td>
+</tr>
+</table></div>
+<p><b>分隔符. </b>
+       我们的汉语是象形文字，没有分隔符。但是所有的拼音文字中都用空格作为分隔符，来分隔单词。Linux 命令中同样使用空格作分隔符。
+  </p>
+<p>
+ 
+  </p>
+<p>    上面的那句话，翻译成 Linux 的命令，应该是这个样子的：</p>
+<pre class="screen">
+推荐  --<a name="base15"></a><img src="images/callouts/1.png" alt="1" border="0">郑重的 您 Linux  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#base15"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"> （按照传统，“-”后跟选项缩写，“--”后跟选项全称。不过也有例外）</td>
+</tr></table></div>
+<p>哈，Linux 的命令也蛮简单吧？</p>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2817151" href="#id2817151" class="para">19</a>] </sup><span class="command"><strong>cp a b</strong></span> 表示把文件 a 拷贝为文件 b<br>  <span class="command"><strong>cp    a     /home</strong></span>表示把当前目录下的 a 文件，拷贝到 /home 目录下。（命令的不同部分使用空格分隔，连续的空格视为一个空格）</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch13s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch13.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch13s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Shell </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Linux 程序、进程</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

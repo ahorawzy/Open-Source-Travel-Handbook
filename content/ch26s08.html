@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>分组、捕获</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch26.html" title="第 26 章 正则表达式">
+<link rel="prev" href="ch26s07.html" title="分支条件">
+<link rel="next" href="ch26s09.html" title="零宽断言">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">分组、捕获</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch26s07.html">上一页</a> </td>
+<th width="60%" align="center">第 26 章 正则表达式</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch26s09.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2878334"></a>分组、捕获</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2878338"></a>分组</h3></div></div></div>
+<p>使用<strong class="userinput"><code>(表达式)</code></strong>对表达式进行分组，例如使用<strong class="userinput"><code>(\d{3}\.){2}</code></strong>匹配下面例子中的数字：</p>
+<pre class="screen">
+abc<strong class="userinput"><code>123.456.</code></strong>def  </pre>
+<p><strong class="userinput"><code>\d{3}</code></strong>表示三个数字，<strong class="userinput"><code>(\d{3}\.)</code></strong>表示三个数字加“<strong class="userinput"><code>.</code></strong>”为一组，<strong class="userinput"><code>{2}</code></strong>表示这一组内容重复两次</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2878400"></a>捕获</h3></div></div></div>
+<p>在对表达式进行分组的时候，会捕获文本到自动命名的组里，使用
+      <strong class="userinput"><code>\1 \2 ……</code></strong> 后向引用组</p>
+<p>例如用<strong class="userinput"><code>([a-z]*)\ (\d*)</code></strong>匹配下列文本，<strong class="userinput"><code>([a-z]*)</code></strong>为<strong class="userinput"><code>\1</code></strong>组，<strong class="userinput"><code>(\d*)</code></strong>为<strong class="userinput"><code>\2</code></strong>组</p>
+<pre class="screen">
+kardinal 1234567    </pre>
+<p>使用<strong class="userinput"><code>\2\ \1</code></strong>替换<strong class="userinput"><code>([a-z]*)\ (\d*)</code></strong>，可以改变两个字符串的顺序</p>
+<pre class="screen">
+1234567 kardinal    </pre>
+<p>如果分组较多，计数可能会不太方便，可以给分组指定名称，例如：</p>
+<pre class="screen">
+(?&lt;<span class="command"><strong>name</strong></span>&gt;[a-z]*)\ (?&lt;<span class="command"><strong>num</strong></span>&gt;\d*)    
+      \k&lt;<span class="command"><strong>num</strong></span>&gt;\ \k&lt;<span class="command"><strong>name</strong></span>&gt; <span class="database">(?#使用“<strong class="userinput"><code>\k&lt;name&gt;</code></strong>”后向引用)</span>    </pre>
+<p>使用<strong class="userinput"><code>(?:表达式)</code></strong>，则只是分组，而不捕获，下面例子中，<strong class="userinput"><code>(\d*)</code></strong>为<strong class="userinput"><code>\1</code></strong>组</p>
+<pre class="screen">
+(?:[a-z]*)\ (\d*)    </pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch26s07.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch26.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch26s09.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">分支条件 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 零宽断言</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

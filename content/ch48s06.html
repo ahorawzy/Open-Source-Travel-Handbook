@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Linux 操作系统的诞生</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch48.html" title="第 48 章 Linux">
+<link rel="prev" href="ch48s05.html" title="POSIX 标准">
+<link rel="next" href="ch48s07.html" title="Linux 操作系统版本的变迁">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Linux 操作系统的诞生</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch48s05.html">上一页</a> </td>
+<th width="60%" align="center">第 48 章 Linux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch48s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2925015"></a>Linux 操作系统的诞生</h2></div></div></div>
+<p>1981 年IBM 公司推出享誉全球的微型计算机IBM PC。在1981-1991 年间，MS-DOS 操作系统一直是微型计算机上操作系统的主宰。此时计算机硬件价格虽然逐年下降，但软件价格仍然是居高不下。当时Apple 的MACs 操作系统可以说是性能最好的，但是其天价没人能够轻易靠近。</p>
+<p>当时的另一个计算机技术阵营是Unix世界。但是Unix操作系统就不仅是价格贵的问题了。为了寻求高利率，Unix经销商将价格抬得极高，PC小用户就根本不能靠近它。曾经一度受到Bell Labs的许可而可以在大学中用于教学的UNIX源代码一直被小心地守卫着不需公开。对于广大的PC用户，软件行业的大型供应商始终没有给出有效的解决该问题的手段。正在此时，出现了MINIX操作系统，并有一本详细的书本描述它的设计实现原理。由于AST的书写的非常详细，并且叙述有条有理，几乎全世界的计算机爱好者都在看这本书以理解操作系统的工作原理。其中也包括Linux系统的创始者Linus Benedict Torvalds。当时(1991年)，Linus Benedict Torvalds 是赫尔辛基大学计算机科学系的二年级学生，也是一个自学hacker。这个21 岁的芬兰年轻人喜欢鼓捣计算机，测试计算机的能力和限制。但当时缺乏的是一个专业级的操作系统。MINIX 虽然很好，但只是一个用于教学目的简单操作系统，而不是一个强有力的实用操作系统。</p>
+<p>到1991 年，GNU 计划已经开发出了许多工具软件。最受期盼的Gnu C 编译器已经出现，但还没有开发出免费的GNU 操作系统。即使是MINIX 也开始有了版权，需要购买才能得到源代码。而GNU 的操作系统HURD 一直在开发之中，但并不能在几年内完成。对于Linus 来说，已经不能等待了。从1991 年4 月份起，他开始酝酿并着手编制自己的操作系统。刚开始，他的目的很简单，只是为了学习Intel 386 体系结构保护模式运行方式下的编程技术。但后来Linux 的发展却完全改变了初衷。</p>
+<p>1991 年初，Linux 开始在一台386sx 兼容微机上学习minix 操作系统。通过学习，他逐渐不能满足minix 系统的现有性能，并开始酝酿开发一个新的免费操作系统。根据Linus 在comp.os.minix 新闻组上发布的消息，我们可以知道他逐步从学习minix 系统到开发自己的Linux 的过程。</p>
+<p>Linus 第1 次向comp.os.minix 投递消息是在1991 年3 月29 日。题目是"gcc on minix-386 doesn't optimize",是有关gcc 编译器在minix-386 上运行的优化问题，由此可知，Linus 在1991 年的初期已经开始深入研究了minix 系统，并在这段时间有了改进minix 操作系统的思想，而且在进一步学习minix系统中，逐步演变为想自己重新设计一个基于Intel 80386 体系结构的新操作系统。他在回答有人提出minix 上的一个问题时，所说的第一句话是"阅读源代码"（"RTFSC (Read the Fucking Source Code :-)"）。他认为答案就在源程序中。这也说明了对于学习系统软件来说，你不光需要懂得系统的工作基本原理，还需要结合实际系统，学习实际系统的实现方法。因为理论毕竟是理论，其中省略了许多枝节，而这些枝节问题虽然没有太多的理论含量，但却是一个系统必要的组成部分，就像麻雀身上的一根羽毛。</p>
+<p>从1991 年的4 月份开始，Linus 几乎花了全部时间研究386-minix 系统(hack the kernel)，并且尝试着移植GNU 的软件到该系统上(GNU gcc、bash、gdb 等)。并于4 月13 日在comp.os.minix 上发布说自己已经成功地将bash 移植到了minix 上，而且已经爱不释手、不能离开这个shell 软件了。</p>
+<p>第一个与Linux 有关的消息是在1991 年7 月3 日在comp.os.minix 上发布的(当然此时还不存在Linux 这个名称，当时Linus 的脑子里想的可能是FREAX ，FREAX 的英文含义是怪诞的、怪物、异想天开等)。其中透露了他正在进行Linux 系统的开发，并且在Linux 最初的时候已经想到要实现与POSIX（UNIX 的国际标准）的兼容问题了。</p>
+<p>在Linus 的下一发布的消息中(1991 年8 月25 日 comp.os.minix)，他向所有minix 用户询问"What would you like to see in minix?"("你最想在minix 中见到什么？")，在该消息中他首次透露出正在开发一个(免费的)386(486)操作系统，并且说只是兴趣而已，代码不会很大，也不会象GNU 的那样专业。开发免费操作系统这个想法从4 月份就开始酝酿了，希望大家反馈一些对于minix 系统中喜欢那些特色不喜欢什么等信息，由于实际的和其它一些原因，新开发的系统刚开始与minix 很象（并且使用了minix 的文件系统）。并且已经成功地将bash(1.08 版)和gcc(1.40 版)移植到了新系统上，而且在过几个月就可以实用了。</p>
+<p>最后，Linus 申明他开发的操作系统没有使用一行minix 的源代码；而且由于使用了386 的任务切换特性，所以该操作系统不好移植（没有可移植性），并且只能使用AT 硬盘。对于Linux 的移植性问题，Linus 当时并没有考虑。但是目前Linux 几乎可以运行在任何一种硬件体系结构上。</p>
+<p>到了1991 年的10 月5 日，Linus 在comp.os.minix 新闻组上发布消息，正式向外宣布Linux 内核系统的诞生（Free minix-like kernel sources for 386-AT）。这段消息可以称为Linux 的诞生宣言，并且一直广为流传。因此10 月5 日对Linux 社区来说是一个特殊的日子，许多后来Linux 的新版本发布时都选择了这个日子。所以RedHat 公司选择这个日子发布它的新系统也不是偶然的。</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch48s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch48.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch48s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">POSIX 标准 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Linux 操作系统版本的变迁</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

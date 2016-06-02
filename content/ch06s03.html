@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>理解 GNU/Linux</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch06.html" title="第 6 章 完全用 Gnu/Linux 工作">
+<link rel="prev" href="ch06s02.html" title="UNIX 不是计算机专家的专利">
+<link rel="next" href="ch06s04.html" title="微软的地位">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">理解 GNU/Linux</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch06s02.html">上一页</a> </td>
+<th width="60%" align="center">第 6 章 完全用 Gnu/Linux 工作</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch06s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2809299"></a>理解 GNU/Linux</h2></div></div></div>
+<p>不要用 Windows 的标准来要求 Linux。</p>
+<p>由于GNU/Linux这个词太长，下面如果没有特别指明，“Linux”就是指“GNU/Linux”。 </p>
+<p>在这个年代，恐怕没有人需要我来介绍 Linux 是什么了吧？如果你觉得“Linux 只不过是跟 DOS 差不多的东西”，那请问问你旁边的 Linux 用户，Linux 到底是什么？ </p>
+<p>那为什么我还要写一篇这样的文章？因为，我发现还有很多人不不理解 Linux 和 UNIX，虽然他们也在用它，但是他们有时会问：“为什么 Linux 不能像 Windows 那样 ……？”，“怎么Redhat Linux不能 mount NTFS 分区！”，“Linux 下用什么整理硬盘？”，“什么时候OpenOffice才能完全兼容Word文件啊？”，“现在还有什么Windows能干的事情Linux干不了的？”…… </p>
+<p>他们有40G的硬盘，却只为 Linux 分配了2G空间，有时还抱怨“这个东西怎么占这么多硬盘！” 似乎 Windows 该占用大部分硬盘。他们把重要的数据装在Windows的分区，似乎信不过Linux。他们总是到处寻找新奇的，好看的GUI程序，对命令行的东西一概不屑一顾。他们对 Drag&amp;Drop，菜单配置，自动升级非常感兴趣。他们如果找到一个很像 Windows 程序的 Linux 程序，一定会很高兴的说：“哈哈！Linux 也能……了！” 如果Linux在某种测试中胜过Windows，他们会高兴得跳起来。他们没有办法用Linux解决问题的时候，甚至用Wine<sup>[<a name="id2809353" href="#ftn.id2809353" class="footnote">5</a>]</sup>来运行Windows程序。有时实在没办法，只好重起到 Windows，或者干脆省得麻烦，在 Windows 下装一个 VMWare<sup>[<a name="id2809361" href="#ftn.id2809361" class="footnote">6</a>]</sup> 虚拟一个 Linux 玩。 </p>
+<p>你如果出现了上面的情况，说明你的思想受到了 Windows 的某种潜移默化的影响和误导。你没有能够从本质上理解存在于 Linux 身上的 UNIX 思想。你支持 Linux，你喜欢 Linux，你能从中感觉到快乐，这非常好。你现在只需要明白的是：Linux 从来就不是一个玩具，它是天才UNIX的后代。UNIX 是自晶体管发明以来最伟大的发明<sup>[<a name="id2809384" href="#ftn.id2809384" class="footnote">7</a>]</sup>，它从诞生那一天开始就比 Windows 的设计出色。 </p>
+<p>你要体会什么叫做“设计”，一个糟糕的设计并不是到后来缝缝补补就可以变好的，而一个出色的设计，不但可以以不变应万变，而且可以影响到后来者。一个出色的设计配上一个出色的实现，那就是非常出色的发明。Linux 就是这样的一个出色的发明。 Linux 并不需要追赶 Windows，也不需要打垮微软。它的最终目标是改变整个计算机世界，还人们自由，给人们乐趣和方便。 </p>
+<p>Unix 是简单的，你不需要成为一个天才也能理解这种简单。</p>
+<p>UNIX的设计者 Dennis Ritchie 说：“Unix is simple. It just takes a genius to understand its simplicity.” 但是我不这么认为，因为我不是一个天才，但是我却勇敢的把 Windows 完全删除掉，遇到不明白的事情的时候努力用 UNIX 的方式去解决，而不是寻求 Windows 的帮助。现在我体会到了 UNIX 的思想和好处，我可以用比 Windows 高效几倍的效率工作。因为我相信这样的信念：“Windows 能办到的事 Linux 一定能办到，而且办的更好。” </p>
+<p>这小节开头的话应该改成：“Unix 是简单的，你不需要成为一个天才或是计算机专家。但是在这个冲斥着 Windows 错误观念的世界，你需要信念和勇气才能理解它的简单。” 我下面就告诉你一些我理解到的东西。首先，你要知道的是微软在国际科学领域是根本没有地位的。 </p>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2809353" href="#id2809353" class="para">5</a>] </sup>Wine 现在已经非常实用了</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2809361" href="#id2809361" class="para">6</a>] </sup>其实这没什么不好</p></div>
+<div class="footnote">
+<p><sup>[<a name="ftn.id2809384" href="#id2809384" class="para">7</a>] </sup>自图灵奖诞生以来，其获得者一直都是计算机领域的科学家与学者，而在所有这些届的图灵奖中只有唯一的一届有个例外，那就是Ken Thompson与Dennis M. Ritchie，他们都是计算机软件工程师。</p>
+<p>由于Unix与C语言的深远影响，1983年美国计算机协会将当年的图灵奖破例颁给了作为软件工程师的Ken与Dennis，并在当年还决定新设立一个奖项――软件系统奖，以奖励那些优秀的软件开发者，当然首个软件系统奖也是非他们两人莫属了。</p>
+</div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch06s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch06.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch06s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">UNIX 不是计算机专家的专利 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 微软的地位</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

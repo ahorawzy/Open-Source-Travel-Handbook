@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>基础知识</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="next" href="ch25s03.html" title="">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">基础知识</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2862066"></a>基础知识</h2></div></div></div>
+<div class="epigraph"><p>引起我们痛苦的东西我们就会去爱它，以使自己觉得这份痛苦是值得的</p></div>
+<p>Emacs 是一个架构在编辑器上的集成环境，除了最基本的编辑功能，还可以完成文件管理、终端模拟、浏览网页、收发邮件、编译程序等工作。</p>
+<p>Emacs 使用 Elisp 语言进行配置和扩展，它本身也可以作为 Elisp 解释器使用。</p>
+<p>Emacs 的界面主要由三部分构成：信息栏、回显区(echo)、缓冲区(buffer)
+  </p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2861454"></a>缓冲区</h3></div></div></div>
+<p>
+      缓冲区(buffer) 类似于常规编辑器的文字编辑区。Emacs 并不直接对文件进行修改，而是读取文件的内容并显示在缓冲区中，在收到保存的指令后才将修改写入文件。
+    </p>
+<p>
+      缓冲区名称通常为它所读取文件的文件名。
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862084"></a>信息栏</h3></div></div></div>
+<p>
+      在缓冲区之下为状态栏，像这样的
+    </p>
+<div><img src="images/emacs/statusbar.jpg"></div>
+<p>
+      简单说明一下：
+    </p>
+<pre class="screen">
+-<a name="emacs11"></a><img src="images/callouts/1.png" alt="1" border="0">U<a name="emacs12"></a><img src="images/callouts/2.png" alt="2" border="0">(UNIX<a name="emacs13"></a><img src="images/callouts/3.png" alt="3" border="0">)**<a name="emacs14"></a><img src="images/callouts/4.png" alt="4" border="0">-<a name="emacs22"></a><img src="images/callouts/5.png" alt="5" border="0">  emacs.xml<a name="emacs15"></a><img src="images/callouts/6.png" alt="6" border="0">      15%<a name="emacs16"></a><img src="images/callouts/7.png" alt="7" border="0"> (28,32<a name="emacs17"></a><img src="images/callouts/8.png" alt="8" border="0">)  Git:master<a name="emacs18"></a><img src="images/callouts/9.png" alt="9" border="0"> (DocBook-XML<a name="emacs19"></a><img src="images/callouts/10.png" alt="10" border="0"> Outl<a name="emacs20"></a><img src="images/callouts/11.png" alt="11" border="0">)----二  9月 30 11:57<a name="emacs21"></a><img src="images/callouts/12.png" alt="12" border="0">--------------------</pre>
+<p>
+      </p>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">点击拖动这里可以状态栏位置</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">文件编码 U 代表 UTF-8； c 代表 chinese-gbk</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs13"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">换行符类型 有 UNIX、DOS 和 MacOS 三种</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs14"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">文件状态 %代表只读 -代表可写 *代表未保存</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs22"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">当前工作路径</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs15"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">当前编辑的文件</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs16"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">光标在当前文件中的位置</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs17"><img src="images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left">光标所在的行、列</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs18"><img src="images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left">版本控制系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs19"><img src="images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left">主模式</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs20"><img src="images/callouts/11.png" alt="11" border="0"></a> </p></td>
+<td valign="top" align="left">辅模式</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#emacs21"><img src="images/callouts/12.png" alt="12" border="0"></a> </p></td>
+<td valign="top" align="left">日期时间</td>
+</tr>
+</table></div>
+<p>
+    </p>
+<p>
+      标题栏也可以显示一部分信息，并且可以自由定义。
+    </p>
+</div>
+<pre class="synopsis"></pre>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862301"></a>按键描述</h3></div></div></div>
+<p>
+      Emacs 的功能键，通常为组合键。例如
+    </p>
+<div class="table">
+<a name="id2862312"></a><p class="title"><b>表 25.1. Emacs 按键描述</b></p>
+<div class="table-contents"><table summary="Emacs 按键描述" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>Emacs 描述</th>
+<th>实际热键</th>
+<th>功能</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>C-f</td>
+<td>Ctrl+f</td>
+<td>光标前进一格</td>
+</tr>
+<tr>
+<td>C-b</td>
+<td>Ctrl+b</td>
+<td>光标后退一格</td>
+</tr>
+<tr>
+<td>C-d</td>
+<td>Ctrl+d</td>
+<td>删除一个字符</td>
+</tr>
+<tr>
+<td>C-a</td>
+<td>Ctrl+a</td>
+<td>回到行首</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+      Emacs 对按键的描述方式中， <span class="emphasis"><em>-</em></span> 之前的一个字符为修饰键，表示按住该键，再按 <span class="emphasis"><em>-</em></span> 后面的键。
+    </p>
+<p>
+      例如： <strong class="userinput"><code>C-a</code></strong> 表示按住 Ctrl 再按 a 键。 Emacs 对其它一些特殊按键的描述
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><strong class="userinput"><code>C-</code></strong></td>
+<td>按住 Ctrl键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>M-</code></strong></td>
+<td>按住 Meta键。在 PC 上，Meta键 通常对应 Alt 键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>C-M-</code></strong></td>
+<td>同时按住 Ctrl键 和 Meta键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>S-</code></strong></td>
+<td>Shift键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>s-</code></strong></td>
+<td>Linux 下对应 WIN 键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>RET</code></strong></td>
+<td>回车键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>TAB</code></strong></td>
+<td>Tab键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>ESC</code></strong></td>
+<td>Esc键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>SPC</code></strong></td>
+<td>空格键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>DEL</code></strong></td>
+<td>退格键</td>
+</tr>
+<tr>
+<td><strong class="userinput"><code>Delete</code></strong></td>
+<td>删除键</td>
+</tr>
+</tbody>
+</table></div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">在 Emacs 中，<strong class="userinput"><code>ESC</code></strong> 等价于 <strong class="userinput"><code>M-</code></strong>，也就是说，按一次 <strong class="userinput"><code>ESC</code></strong> 键，与按住 <strong class="userinput"><code>Meta</code></strong>  键的作用是相同的。<br>类似 <strong class="userinput"><code>C-M-r</code></strong> 的按键，可以使用 <strong class="userinput"><code>ESC C-r</code></strong>(按一次 <strong class="userinput"><code>ESC</code></strong>，再按 <strong class="userinput"><code>C-r</code></strong>)这种更容易的方式</td></tr>
+</table></div>
+<p>
+      在后面的部分中，将统一使用 Emacs 对按键的描述方式。
+    </p>
+<p>    </p>
+<p>
+      Emacs 十分强大，上面的组合键，远不能涵盖 Emacs 的功能于万一。除基本的编辑功能键外，其它功能多使用 <span class="emphasis"><em>按键序列</em></span>： 连续的按下多组快捷键
+    </p>
+<p>
+      例如： <strong class="userinput"><code>C-x C-c</code></strong> 表示先按下 <strong class="userinput"><code>C-x</code></strong> ，再按下 <strong class="userinput"><code>C-c</code></strong> 。也就是 <strong class="userinput"><code>Ctrl+x</code></strong> 后，再 <strong class="userinput"><code>Ctrl+c</code></strong> (退出 Emacs)
+    </p>
+<p>
+      接下来 <strong class="userinput"><code>C-h t</code></strong> ，进入 《Emacs 快捷指南》
+    </p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2862686"></a>回显区</h3></div></div></div>
+<p>
+      <strong class="userinput"><code>C-x h</code></strong> （先按 Ctrl+x 再按 h) 后，您会发现状态栏和编辑器底部之间的区域出现 Mark set 字样。同时，整个缓冲区的内容都被选中。
+    </p>
+<p>
+      它是一个迷你缓冲区(minibuffer)，叫作回显区(echo area)，提示您正在进行的操作，比如 Mark set(设定标记)
+    </p>
+<p>
+      如果一个按键序列没有完成，却停止了输入。大约两秒后，回显区会显示已输入部分，以免您忘记。不要以为是 Emacs 反应迟钝
+    </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 25 章 Emacs 入门 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr>
+</table>
+</div>
+</body>
+</html>

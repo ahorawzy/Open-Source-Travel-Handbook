@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>启动流程</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch15.html" title="第 15 章 基本系统">
+<link rel="prev" href="ch15s02.html" title="目录结构">
+<link rel="next" href="ch15s04.html" title="服务管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">启动流程</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch15s02.html">上一页</a> </td>
+<th width="60%" align="center">第 15 章 基本系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch15s04.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2823107"></a>启动流程</h2></div></div></div>
+<div class="orderedlist"><ol type="1">
+<li>
+      读取 MBR 的信息，启动 Boot Manager<a name="boot1"></a><img src="images/callouts/1.png" alt="1" border="0">
+</li>
+<li>
+      加载系统内核，启动 init进程<a name="boot2"></a><img src="images/callouts/2.png" alt="2" border="0">
+</li>
+<li>
+      init进程 读取 <code class="filename">/etc/inittab</code> 文件中的信息，并进入预设的运行级别，按顺序运行该运行级别对应文件夹下的脚本。脚本通常以 start 选项启动，并指向一个系统中的程序。<a name="boot3"></a><img src="images/callouts/3.png" alt="3" border="0">
+</li>
+<li>
+	根据 <code class="filename">/etc/rcS.d/</code>文件夹中对应的脚本启动 Xwindow 服务器 xorg <a name="boot4"></a><img src="images/callouts/4.png" alt="4" border="0">
+</li>
+<li>
+      启动登录管理器，等待用户登录 <a name="boot5"></a><img src="images/callouts/5.png" alt="5" border="0">
+</li>
+</ol></div>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#boot1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+   	Windows 使用 NTLDR 作为 Boot Manager，如果您的系统中安装多个版本的 Windows，您就需要在 NTLDR 中选择您要进入的系统。 Linux 通常使用功能强大，配置灵活的 GRUB 作为 Boot Manager，我们将在<a class="xref" href="ch22.html" title="第 22 章 Grub">第 22 章 <i>Grub</i></a>中向您介绍它的使用方式。
+    </td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#boot2"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+	    init进程 是 Linux 的根进程，所有的系统进程都是它的子进程。
+    </td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#boot3"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">
+      通常情况下， <code class="filename">/etc/rcS.d/</code> 目录下的启动脚本首先被执行，然后是 <code class="filename">/etc/rcN.d/</code> 目录。例如您设定的运行级别为 3,那么它对应的启动目录为 <code class="filename">/etc/rc3.d/</code> 。
+    </td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#boot4"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">
+    Xwindow 为 Linux 下的图形用户界面系统。
+    </td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#boot5"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">     
+      大多 Linux 系统默认使用 GDM 作为登录管理器，您在登录管理器界面中输入用户名和密码后，便可以登录系统。（您可以在 <code class="filename">/etc/rc3.d/</code> 文件夹中找到一个名为 <code class="filename">S13gdm</code> 的链接）
+    </td>
+</tr>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2823902"></a>更改运行级别</h3></div></div></div>
+<p>      在 <code class="filename">/etc/inittab</code> 文件中找到如下内容：    </p>
+<pre class="screen">
+# The default runlevel.
+id:2<a name="runlevel1"></a><img src="images/callouts/1.png" alt="1" border="0">:initdefault:    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#runlevel1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left"> 2 为系统的运行级别，默认的运行级别涵义如下：<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>0</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>1</td>
+<td>单用户维护模式</td>
+</tr>
+<tr>
+<td>2~5</td>
+<td>多用户模式</td>
+</tr>
+<tr>
+<td>6</td>
+<td>重启</td>
+</tr>
+</tbody>
+</table></div>
+</td>
+</tr></table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch15s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch15.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch15s04.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">目录结构 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 服务管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>搜索</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch17.html" title="第 17 章 核心工具集">
+<link rel="prev" href="ch17s06.html" title="压缩解压">
+<link rel="next" href="ch17s08.html" title="权限管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">搜索</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch17s06.html">上一页</a> </td>
+<th width="60%" align="center">第 17 章 核心工具集</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17s08.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2830200"></a>搜索</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2830205"></a>whereis 程序名称</h3></div></div></div>
+<p>
+      查找软件的安装路径
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-b</td>
+<td>只查找二进制文件</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>只查找帮助文件</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>只查找源代码</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>排除指定类型文件</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>只显示文件名</td>
+</tr>
+<tr>
+<td>-B 目录</td>
+<td>在指定目录下查找二进制文件</td>
+</tr>
+<tr>
+<td>-M 目录</td>
+<td>在指定目录下查找帮助文件</td>
+</tr>
+<tr>
+<td>-S 目录</td>
+<td>在指定目录下查找源代码</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2830281"></a>locate 文件名称</h3></div></div></div>
+<p>
+      在文件索引数据库中搜索文件
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody><tr>
+<td>-d 数据库路径</td>
+<td>搜索指定数据库</td>
+</tr></tbody>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<strong class="userinput"><code>updatedb</code></strong> 更新文件索引数据库
+    </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2830325"></a>find [路径] 表达式</h3></div></div></div>
+<p>
+      查找文件
+    </p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>-name 表达式</td>
+<td>根据文件名查找文件</td>
+</tr>
+<tr>
+<td>-iname 表达式</td>
+<td>根据文件名查找文件，忽略大小写</td>
+</tr>
+<tr>
+<td>-path 表达式</td>
+<td>根据路径查找文件</td>
+</tr>
+<tr>
+<td>-ipath 表达式</td>
+<td>根据路径查找文件，忽略大小写</td>
+</tr>
+<tr>
+<td>-amin 分钟</td>
+<td>过去N分钟内访问过的文件</td>
+</tr>
+<tr>
+<td>-atime 天数</td>
+<td>过去N天内访问过的文件</td>
+</tr>
+<tr>
+<td>-cmin 分钟</td>
+<td>过去N分钟内修改过的文件</td>
+</tr>
+<tr>
+<td>-ctime 天数</td>
+<td>过去N天内修改过的文件</td>
+</tr>
+<tr>
+<td>-anewer 参照文件</td>
+<td>比参照文件更晚被读取过的文件</td>
+</tr>
+<tr>
+<td>-cnewer 参照文件</td>
+<td>比参照文件更晚被修改过的文件</td>
+</tr>
+<tr>
+<td>-size 大小</td>
+<td>根据文件大小查找文件，单位 b c w k M G</td>
+</tr>
+<tr>
+<td>-type 文件类型</td>
+<td>根据文件类型查找文件。b 块设备 c 字符设备 d 目录 p 管道文件 f 普通文件 l 链接 s 端口文件</td>
+</tr>
+<tr>
+<td>-user 用户名</td>
+<td>按归属用户查找文件</td>
+</tr>
+<tr>
+<td>-uid 用户编号</td>
+<td>按用户编号查找文件</td>
+</tr>
+<tr>
+<td>-group 群组名</td>
+<td>按归属群组查找文件</td>
+</tr>
+<tr>
+<td>-gid 群组编号</td>
+<td>按群组编号查找文件</td>
+</tr>
+<tr>
+<td>-empty</td>
+<td>查找空文件</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2830474"></a><td>grep 字符串|正则表达式 文件名|标准输入</td>
+</h3></div></div></div>
+<p>
+      在文件中搜索内容
+    </p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch17s06.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch17.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17s08.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">压缩解压 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 权限管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

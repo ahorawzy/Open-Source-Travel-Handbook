@@ -1,0 +1,137 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Grub 安装</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch22.html" title="第 22 章 Grub">
+<link rel="prev" href="ch22s05.html" title="Grub 配置文件">
+<link rel="next" href="ch22s07.html" title="Grub 使用">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Grub 安装</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch22s05.html">上一页</a> </td>
+<th width="60%" align="center">第 22 章 Grub</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch22s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="install-grub"></a>Grub 安装</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2851646"></a>将 Grub 安装到系统中</h3></div></div></div>
+<pre class="screen">grub-install  --no-floppy<a name="grub-61"></a><img src="images/callouts/1.png" alt="1" border="0"> --root-directory=/boot<a name="grub-62"></a><img src="images/callouts/2.png" alt="2" border="0"> /dev/sdM<a name="grub-63"></a><img src="images/callouts/3.png" alt="3" border="0"></pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-61"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">不使用软盘</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-62"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">文件安装目录，通常不需要指定</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-63"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">目标磁盘</td>
+</tr>
+</table></div>
+</div>
+<div class="itemizedlist"><ul type="disc"><li>
+      这一步只是拷贝 Grub 的文件。如果是修复系统，通常情况下它们已经存在，直接进行下一步就可以
+    </li></ul></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2851714"></a>将 Grub 安装到 MBR</h3></div></div></div>
+<p><strong class="userinput"><code>sudo grub</code></strong>进入 Grub 交互模式：</p>
+<pre class="screen">
+grub&gt; find /boot/grub/stage2<a name="grub-71"></a><img src="images/callouts/1.png" alt="1" border="0">
+ (hd0,0)<a name="grub-72"></a><img src="images/callouts/2.png" alt="2" border="0">
+
+grub&gt; root (hd0,0)<a name="grub-73"></a><img src="images/callouts/3.png" alt="3" border="0">
+ Filesystem type is xfs, partition type 0x83<a name="grub-74"></a><img src="images/callouts/4.png" alt="4" border="0">
+
+grub&gt; setup (hd0)<a name="grub-75"></a><img src="images/callouts/5.png" alt="5" border="0">
+ Checking if "/boot/grub/stage1" exists... yes
+ Checking if "/boot/grub/stage2" exists... yes
+ Checking if "/boot/grub/xfs_stage1_5" exists... yes<a name="grub-76"></a><img src="images/callouts/6.png" alt="6" border="0">
+ Running "embed /boot/grub/xfs_stage1_5 (hd0)"...  19 sectors are embedded.<a name="grub-77"></a><img src="images/callouts/7.png" alt="7" border="0">
+succeeded
+ Running "install /boot/grub/stage1 (hd0) (hd0)1+19 p (hd0,0)/boot/grub/stage2 
+/boot/grub/menu.lst"... succeeded<a name="grub-78"></a><img src="images/callouts/8.png" alt="8" border="0">
+Done.
+
+grub&gt; quit<a name="grub-79"></a><img src="images/callouts/9.png" alt="9" border="0"></pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-71"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">搜索 stage2 文件所在的分区<sup>[<a href="ch22s02.html#ftn.grub-stage" class="footnoteref">39</a>]</sup>，通常就是 Grub 根分区
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-72"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">返回 Grub 根分区名称</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-73"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">将这个分区设为 Grub 根分区</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-74"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">返回 Grub 根分区的文件系统信息</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-75"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">将 Grub 安装到 MBR。注意是(hd0)而不是(hd0,0)</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-76"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">检查需要的文件是否存在，因为用了 XFS 文件系统，所以需要<code class="filename">xfs_stage1_5</code>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-77"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">将<code class="filename">xfs_stage1_5</code>嵌入到 MBR，不然 Grub 不能够读取 XFS 分区中的 stage2</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-78"><img src="images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left">将<code class="filename">stage1</code>安装到 MBR，并指向 <code class="filename">stage2</code> 和 <code class="filename">menu.lst</code>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-79"><img src="images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left">退出</td>
+</tr>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+      可以使用<strong class="userinput"><code>TAB</code></strong>补全，或者按两次<strong class="userinput"><code>TAB</code></strong>列出提示
+    </li></ul></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch22s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch22.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch22s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Grub 配置文件 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Grub 使用</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

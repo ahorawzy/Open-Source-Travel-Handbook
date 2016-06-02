@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>配置文件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch24.html" title="第 24 章 Vim 编辑器">
+<link rel="prev" href="ch24s03.html" title="命令">
+<link rel="next" href="ch24s05.html" title="模式介绍">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">配置文件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch24s03.html">上一页</a> </td>
+<th width="60%" align="center">第 24 章 Vim 编辑器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch24s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2856197"></a>配置文件</h2></div></div></div>
+<p>Vim 的全局配置文件为 <code class="filename">/etc/vim/vimrc</code> ，用户配置文件为 <code class="filename">~/.vimrc</code> ， <strong class="userinput"><code>"</code></strong> 起始的行为注释行。我们提供的配置项，您直接加入配置文件就可以了</p>
+<p>您可以先对 Vim 进行一些简单的配置：</p>
+<div class="example">
+<a name="id2856232"></a><p class="title"><b>例 24.1. Vim 配置 <code class="filename">/etc/vim/vimrc</code></b></p>
+<div class="example-contents"><pre class="screen">
+<span class="database">"设定文件编码</span>
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+<span class="database">"开启语法加亮</span>
+syntax on
+<span class="database">"配色风格</span>
+colorscheme pablo
+
+<span class="database">"设定行距 GUI 界面中生效</span>
+set linespace=4
+<span class="database">"设定 GUI 选项</span>
+<span class="database">"set guioptions=gmrLtT  m:菜单 T:工具栏</span>
+set guioptions=gmrLt
+<span class="database">"显示标尺</span>
+set ruler
+
+<span class="database">"自动折行</span>
+<span class="database">"set nowrap</span>
+set wrap
+<span class="database">"按完整单词折行</span>
+set nolinebreak
+<span class="database">"set linebreak</span>
+<span class="database">"行宽（输入时自动插入换行符）</span>
+<span class="database">"set textwidth=80</span>
+set textwidth=0
+
+<span class="database">"允许在 虚空间 内操作 （虚空间:不包含任何文本的空间。如换行符之后）</span>
+<span class="database">"set virtualedit=all</span>
+<span class="database">"禁止在 虚空间 内操作</span>
+set virtualedit=
+
+<span class="database">"设定 Tab 键缩进的空格数</span>
+set tabstop=4
+<span class="database">"设定编辑器将多少空格视为一个缩进</span>
+set shiftwidth=4
+<span class="database">"将缩进转换为空格</span>
+<span class="database">"set expandtab</span>
+<span class="database">"设定自动缩进(新行与前一行缩进相同)</span>
+set autoindent
+<span class="database">"set noautoindent</span>
+<span class="database">"插入模式下，“←”如何删除光标前的字符：行首空白、换行符、插入点之前的字符</span>
+set backspace=indent,eol,start
+
+<span class="database">"运行在非兼容(VI)模式下(命令模式下 TAB 补全)</span>
+set nocompatible
+<span class="database">"命令行历史纪录</span>
+set history=500
+
+<span class="database">"禁用增量搜索</span>
+set incsearch
+<span class="database">"set noincsearch</span>
+<span class="database">"搜索时忽略大小写</span>
+set ignorecase
+<span class="database">"set noignorecase</span>
+<span class="database">"高亮显示搜索结果</span>
+set hlsearch
+
+<span class="database">"设定折叠方式</span>
+<span class="database">"set foldmethod=manual</span>
+
+<span class="database">"以下字符将被视为单词的一部分 (ASCII)：</span>
+<span class="database">"set iskeyword+=33-47,58-64,91-96,123-128</span></pre></div>
+</div>
+<br class="example-break"><div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2856482"></a>模式行</h3></div></div></div>
+<p>也可以通过“模式行”将配置选项嵌入在普通文件中。打开此文件时，优先使用模式行中的配置：</p>
+<pre class="screen">
+<span class="database"># <span class="command"><strong>vim:</strong></span> filetype=sh foldmethod=marker autoindent expandtab shiftwidth=4</span>
+模式行可以写在任意位置
+但为了不影响文件功能，模式行通常写在注释中
+模式行以 <span class="command"><strong>vim:</strong></span> 起始，前面至少要有一个空白字符（空格、换行符等）
+模式行中的设置项以空格分隔
+……</pre>
+<p>这种形式的缺点在于，不能在设置项后添加其它文本。如果有相关需要，可以使用另一种模式行：</p>
+<pre class="screen">
+&lt;!-- <span class="command"><strong>vim:set</strong></span> filetype=html<span class="command"><strong>:</strong></span> 这里可以任意添加文本 --&gt;    </pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch24s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch24.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch24s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">命令 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 模式介绍</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

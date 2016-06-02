@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>语法简介</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s08.html" title="项目管理">
+<link rel="next" href="ch29s10.html" title="标题">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">语法简介</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s08.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s10.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2897944"></a>语法简介</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2897952"></a>空白距离</h3></div></div></div>
+<p>TEX 将空格和制表符等空白字符视为相同的空白距离（space），多个连续的 空白字符 等同为一个空白字符,  每行开始的空白字符将被忽略， 而单个的 换行符 被视为一空格。</p>
+<p>TEX 使用空行(两个或以上换行符)来分隔段落。如同空格一样，多个空行所起的作用和一个空行是相同的。</p>
+<p>以下为示例代码：</p>
+<pre class="screen">TEX 将空格和制表符等空白字符视为相同的空白距离（space），
+多个连续的 空白字符         等同为一个空白字符,
+       每行开始的空白字符将被忽略，
+而单个的 换行符
+被视为一空格。
+
+TEX 使用空行(两个或以上换行符)来分隔段落。如同空格一样，多个空行所起的作用和一个空行是相同的。    
+    
+    
+    
+以下为示例代码：    </pre>
+<p>可以使用 <strong class="userinput"><code>\blank</code></strong>
+      <sup>[<a name="id2898003" href="#ftn.id2898003" class="footnote">74</a>]</sup>命令插入空行，使用
+      <strong class="userinput"><code>\\</code></strong> 插入空格</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2898025"></a>特殊字符</h3></div></div></div>
+<p>以下为 TeX 的保留字符：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>保留字符</th>
+<th>禁止解析</th>
+<th>说明</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>\type{\}</td>
+<td>命令引导符</td>
+</tr>
+<tr>
+<td>%</td>
+<td>\%</td>
+<td>注释</td>
+</tr>
+<tr>
+<td>$</td>
+<td>\$</td>
+<td>数学公式</td>
+</tr>
+<tr>
+<td>^</td>
+<td>\^</td>
+<td>上标</td>
+</tr>
+<tr>
+<td>_</td>
+<td>\_</td>
+<td>下标</td>
+</tr>
+<tr>
+<td>#</td>
+<td>\#</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>\&amp;</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>~</td>
+<td>\~</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>{</td>
+<td>\{</td>
+<td>命令参数</td>
+</tr>
+<tr>
+<td>}</td>
+<td>\}</td>
+<td>命令参数</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong class="userinput"><code>\backslash</code></strong> 可以得到数学符号中的
+      <span class="command"><strong>\</strong></span>，而 <strong class="userinput"><code>\\</code></strong>
+    通常在标题、页眉/页脚、边注等环境中作为换行符</p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2898169"></a>命令</h3></div></div></div>
+<p>TEX 命令以反斜线“<strong class="userinput"><code>\</code></strong>”引导，以任意非字母字符结束</p>
+<p>命令可以使用花括号或方括号作为参数，例如：</p>
+<pre class="screen">
+\command[选项,设置,……]{操作对象}    </pre>
+<p>命令分为两种：普通命令和环境命令。普通命令可以用于行内；环境命令包含起始声明和结束声明，用于多行。普通命令和环境命令可以互相嵌套</p>
+<pre class="screen">
+\begin{itemize}                          	  <span class="database">%环境命令起始声明</span>
+\item 列表项					  <span class="database">%普通命令</span>
+\item 列表项							  
+\end{itemize}                                     <span class="database">%环境命令结束声明</span> </pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2898003" href="#id2898003" class="para">74</a>] </sup><strong class="userinput"><code>\blank[medium*4]</code></strong> 插入4个中等高度空行</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s08.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s10.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">项目管理 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 标题</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

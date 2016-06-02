@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>转义符</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch26.html" title="第 26 章 正则表达式">
+<link rel="prev" href="ch26s03.html" title="运算优先级">
+<link rel="next" href="ch26s05.html" title="字符类">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">转义符</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch26s03.html">上一页</a> </td>
+<th width="60%" align="center">第 26 章 正则表达式</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch26s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2877451"></a>转义符</h2></div></div></div>
+<p>如果源文本中出现了正则表达式中的运算符，如<code class="filename">(</code>，使用
+    <code class="filename">(</code> 无法匹配下列文本中的括弧，这时要使用
+    <strong class="userinput"><code>\</code></strong> 进行转义。用 <code class="filename">\(</code>匹配<sup>[<a name="id2877485" href="#ftn.id2877485" class="footnote">48</a>]</sup>:</p>
+<pre class="screen">
+<strong class="userinput"><code>(</code></strong>regular expression)  </pre>
+<p>在文本中匹配<a class="xref" href="ch26s03.html" title="运算优先级">“运算优先级”一节</a>中的所有运算符，都要用这种形式：</p>
+<pre class="screen">
+\运算符  </pre>
+<p>在文本中匹配<strong class="userinput"><code>\</code></strong>本身，要用 <strong class="userinput"><code>\\</code></strong></p>
+<p> </p>
+<p>非运算符前使用 <strong class="userinput"><code>\</code></strong> ，则有特殊的意义，例如<strong class="userinput"><code>\n</code></strong>匹配一个换行符。常用转义字符：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>转义字符</th>
+<th>涵义</th>
+<td class="auto-generated"> </td>
+</tr></thead>
+<tbody>
+<tr>
+<td rowspan="7">常规匹配</td>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母或数字或下划线或汉字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意的空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或结束，在字符类里代表退格</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串的开始，在字符类里表示”非“</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串的结束</td>
+</tr>
+<tr>
+<td rowspan="5">反向匹配</td>
+<td>\W</td>
+<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任意不是空白符的字符</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配任意非数字的字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配不是单词开头或结束的位置</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>匹配除了 aeiou 这几个字母以外的任意字符</td>
+</tr>
+<tr>
+<td rowspan="15">特殊字符</td>
+<td>\a</td>
+<td>报警字符(打印它的效果是电脑嘀一声)</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表符，Tab</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行符</td>
+</tr>
+<tr>
+<td>\e</td>
+<td>Escape</td>
+</tr>
+<tr>
+<td>\0nn</td>
+<td>ASCII 代码中八进制代码为 nn 的字符</td>
+</tr>
+<tr>
+<td>\xnn</td>
+<td>ASCII 代码中十六进制代码为 nn 的字符</td>
+</tr>
+<tr>
+<td>\unnnn</td>
+<td>Unicode 代码中十六进制代码为 nnnn 的字符</td>
+</tr>
+<tr>
+<td>\cN</td>
+<td>ASCII 控制字符。比如 \cC 代表 Ctrl+C</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>字符串开头(类似^，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>字符串结尾或行尾(不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>字符串结尾(类似$，但不受处理多行选项的影响)</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>当前搜索的开头</td>
+</tr>
+</tbody>
+</table></div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2877485" href="#id2877485" class="para">48</a>] </sup>在 Emacs 和 Vim 正则表达式中正好反过来，使用<strong class="userinput"><code>\(</code></strong>表示分组，用<strong class="userinput"><code>(</code></strong>匹配字符</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch26s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch26.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch26s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">运算优先级 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 字符类</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

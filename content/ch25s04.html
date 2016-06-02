@@ -1,0 +1,470 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>基本配置</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s03.html" title="">
+<link rel="next" href="ch25s05.html" title="帮助系统">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">基本配置</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s03.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2863382"></a>基本配置</h2></div></div></div>
+<p>
+您已经知道了，Emacs 的配置文件为 <code class="filename">~/.emacs</code> 。配置文件中，以 ; 起始到行末的部分为注释。	    
+	  </p>
+<p>
+	    让我们些简单配置一下：
+	  </p>
+<div class="example">
+<a name="id2863406"></a><p class="title"><b>例 25.1. emacs 配置 <code class="filename">~/.emacs</code></b></p>
+<div class="example-contents"><pre class="screen">
+<span class="database">;;========================================</span>
+<span class="database">;;添加 Emacs 搜索目录 可以将自定的扩展放该目录</span>
+<span class="database">;;========================================</span>
+<span class="database">;(add-to-list 'load-path "~/..emacs")</span>
+<span class="database">;如果有其它配置文件，使此命令读取</span>
+<span class="database">;(load "addon.el")</span>
+	  
+<span class="database">;;========================================</span>
+<span class="database">;; 外观设置</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;;禁用工具栏</span>
+(tool-bar-mode nil)
+
+<span class="database">;;禁用菜单栏，F10 开启关闭菜单</span>
+(menu-bar-mode nil)
+
+<span class="database">;;禁用滚动栏，用鼠标滚轮代替</span>
+<span class="database">;;(scroll-bar-mode nil)</span>
+
+<span class="database">;;禁用启动画面</span>
+(setq inhibit-startup-message t)
+
+<span class="database">;;========================================</span>
+<span class="database">;; 键绑定</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;; C-t 设置标记 ;; </span>
+(global-set-key (kbd "C-t") 'set-mark-command)
+
+<span class="database">;; C-x b =&gt; CRM bufer list</span>
+(global-set-key "\C-xb" 'electric-buffer-list)
+
+<span class="database">;;---------- redo</span>
+(global-set-key ( kbd "C-.") 'redo)
+
+<span class="database">;;========================================</span>
+<span class="database">;;关闭当前缓冲区 Alt+4  ;; C-x 0</span>
+(global-set-key (kbd "M-4") 'delete-window)
+<span class="database">;;关闭其它缓冲区 Alt+1  ;; C-x 1</span>
+(global-set-key (kbd "M-1") 'delete-other-windows)
+<span class="database">;;水平分割缓冲区 Alt+2  ;; C-x 2</span>
+(global-set-key (kbd "M-2") 'split-window-vertically)
+<span class="database">;;垂直分割缓冲区 Alt+3  ;; C-x 3</span>
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+<span class="database">;;切换到其它缓冲区 Alt+0 ;; C-x o </span>
+(global-set-key (kbd "M-0") 'other-window)
+	  
+	  
+<span class="database">;;F10 显示/隐藏菜单栏 ;; M-x menu-bar-open</span>
+<span class="database">;;(global-set-key (kbd "F10") 'menu-bar-mode)</span>
+
+<span class="database">;;WIN+s 进入 Shell ;; M-x shell</span>
+<span class="database">;(global-set-key (kbd "s-s") 'shell)</span>
+<span class="database">;;(define-key ctl-x-map "\M-s" 'shell)</span>
+
+
+<span class="database">;;========================================</span>
+<span class="database">;; 缓冲区</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;;设定行距</span>
+(setq default-line-spacing 0)
+
+<span class="database">;;页宽 </span>
+(setq default-fill-column 90)
+
+<span class="database">;;缺省模式 text-mode</span>
+(setq default-major-mode 'text-mode)
+
+<span class="database">;;设置删除纪录</span>
+(setq kill-ring-max 200)
+
+<span class="database">;;以空行结束</span>
+(setq require-final-newline t) 
+
+
+<span class="database">;;语法加亮</span>
+(global-font-lock-mode t)
+
+<span class="database">;;高亮显示区域选择</span>
+(transient-mark-mode t)
+
+<span class="database">;;页面平滑滚动， scroll-margin 5 靠近屏幕边沿3行时开始滚动，可以很好的看到上下文。</span>
+(setq scroll-margin 5
+      scroll-conservatively 10000)
+
+<span class="database">;高亮显示成对括号，但不来回弹跳</span>
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+
+
+<span class="database">;;鼠标指针规避光标</span>
+<span class="database">;(mouse-avoidance-mode 'animate)</span>
+
+<span class="database">;;粘贴于光标处，而不是鼠标指针处</span>
+(setq mouse-yank-at-point t)
+
+<span class="database">;;========================================</span>
+<span class="database">;; 回显区</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;;闪屏报警</span>
+(setq visible-bell t)
+
+<span class="database">;;使用 y or n 提问</span>
+(fset 'yes-or-no-p 'y-or-n-p)
+
+<span class="database">;;锁定行高</span>
+(setq resize-mini-windows nil)
+
+<span class="database">;;递归 minibuffer</span>
+(setq enable-recursive-minibuffers t)
+
+<span class="database">;; 当使用 M-x COMMAND 后，过 1 秒钟显示该 COMMAND 绑定的键。</span>
+<span class="database">;;(setq suggest-key-bindings 1) ;;</span>
+
+<span class="database">;;========================================</span>
+<span class="database">;; 状态栏</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;;显示时间</span>
+(display-time)
+<span class="database">;;时间格式</span>
+(setq display-time-24hr-format t)
+(setq display-time-day-and-date t)
+(setq display-time-interval 10)
+
+<span class="database">;;显示列号</span>
+(setq column-number-mode t)
+
+<span class="database">;;标题栏显示 %f 缓冲区完整路径 %p 页面百分数 %l 行号</span>
+(setq frame-title-format "%f")
+
+
+<span class="database">;;========================================</span>
+<span class="database">;; 编辑器设定</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;;不生成临时文件</span>
+<span class="database">;;(setq-default make-backup-files nil)</span>
+
+<span class="database">;;只渲染当前屏幕语法高亮，加快显示速度</span>
+(setq font-lock-maximum-decoration t)
+
+<span class="database">;;将错误信息显示在回显区</span>
+<span class="database">;(condition-case err</span>
+<span class="database">;    (progn</span>
+<span class="database">;    (require 'xxx) )</span>
+<span class="database">;  (error</span>
+<span class="database">;   (message "Can't load xxx-mode %s" (cdr err))))</span>
+
+<span class="database">;;使用X剪贴板</span>
+(setq x-select-enable-clipboard t) 
+<span class="database">;;;;;;;; 使用空格缩进 ;;;;;;;;</span>
+<span class="database">;; indent-tabs-mode  t 使用 TAB 作格式化字符  nil 使用空格作格式化字符</span>
+(setq indent-tabs-mode nil)
+(setq tab-always-indent nil)
+(setq tab-width 4)
+
+<span class="database">;;========================================</span>
+<span class="database">;; 颜色设置</span>
+<span class="database">;;========================================</span>
+
+<span class="database">;; 指针颜色</span>
+(set-cursor-color "black")
+<span class="database">;; 鼠标颜色</span>
+(set-mouse-color "black")
+<span class="database">;; 背景和字体颜色</span>
+(set-foreground-color "gainsboro")
+(set-background-color "grey30")
+(set-border-color "black")
+<span class="database">;; 语法高亮显示，区域选择，二次选择 ;;前景和背景色</span>
+(set-face-foreground 'highlight "white")
+(set-face-background 'highlight "blue")
+(set-face-foreground 'region "cyan")
+(set-face-background 'region "blue")
+(set-face-foreground 'secondary-selection "skyblue")
+(set-face-background 'secondary-selection "darkblue")
+
+<span class="database">;;日历配色</span>
+<span class="database">;(setq calendar-load-hook</span>
+<span class="database">;'(lambda ()</span>
+<span class="database">;(set-face-foreground 'diary-face "skyblue")</span>
+<span class="database">;(set-face-background 'holiday-face "slate blue")</span>
+<span class="database">;(set-face-foreground 'holiday-face "white")))</span>
+
+<span class="database">;;========================================</span>
+<span class="database">;; 字体设置</span>
+<span class="database">;;========================================</span>
+(set-default-font "Monospace-10")
+(if window-system
+   (set-fontset-font (frame-parameter nil 'font)
+	  'unicode '("Microsoft YaHei" . "unicode-bmp"))
+)
+
+
+<span class="database">;;========================================</span>
+<span class="database">;; 必备扩展 </span>
+<span class="database">;;========================================</span>
+
+
+<span class="database">;;---------- color-theme</span>
+<span class="database">;(require 'color-theme)</span>
+<span class="database">;(color-theme-gray30)</span>
+
+<span class="database">;;========== ibuffer</span>
+(require 'ibuffer)
+(global-set-key ( kbd "C-x C-b ")' ibuffer)
+
+<span class="database">;;========== outline</span>
+(setq outline-minor-mode-prefix [(control o)])
+
+<span class="database">;;---------- Docbook</span>
+<span class="database">;(require 'docbook-xml-mode)</span>
+
+<span class="database">;(add-hook 'docbook-xml-mode-hook</span>
+<span class="database">;	  (function (lambda ()</span>
+<span class="database">;                  (setq outline-regexp "&lt;!\\-\\-\\*+")</span>
+<span class="database">;		      (outline-minor-mode)</span>
+<span class="database">;		      (hide-body)</span>
+<span class="database">;	    		)))</span>
+
+
+<span class="database">;;开启服务器模式</span>
+;(server-start)
+
+<span class="database">;;org-mode</span>
+(setq org-hide-leading-stars t)
+ (define-key global-map "\C-ca" 'org-agenda)
+ (setq org-log-done 'time)
+
+
+<span class="database">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="database">;;;;;;;;;;; F5 运行当前文件 ;;;;;;;;;;</span>
+<span class="database">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="database">;(defun run-current-file ()</span>
+<span class="database">;  "Execute or compile the current file.</span>
+<span class="database">;For example, if the current buffer is the file x.pl,</span>
+<span class="database">;then it'll call “perl x.pl” in a shell.</span>
+<span class="database">;The file can be php, perl, python, bash, java.</span>
+<span class="database">;File suffix is used to determine what program to run."</span>
+<span class="database">;(interactive)</span>
+<span class="database">;  (let (ext-map file-name file-ext prog-name cmd-str)</span>
+<span class="database">;; get the file name</span>
+<span class="database">;; get the program name</span>
+<span class="database">;; run it</span>
+<span class="database">;    (setq ext-map</span>
+<span class="database">;          '(</span>
+<span class="database">;            ("php" . "php")</span>
+<span class="database">;            ("pl" . "perl")</span>
+<span class="database">;            ("py" . "python")</span>
+<span class="database">;            ("sh" . "bash")</span>
+<span class="database">;            ("java" . "javac")</span>
+<span class="database">;            )</span>
+<span class="database">;          )</span>
+<span class="database">;    (setq file-name (buffer-file-name))</span>
+<span class="database">;    (setq file-ext (file-name-extension file-name))</span>
+<span class="database">;    (setq prog-name (cdr (assoc file-ext ext-map)))</span>
+<span class="database">;    (setq cmd-str (concat prog-name " " file-name))</span>
+<span class="database">;;    (compile cmd-str)))</span>
+<span class="database">;    (shell-command cmd-str)))</span>
+<span class="database">;</span>
+<span class="database">;(global-set-key (kbd "&lt;f5&gt;") 'run-current-file)</span>
+
+
+
+
+<span class="database">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="database">;;;;;;; 以下为实现 redo 的代码 ;;;;;;;</span>
+<span class="database">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+
+(provide 'redo)
+
+(defvar redo-version "1.02"
+  "Version number for the Redo package.")
+
+(defvar last-buffer-undo-list nil
+  "The head of buffer-undo-list at the last time an undo or redo was done.")
+(make-variable-buffer-local 'last-buffer-undo-list)
+
+(make-variable-buffer-local 'pending-undo-list)
+
+<span class="database">;; Emacs 20 variable</span>
+(defvar undo-in-progress)
+
+(defun redo (&amp;optional count)
+  "Redo the the most recent undo.
+Prefix arg COUNT means redo the COUNT most recent undos.
+If you have modified the buffer since the last redo or undo,
+then you cannot redo any undos before then."
+  (interactive "*p")
+  (if (eq buffer-undo-list t)
+      (error "No undo information in this buffer"))
+  (if (eq last-buffer-undo-list nil)
+      (error "No undos to redo"))
+  (or (eq last-buffer-undo-list buffer-undo-list)
+<span class="database">      ;; skip one undo boundary and all point setting commands up</span>
+<span class="database">      ;; until the next undo boundary and try again.</span>
+      (let ((p buffer-undo-list))
+	(and (null (car-safe p)) (setq p (cdr-safe p)))
+	(while (and p (integerp (car-safe p)))
+	  (setq p (cdr-safe p)))
+	(eq last-buffer-undo-list p))
+      (error "Buffer modified since last undo/redo, cannot redo"))
+  (and (or (eq buffer-undo-list pending-undo-list)
+	   (eq (cdr buffer-undo-list) pending-undo-list))
+       (error "No further undos to redo in this buffer"))
+  (or (eq (selected-window) (minibuffer-window))
+      (message "Redo..."))
+  (let ((modified (buffer-modified-p))
+	(undo-in-progress t)
+	(recent-save (recent-auto-save-p))
+	(old-undo-list buffer-undo-list)
+	(p (cdr buffer-undo-list))
+	(records-between 0))
+<span class="database">    ;; count the number of undo records between the head of the</span>
+<span class="database">    ;; undo chain and the pointer to the next change.  Note that</span>
+<span class="database">    ;; by `record' we mean clumps of change records, not the</span>
+<span class="database">    ;; boundary records.  The number of records will always be a</span>
+<span class="database">    ;; multiple of 2, because an undo moves the pending pointer</span>
+<span class="database">    ;; forward one record and prepend a record to the head of the</span>
+<span class="database">    ;; chain.  Thus the separation always increases by two.  When</span>
+<span class="database">    ;; we decrease it we will decrease it by a multiple of 2</span>
+<span class="database">    ;; also.</span>
+    (while p
+      (cond ((eq p pending-undo-list)
+	     (setq p nil))
+	    ((null (car p))
+	     (setq records-between (1+ records-between))
+	     (setq p (cdr p)))
+	    (t
+	     (setq p (cdr p)))))
+<span class="database">    ;; we're off by one if pending pointer is nil, because there</span>
+<span class="database">    ;; was no boundary record in front of it to count.</span>
+    (and (null pending-undo-list)
+	 (setq records-between (1+ records-between)))
+<span class="database">    ;; don't allow the user to redo more undos than exist.</span>
+<span class="database">    ;; only half the records between the list head and the pending</span>
+<span class="database">    ;; pointer are undos that are a part of this command chain.</span>
+    (setq count (min (/ records-between 2) count)
+	  p (primitive-undo (1+ count) buffer-undo-list))
+    (if (eq p old-undo-list)
+            nil <span class="database">;; nothing happened</span>
+<span class="database">      ;; set buffer-undo-list to the new undo list.  if has been</span>
+<span class="database">      ;; shortened by `count' records.</span>
+      (setq buffer-undo-list p)
+<span class="database">      ;; primitive-undo returns a list without a leading undo</span>
+<span class="database">      ;; boundary.  add one.</span>
+      (undo-boundary)
+<span class="database">      ;; now move the pending pointer backward in the undo list</span>
+<span class="database">      ;; to reflect the redo.  sure would be nice if this list</span>
+<span class="database">      ;; were doubly linked, but no... so we have to run down the</span>
+<span class="database">      ;; list from the head and stop at the right place.</span>
+      (let ((n (- records-between count)))
+	(setq p (cdr old-undo-list))
+	(while (and p (&gt; n 0))
+	  (if (null (car p))
+	      (setq n (1- n)))
+	  (setq p (cdr p)))
+	(setq pending-undo-list p)))
+    (and modified (not (buffer-modified-p))
+	 (delete-auto-save-file-if-necessary recent-save))
+    (or (eq (selected-window) (minibuffer-window))
+	(message "Redo!"))
+    (setq last-buffer-undo-list buffer-undo-list)))
+
+(defun undo (&amp;optional arg)
+  "Undo some previous changes.
+Repeat this command to undo more changes.
+A numeric argument serves as a repeat count."
+  (interactive "*p")
+  (let ((modified (buffer-modified-p))
+	(recent-save (recent-auto-save-p)))
+    (or (eq (selected-window) (minibuffer-window))
+	(message "Undo..."))
+    (or (eq last-buffer-undo-list buffer-undo-list)
+<span class="database">	;; skip one undo boundary and all point setting commands up</span>
+<span class="database">	;; until the next undo boundary and try again.</span>
+	(let ((p buffer-undo-list))
+	  (and (null (car-safe p)) (setq p (cdr-safe p)))
+	  (while (and p (integerp (car-safe p)))
+	    (setq p (cdr-safe p)))
+	  (eq last-buffer-undo-list p))
+	(progn (undo-start)
+	       (undo-more 1)))
+    (undo-more (or arg 1))
+<span class="database">    ;; Don't specify a position in the undo record for the undo command.</span>
+<span class="database">    ;; Instead, undoing this should move point to where the change is.</span>
+<span class="database">    ;;</span>
+<span class="database">    ;;;; The old code for this was mad!  It deleted all set-point</span>
+<span class="database">    ;;;; references to the position from the whole undo list,</span>
+<span class="database">    ;;;; instead of just the cells from the beginning to the next</span>
+<span class="database">    ;;;; undo boundary.  This does what I think the other code</span>
+<span class="database">    ;;;; meant to do.</span>
+    (let ((list buffer-undo-list)
+    	  (prev nil))
+      (while (and list (not (null (car list))))
+    	(if (integerp (car list))
+    	    (if prev
+    		(setcdr prev (cdr list))
+<span class="database">    	      ;; impossible now, but maybe not in the future </span>
+    	      (setq buffer-undo-list (cdr list))))
+    	(setq prev list
+    	      list (cdr list))))
+    (and modified (not (buffer-modified-p))
+	 (delete-auto-save-file-if-necessary recent-save)))
+  (or (eq (selected-window) (minibuffer-window))
+      (message "Undo!"))
+  (setq last-buffer-undo-list buffer-undo-list))</pre></div>
+</div>
+<br class="example-break">
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top"> </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 帮助系统</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

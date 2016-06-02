@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Grub 配置文件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch22.html" title="第 22 章 Grub">
+<link rel="prev" href="ch22s04.html" title="Grub 术语">
+<link rel="next" href="ch22s06.html" title="Grub 安装">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Grub 配置文件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch22s04.html">上一页</a> </td>
+<th width="60%" align="center">第 22 章 Grub</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch22s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2851459"></a>Grub 配置文件</h2></div></div></div>
+<p><code class="filename">/boot/grub/menu.lst</code> 文件，主要由一些下面这样的块构成的</p>
+<pre class="screen">
+timeout   5 <a name="grub-49"></a><img src="images/callouts/1.png" alt="1" border="0">
+default   0 <a name="grub-50"></a><img src="images/callouts/2.png" alt="2" border="0">
+
+title       Linux <a name="grub-51"></a><img src="images/callouts/3.png" alt="3" border="0">
+root        (hd0,2)<a name="grub-52"></a><img src="images/callouts/4.png" alt="4" border="0">
+kernel      (hd0,2)/boot/vmlinuz-2.6.15-25-686 root=/dev/sda3<a name="grub-55"></a><img src="images/callouts/5.png" alt="5" border="0"> ro<a name="grub-56"></a><img src="images/callouts/6.png" alt="6" border="0"> splash<a name="grub-57"></a><img src="images/callouts/7.png" alt="7" border="0"> vga=0x31b<a name="grub-58"></a><img src="images/callouts/8.png" alt="8" border="0">
+initrd      (hd0,2)/boot/initrd.img-2.6.15-25-686
+boot
+
+
+title       Windows
+root        (hd0,0)
+makeactive<a name="grub-53"></a><img src="images/callouts/9.png" alt="9" border="0">
+chainloader +1  <a name="grub-54"></a><img src="images/callouts/10.png" alt="10" border="0"></pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-49"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">等待时间，如果用户在这段时间内未进行选择，则引导默认系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-50"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">默认系统，从 0 开始计数，每个<span class="emphasis"><em>title</em></span>项为一个系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-51"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">标题，title 和分隔符后的内容为 Grub 菜单中显示的条目</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-52"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">引导分区</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-55"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">表示当前系统的 / 目录挂载到第一块硬盘的第三个分区 (hd0,2) ，内核根据该分区中的 <code class="filename">/etc/fstab</code> 文件来挂载文件系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-56"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">以只读模式挂载</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-57"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">显示启动画面</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-58"><img src="images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left">启动屏幕分辨率</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-53"><img src="images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left">设置活动分区</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-54"><img src="images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left">链式引导</td>
+</tr>
+</table></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch22s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch22.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch22s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Grub 术语 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Grub 安装</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

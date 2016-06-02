@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>安装桌面环境</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch31.html" title="第 31 章 完美工作站 Archlinux">
+<link rel="prev" href="ch31s05.html" title="安装 X.Org">
+<link rel="next" href="ch31s07.html" title="应用软件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">安装桌面环境</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch31s05.html">上一页</a> </td>
+<th width="60%" align="center">第 31 章 完美工作站 Archlinux</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch31s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2907275"></a>安装桌面环境</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907281"></a>登录管理器</h3></div></div></div>
+<p>我们选择 GDM 作为登录管理器</p>
+<pre class="screen">
+pacman -S gdm    </pre>
+<p>安装完成后，编辑 <code class="filename">/etc/rc.conf</code>，在 DAEMONS
+    字段中添加 gdm</p>
+<pre class="screen">
+DAEMONS=(syslog-ng network netfs crond gdm)    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907315"></a>Xfce 桌面环境</h3></div></div></div>
+<p>如何选择桌面环境，是一个倍受争议话题。对于新手，我推荐 Xfce ，它有相对玲珑的体形和丰富的功能。</p>
+<pre class="screen">
+pacman -S xfce4    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907333"></a>Shell</h3></div></div></div>
+<p>Zsh 十分强大和人性化，推荐</p>
+<pre class="screen">
+pacman -S zsh    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907351"></a>终端</h3></div></div></div>
+<p>在 Linux 中工作，未必一定需要命令行，不过如果你通过读这本书来学 Linux，那么你一定得安个称手的终端：</p>
+<pre class="screen">
+pacman -S rxvt-unicode    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907369"></a>中文字体</h3></div></div></div>
+<p>通过以下命令安装中文字体</p>
+<pre class="screen">
+pacman -S ttf-arphic-uming ttf-arphic-ukai    </pre>
+<p>不过这两种字体恐怕不能取悦大家挑剔的眼光。你可以自己获取心仪的字体并安装到系统，参阅<a class="xref" href="ch19s07.html#xft-font" title="XFT字体">“XFT字体”一节</a></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907398"></a>中文输入法</h3></div></div></div>
+<p>在 Archlinux 中包含 SCIM 和 Fcitx 中文输入法。我们选择安装后者：</p>
+<pre class="screen">
+pacman -S fcitx    </pre>
+<p>当 Fcitx 安装完成后，将下列内容添加到你用户主目录中的 <code class="filename">.profile</code> 中，以便让 Fcitx 自动启动：</p>
+<pre class="screen">
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+fcitx &amp;    </pre>
+<p>关于中文环境的设置，可以参阅<a class="xref" href="ch20s04.html" title="locale 策略">“locale 策略”一节</a></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2907445"></a>ALSA</h3></div></div></div>
+<p>首先确定一下，你需要声音么？你要是想要的话你就说话嘛，你不说我怎么知道你想要呢，虽然你很有诚意地看着我，可是你还是要跟我说你想要的。你真的想要吗？那你就拿去吧！你不是真的想要吧？难道你真的想要吗？</p>
+<p>看来你真的想要，实际上，ALSA 已被包含到 2.6 版的内核中。因此，我们只需安装 ALSA 的相关工具即可</p>
+<pre class="screen">
+pacman -S alsa-utils    </pre>
+<p>接着，我们将当前用户添加到 audio 用户组，以便使用声卡设备 (注意把 kardinal 换成你的用户名)：</p>
+<pre class="screen">
+gpasswd -a kardinal audio    </pre>
+<p>同时，将 alsa 添加到 <code class="filename">/etc/rc.conf</code> 配置文件的 DAEMONS 中：</p>
+<pre class="screen">
+DAEMONS=(syslog-ng network netfs crond gdm alsa)    </pre>
+<p>ALSA 默认是静音状态，你需要先打开音量：</p>
+<pre class="screen">
+sudo alsaconf <span class="database">#可能你需要配置一下先</span>
+alsamixer     <span class="database">#使用“左右方向键”选择，使用“上下方向键”调节，ESC 键退出</span></pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch31s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch31.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch31s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">安装 X.Org </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 应用软件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

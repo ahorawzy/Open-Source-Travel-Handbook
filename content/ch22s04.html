@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Grub 术语</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch22.html" title="第 22 章 Grub">
+<link rel="prev" href="ch22s03.html" title="Grub 介绍">
+<link rel="next" href="ch22s05.html" title="Grub 配置文件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">Grub 术语</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch22s03.html">上一页</a> </td>
+<th width="60%" align="center">第 22 章 Grub</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch22s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2851052"></a>Grub 术语</h2></div></div></div>
+<p>在分区概念章节里，我们已经介绍了 Linux 系统中表示分区的方法 <code class="filename">/dev/sda5</code></p>
+<pre class="screen">/dev/sdMN       M 为 a 起始的小写字母，表示硬盘序号；N 为 1 起始的数字，表示分区序号</pre>
+<p>Grub 中使用的表示方法为 <code class="filename">hd0,1</code></p>
+<pre class="screen">hdX,Y           X 为 0 起始的数字，表示硬盘序号；Y 为 0 起始的数字，表示分区序号
+</pre>
+<p>留意它们之间的区别：</p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+    N 从 1 开始计数，X 和 Y从 0 开始计数
+  </li>
+<li>
+    N 为 1~4，它是一个主分区；N 为 5 或大于 5，它是第(N-4)个逻辑分区。Y 按分区在硬盘上排列的顺序排列，无论它表示的是主分区还是逻辑分区。
+  </li>
+</ul></div>
+<p>举例来说：</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>分区分布</th>
+<th>主分区</th>
+<th>主分区</th>
+<th>逻辑分区</th>
+<th>逻辑分区</th>
+<th>主分区</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>/dev/sdMN</td>
+<td>sda1</td>
+<td>sda2</td>
+<td>sda5</td>
+<td>sda6</td>
+<td>sda3</td>
+</tr>
+<tr>
+<td>hdX,Y</td>
+<td>hd0,0</td>
+<td>hd0,1</td>
+<td>hd0,2</td>
+<td>hd0,3</td>
+<td> hd0,4
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>现在我们来看 <span class="command"><strong>root</strong></span> 和 <span class="command"><strong>setup</strong></span> 命令的使用，<strong class="userinput"><code>sudo grub</code></strong>进入 Grub 交互模式：</p>
+<pre class="screen">
+grub&gt;root (hd0,1)<a name="grub-31"></a><img src="images/callouts/1.png" alt="1" border="0">
+
+grub&gt;setup (hd0)<a name="grub-32"></a><img src="images/callouts/2.png" alt="2" border="0"></pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-31"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这个命令将 Grub 的根分区定位为 “(hd0,1)”</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-32"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">这个命令表示将 Grub 安装在“(hd0)”，因为没有指定安装的分区，所以安装位置为 MBR</td>
+</tr>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2851245"></a>Grub 的根分区</h3></div></div></div>
+<p>为 Grub 配置文件 <code class="filename">grub/menu.lst</code> 和<code class="filename">stage<sup>[<a href="ch22s02.html#ftn.grub-stage" class="footnoteref">39</a>]</sup></code>文件所在分区。假如您单独为 <code class="filename">/boot</code> 目录挂载了一个分区，那么 Grub 的根分区通常为您系统中 <code class="filename">/boot</code> 目录所在的分区。</p>
+<p>搞错了根分区，Grub 就不能正确读取配置文件，自然不能正确引导。<sup>[<a name="id2851290" href="#ftn.id2851290" class="footnote">40</a>]</sup></p>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2851310"></a>系统根目录所在分区</h3></div></div></div>
+<p>Linux 根目录 <code class="filename">/</code> 的挂载分区。Linux 系统的分区挂载信息保存在文件系统分配表 <code class="filename">/etc/fstab</code> 文件中</p>
+<p>Grub 首先读取根分区<sup>[<a name="id2851337" href="#ftn.id2851337" class="footnote">41</a>]</sup>中的 <code class="filename">/boot/grub/menu.lst</code> 文件，并转到引导分区，如果是 Windows 等系统，则将控制权移动分区引导扇区中的启动管理器。如果是 Linux 系统，则加载内核和设备，并根据 <code class="filename">/etc/fstab</code> 文件的内容挂载文件系统。</p>
+<p>看这个例子：（假设 Grub 安装在 MBR 中，Grub 的安装位置为 <code class="filename">(hd0)</code>）</p>
+<pre class="screen">
+title       Linux
+root        (hd0,0)<a name="grub-41"></a><img src="images/callouts/1.png" alt="1" border="0">
+kernel      (hd0,1)<a name="grub-42"></a><img src="images/callouts/2.png" alt="2" border="0">/vmlinuz-2.6.15-25-686 root=/dev/sda3<a name="43"></a><img src="images/callouts/3.png" alt="3" border="0"> ro splash vga=0x31b
+initrd      (hd0,1)<a name="grub-44"></a><img src="images/callouts/4.png" alt="4" border="0">/initrd.img-2.6.15-25-686
+boot    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-41"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">这一行表示引导分区为第一块硬盘的第一个分区 (hd0,0)。如果下面也指定了这个参数，那么下面的优先</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-42"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">表示当前系统的 /boot 目录挂载到第一块硬盘的第二个分区 (hd0,1)，它是引导分区。一般情况下在 “root”项中指定</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#43"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">表示当前系统的 / 目录挂载到第一块硬盘的第三个分区 (hd0,2) ，内核根据该分区中的 <code class="filename">/etc/fstab</code> 文件来挂载文件系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#grub-44"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">同2</td>
+</tr>
+</table></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2851290" href="#id2851290" class="para">40</a>] </sup>
+  Windows 等系统的引导分区为它的安装分区，Linux 系统的引导分区为它的
+	  <code class="filename">/boot</code> 目录所在的分区，也就是 Grub 根分区</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2851337" href="#id2851337" class="para">41</a>] </sup>配置文件中并不能指定 Grub 根分区，它要在 Grub 安装过程中指定</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch22s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch22.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch22s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Grub 介绍 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Grub 配置文件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

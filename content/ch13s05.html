@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>路径</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch13.html" title="第 13 章 基础知识">
+<link rel="prev" href="ch13s04.html" title="Linux 程序、进程">
+<link rel="next" href="ch13s06.html" title="软件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">路径</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch13s04.html">上一页</a> </td>
+<th width="60%" align="center">第 13 章 基础知识</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch13s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2817385"></a>路径</h2></div></div></div>
+<p>路径分为绝对路径和相对路径。</p>
+<p>绝对路径的起始点为根目录 <code class="filename">/</code> ，例如 /usr/local/bin 就是绝对路径，它指向系统中一个绝对的位置，不受其它因素影响。</p>
+<p>相对路径的起始点为当前目录，如果您现在位于 /usr 目录，那么相对路径 local/bin 所指示的位置为 /usr/local/bin</p>
+<p>也就是说，相对路径所指示的位置，除了相对路径本身，还受到当前位置的影响。例如 Linux 系统中常见的目录 /bin 、 /usr/bin 、 /usr/local/bin ，如果只有一个相对路径 bin，那么它指示的位置可能上面三个目录中的任意一个，也可能是其它目录。</p>
+<p> </p>
+<p>如果我告诉您到 bin 目录寻找一个文件，您可能搞不清楚是哪一个 bin 目录。只有当前位置确定，相对路径指示的位置才能够确定。</p>
+<p>现在我说， /usr/local 目录下，它的相对路径 bin 中有某个文件，这样就比较明确了。</p>
+<p>在相对路径中 . 表示当前目录， <code class="filename">..</code> 表示当前目录的上一级目录。</p>
+<p> </p>
+<p>假设您安装了一个程序，它的主程序没有被放置到上面三个 bin 目录中的任何一个，或者其它系统能够找到的地方，您就得告诉系统，它的可执行文件在哪里。</p>
+<p>可以使用绝对路径，例如： <span class="command"><strong>/home/user/bin/可执行文件</strong></span></p>
+<p>或者定位到 /home/user/bin 目录，使用相对目录来定位它 <span class="command"><strong>./可执行文件</strong></span></p>
+<p> </p>
+<p>路径相关命令</p>
+<pre class="screen">
+cd (change directory)        <span class="database">#更改目录。</span>
+pwd (print working directory)<span class="database">#显示当前路径。</span>
+ls (list)                    <span class="database">#显示当前目录中的文件列表。</span></pre>
+<p>请尝试以下操作：</p>
+<pre class="screen">
+cd /etc             <span class="database">#进入“/etc”目录，这里使用的是绝对路径</span>
+pwd                 <span class="database">#显示当前路径，这个命令返回结果“/etc”</span>
+cd init.d           <span class="database">#进入“/etc”目录的子目录“init.d”，这里使用的是相对路径</span>
+cd ..               <span class="database">#进入上一级目录“/etc”</span>
+cd ../home          <span class="database">#“/etc”目录的上一级目录为“/”，它的子目录“home”为“/home”</span>
+cd -                <span class="database">#回到上一次的目录，我们在“/etc”目录跳转到“/home”目录，所以这次是回到“/etc”目录</span>
+cd ~                <span class="database">#“~”代表当前用户的“$HOME”目录，也就是“/home/{用户名}”目录。</span>
+ls                  <span class="database">#在任何时候，您都可以使用“ls”命令，来了解当前目录下都有哪些文件。</span>  </pre>
+<p> </p>
+<p>
+    远程路径：
+  </p>
+<p>远程路径的表示方法为 <span class="command"><strong>协议://用户名:密码@位置/路径:端口</strong></span></p>
+<p>大多数的远程路径可以使用默认端口匿名访问，由此用户名、密码、端口通常不需要填写。例如：</p>
+<pre class="screen">
+http://linuxtoy.org  </pre>
+<p>要求身份验证的远程路径，您可以使用下面的方式访问:</p>
+<pre class="screen">
+ftp://user:passwd@ftp.linuxtoy.org:21  </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch13s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch13.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch13s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">Linux 程序、进程 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 软件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

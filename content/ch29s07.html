@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch29.html" title="第 29 章 ConTeXt 入门指南">
+<link rel="prev" href="ch29s06.html" title="部署 ConTeXt">
+<link rel="next" href="ch29s08.html" title="项目管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center"></th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch29s06.html">上一页</a> </td>
+<th width="60%" align="center">第 29 章 ConTeXt 入门指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch29s08.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2897200"></a>Windows 下安装</h3></div></div></div>
+<p>首先下载 <a class="ulink" href="http://minimals.contextgarden.net/setup/context-setup-mswin.zip" target="_top">context-setup-mswin</a> 和 <a class="ulink" href="http://rubyinstaller.rubyforge.org/wiki/wiki.pl" target="_top">ruby</a></p>
+<p>安装 ruby ；解压 context-setup-mswin ，运行 <code class="filename">first-setup.bat</code><sup>[<a name="id2897229" href="#ftn.id2897229" class="footnote">69</a>]</sup></p>
+<p>假设 conTeXt 安装在 <code class="filename">D:\context</code> 目录下，设置环境变量<sup>[<a name="id2897244" href="#ftn.id2897244" class="footnote">70</a>]</sup>，在 <code class="filename">PATH</code> 项中添加路径：</p>
+<pre class="screen">
+;D:\context\tex\texmf-mswin\bin    </pre>
+<p>将以下内容保存为 <code class="filename">environment.reg</code> ，双击导入注册表</p>
+<pre class="screen">
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Environment]
+"CYGWIN"="nontsec"
+"OSFONTDIR"="C:\\WINDOWS\\Fonts"
+"TEXMF"="{$TEXPATH\\texmf,$TEXPATH\\texmf-local,$TEXPATH\\texmf-context,$TEXPATH\\texmf-mswin}"
+"TEXMFCACHE"="$TEXPATH\\texmf-cache"
+"TEXMFCNF"="$TEXPATH\\texmf{-local,-context,}/web2c"
+"TEXMFOS"="$TEXPATH\\texmf-mswin"
+"TEXPATH"="D:\\context\\tex"    </pre>
+<p>将打印字体配置文件复制到 <code class="filename">D:\context\tex\texmf-local\tex\context\third</code> 目录下<sup>[<a name="id2897296" href="#ftn.id2897296" class="footnote">71</a>]</sup>  </p>
+<p>使用命令 <strong class="userinput"><code>context --generate</code></strong> 刷新文档数据库<sup>[<a name="id2897313" href="#ftn.id2897313" class="footnote">72</a>]</sup></p>
+<p>最后，使用命令 <strong class="userinput"><code>context a.tex</code></strong> 或者 <strong class="userinput"><code>texexec a.tex</code></strong> 生成 PDF 文档</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2897229" href="#id2897229" class="para">69</a>] </sup>这是一个自动下载、升级的脚本</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2897244" href="#id2897244" class="para">70</a>] </sup>我的电脑:右键→属性→高级→环境变量</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2897296" href="#id2897296" class="para">71</a>] </sup>默认的配置文件需要4个 Adobe 的字体，如果没有这四个字体，可以将配置文件中使用到的 Adobe 字体改为系统中的字体</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2897313" href="#id2897313" class="para">72</a>] </sup>需要在 Windows 命令行中执行</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch29s06.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch29.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch29s08.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">部署 ConTeXt </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 项目管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

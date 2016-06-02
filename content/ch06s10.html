@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>学 UNIX 绝对不是浪费时间</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch06.html" title="第 6 章 完全用 Gnu/Linux 工作">
+<link rel="prev" href="ch06s09.html" title="UNIX 是强大的">
+<link rel="next" href="ch06s11.html" title="怎样完全用 GNU/Linux 工作">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">学 UNIX 绝对不是浪费时间</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch06s09.html">上一页</a> </td>
+<th width="60%" align="center">第 6 章 完全用 Gnu/Linux 工作</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch06s11.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2811766"></a>学 UNIX 绝对不是浪费时间</h2></div></div></div>
+<p>有人告诉我：“你看我用 Windows 什么都不用学。而用 Linux，光是安装就花了我一个星期！” </p>
+<p>首先，我要告诉你的是，你装 Linux 花了一个星期，不是因为 Linux 不好装，而是因为你已经习惯了 Windows，对 Linux 最初难以理解而已。你想一想你最初安装 Windows 的时候呢？你花了多少时间搞明白什么是硬盘分区？什么是盘符？什么是目录？你认为 Windows 就是那么容易可以学会的吗？虽然你觉得没花时间学，但是你以前在用别人的机器的时候已经耳濡目染，自然就了解了。而且由于你想要 Linux 和 Windows 并存于硬盘上，又增加了安装难度。而且你肯定没有得到有经验的 Linux 用户的帮助，否则他们会在 20 分种之内帮你搞定。一个星期也太夸张了 :P </p>
+<p>如果一开始用的就是Linux就没有这个问题。你想想如果你没有用过 windows，你肯定会很习惯 /etc, /usr, /usr/local ,... 而不是 C:, D:, E:, ... 是不是？如果你只用过 Linux，你第一次用 windows 时恐怕也会问：“/bin 目录哪里去了啊？” </p>
+<p>最重要的是，你用惯了的UNIX工具，它们可以伴随你一生，而不会那么容易变化或消失。你可以永远不用再换另外的工具了。除非那个工具比你这个好的太多，而且可以完全模拟你现在的工具。 </p>
+<p>我们实验室一个60多岁的老师，用vi, cc, make, ...都几十年了，他以前的经验绝对没有白费，而且教会了我们一批又一批的学生。vi 伴随着 UNIX 的最初发行而诞生，直到今天还是世界上头两号编辑器之一！有些人的 FVWM 配置文件已经用了 10 多年，现在完全不经修改还可以用。 </p>
+<p>看看 Windows 的工具，你从 Borland C++ 换到 VC, 就必需适应新的环境：菜单不同了，颜色不同了，按钮不同了，帮助信息不同了，热键不同了，编译器参数，调试器功能也不同了，…… 那个时候恐怕花要花你很多时间去适应。当你刚刚适应了 VC, 你又要换成 VJ, PowerBuilder, C++Builder, ... </p>
+<p>很多windows程序员都是这样，开头在dos下用 Turbo C, 然后是 Borland C, VC, C++ Builder, ......不断追赶微软的潮流。而且微软的 SDK, MFC, .NET …… 什么都在不断变化，不断出问题，又不断的在修改…… Windows 程序员不得不买又厚又重的 Microsoft Press 的书籍，看了才一个月，又过时了。今天你才学会了写 VxD，明天你就必须用 WDM 了。你不得不注册 MSDN 才能赶上 Microsoft 的步伐。很多人说：“计算机是贵族的专业。” 这就是微软一手造成的。 </p>
+<p>这些东西才是没完没了的浪费大家的时间和金钱的。这是浪费生命！我们为什么不使用从诞生就那么一致和完美的 UNIX？你需要理解先进工具的设计理念。UNIX 的工具就像我们用的汽车，它的离合器，油门，刹车，方向盘，后视镜，永远都在同样的位置。用惯了的话，你对你的汽车的每一个部件都会了如指掌，甚至你自己都可以修车了。这难道不好吗？ </p>
+<p>有人说：“你说我们需要了解 UNIX，难道你要开车还必须了解汽车的结构吗？” 你去问问开车的司机，哪一个不了解汽车的结构的，那他的驾照就是混来的。你难道想要傻瓜型的“微软牌汽车”吗？我们来看看： </p>
+<p>你买的微软牌汽车最开头只有一个座位，每加一个座位你得向汽车公司付钱。车上的防撞气囊不时会冒出来，说是为了你的安全。每开100英里要大修一次，每过一年要换一次引擎。附带的，你还必须换用由微软汽车公司指定的石油公司提供的新型号的机油。你的车出了问题，但是法律规定，你不准私自拆开你的汽车来修理，你必需到微软汽车公司指定的维修点去，需要付相当多的钱才能修好一个小毛病。 </p>
+<p>最可气的是，你每换一个型号的微软牌汽车，它的刹车和离合器都在不同的位置，你需要重新去考驾驶执照。如果这辆汽车在途中刹车失灵，你受了重伤，你也不能状告微软汽车公司，因为你买来汽车之后必须签一个合同，说 “由于微软牌汽车对你和家人造成的一切死伤，微软概不负责。” </p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch06s09.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch06.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch06s11.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">UNIX 是强大的 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 怎样完全用 GNU/Linux 工作</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>配置文件</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch19.html" title="第 19 章 图形界面">
+<link rel="prev" href="ch19s05.html" title="启动流程">
+<link rel="next" href="ch19s07.html" title="字体">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">配置文件</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch19s05.html">上一页</a> </td>
+<th width="60%" align="center">第 19 章 图形界面</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch19s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2847006"></a>配置文件</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="xserver"></a>X服务器</h3></div></div></div>
+<p>
+      X服务器的主要配置文件为 <code class="filename">/etc/X11/xorg.conf</code>
+    </p>
+<pre class="screen">
+
+Section "ServerLayout"                #布局 
+Identifier     "Xorg Configured"      #布局标识
+Screen     0   "Default Screen" 0 0   #屏幕标识
+InputDevice    "Generic Keyboard"     #键盘标识
+InputDevice    "Configured Mouse"     #鼠标标识
+EndSection
+
+Section "Module"                      #模块
+        Load  "ddc"  
+        Load  "dbe"
+        Load  "dri"
+        Load  "extmod"
+        Load  "glx"		
+        Load  "bitmap" 
+        Load  "type1"
+        Load  "freetype"
+        Load  "record"
+EndSection
+
+Section "Files"                       #X核心字体路径
+        FontPath     "/usr/share/X11/fonts/75dpi"     
+        FontPath     "/usr/share/X11/fonts/100dpi"
+        FontPath     "/usr/share/X11/fonts/misc"
+        FontPath     "/usr/share/X11/fonts/cyrillic"
+        FontPath     "/usr/share/X11/fonts/100dpi/:unscaled"
+        FontPath     "/usr/share/X11/fonts/75dpi/:unscaled"
+        FontPath     "/usr/share/X11/fonts/Type1"
+        FontPath     "/usr/share/fonts/Chinese/wqy-bitmapfont"
+EndSection
+
+Section "Screen"                      #屏幕
+	Identifier "Default Screen"
+	Device     "Card0"	      #指定显卡
+        Monitor    "Monitor0"         #指定显示器
+	DefaultDepth     24           #默认色深为24
+	SubSection "Display"          #可用分辨率
+	Depth     24		      #24位色深下可用分辨率
+	Modes    "1280x1024"<a name="xwindowconf11"></a><img src="images/callouts/1.png" alt="1" border="0"> "1152x864" "1024x768" "800x600" "720x400" "640x480"
+	………………
+	EndSubSection
+EndSection
+
+Section "Device"                       #显卡
+	Identifier  "Card0"
+        Driver      "vesa"	       #驱动
+	VendorName  "All"
+	BoardName   "All"
+EndSection    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#xwindowconf11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">默认分辨率为默认色深下的第一个分辨率</td>
+</tr></table></div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2847092"></a>配置文件内部结构</h4></div></div></div>
+<pre class="screen">
+/
+├/ "ServerLayout"               布局
+│├ "InputDevice" keyboard       键盘
+│├ "InputDevice" mouse          鼠标
+││
+│└/ "Screen"                    显示子系统
+│ ├ "Monitor"                   显示器
+│ ├ "Device"  videocard         显卡
+│
+│
+├ "Files"                        字体
+└ "Module"                       模块	      </pre>
+</div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2847116"></a>X客户端</h3></div></div></div>
+<p>
+      在 <code class="filename">/etc/X11/Xsession</code> 文件中可以发现下列内容      
+    </p>
+<pre class="screen">
+OPTIONFILE=/etc/X11/Xsession.options <a name="xwindowconf21"></a><img src="images/callouts/1.png" alt="1" border="0">
+<a name="xwindowconf22"></a><img src="images/callouts/2.png" alt="2" border="0">
+SYSRESOURCES=/etc/X11/Xresources 
+USRRESOURCES=$HOME/.Xresources
+<a name="xwindowconf23"></a><img src="images/callouts/3.png" alt="3" border="0">
+SYSSESSIONDIR=/etc/X11/Xsession.d 
+USERXSESSION=$HOME/.xsession 
+ALTUSERXSESSION=$HOME/.Xsession
+ERRFILE=$HOME/.xsession-errors    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#xwindowconf21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">设定X进程的启动参数。例如允许用户进程 allow-user-xsession</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#xwindowconf22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">X资源文件。许多程序保留了X接口，允许X服务器管理一些视觉选项，例如窗口内的字体，配色等</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#xwindowconf23"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">X进程。可以设置一些启动时自动运行的程序，也可以用来设定自己的窗口管理器（窗口管理器和桌面环境或者登录管理器是无关的）</td>
+</tr>
+</table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch19s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch19.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch19s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">启动流程 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 字体</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

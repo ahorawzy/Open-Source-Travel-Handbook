@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>时间机器</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch28.html" title="第 28 章 Git 版本控制系统">
+<link rel="prev" href="ch28s05.html" title="版本更新">
+<link rel="next" href="ch28s07.html" title="分支管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">时间机器</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch28s05.html">上一页</a> </td>
+<th width="60%" align="center">第 28 章 Git 版本控制系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch28s07.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2891431"></a>时间机器</h2></div></div></div>
+<p>在<code class="filename">test</code>文件中随意改动，然后提交</p>
+<pre class="screen">
+git commit -a -m "意外改动"  </pre>
+<p><strong class="userinput"><code>git log</code></strong>，增加了一条纪录：</p>
+<pre class="screen">
+commit d9b03125921d20482937f43ea0bdbfbfb7fe1745
+Author: kardinal &lt;2999am@gmail.com&gt;
+Date:   Wed Nov 5 15:18:49 2008 +0800
+
+    意外改动  </pre>
+<p>使用<span class="command"><strong>git reset</strong></span>命令回溯到历史版本：</p>
+<pre class="screen">
+git reset<a name="git-reset-0"></a><img src="images/callouts/1.png" alt="1" border="0"> HEAD^<a name="git-reset-1"></a><img src="images/callouts/2.png" alt="2" border="0">  
+git log<a name="git-reset-01"></a><img src="images/callouts/3.png" alt="3" border="0">
+git diff<a name="git-reset-02"></a><img src="images/callouts/4.png" alt="4" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-0"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<strong class="userinput"><code>git reset</code></strong>默认使用<span class="command"><strong>--mixed</strong></span>选项</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-1"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+<code class="filename">HEAD</code>表示当前版本，<strong class="userinput"><code>HEAD^</code></strong>表示前一个版本，<code class="filename">HEAD^^</code>表示前两个版本，<code class="filename">HEAD~4</code>表示前四个版本；也可以使用“版本标签”或“版本ID”来指定版本(只要前几位就可以了)</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-01"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">可以看到版本纪录中最后一次提交已经取消</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-02"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">可以看到，<span class="command"><strong>--mixed</strong></span>选项回溯到提交到索引之前的状态</td>
+</tr>
+</table></div>
+<p><span class="command"><strong>git reset --soft</strong></span>回溯到已提交到索引但未提交到版本库的状态</p>
+<pre class="screen">
+git commit -a -m "意外改动"<a name="git-reset-2"></a><img src="images/callouts/1.png" alt="1" border="0">
+git reset --soft HEAD^  <a name="git-reset-3"></a><img src="images/callouts/2.png" alt="2" border="0">
+git log <a name="git-reset-4"></a><img src="images/callouts/3.png" alt="3" border="0">
+git diff <a name="git-reset-5"></a><img src="images/callouts/4.png" alt="4" border="0">
+git diff --cached <a name="git-reset-6"></a><img src="images/callouts/5.png" alt="5" border="0"> </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-2"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">再一次将这些改变提交</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-3"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">使用<span class="command"><strong>--soft</strong></span>选项回溯到上一版本</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-4"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">版本纪录中已取消该版本</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-5"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">改动纪录中没有任何内容</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-6"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">改动已被提交到索引，但是未提交到版本库，所以缓存的改动纪录还可以查看</td>
+</tr>
+</table></div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top"><p><strong class="userinput"><code>git reset </code></strong>回溯到<strong class="userinput"><code>git add</code></strong>之前的状态；<strong class="userinput"><code>git reset --soft</code></strong>回溯到<strong class="userinput"><code>git add</code></strong>之后的状态</p></td></tr>
+</table></div>
+<p>以上方法回溯到历史版本，只是回溯版本库和索引的纪录，而文件的内容并不会回溯到之前的状态，使用<span class="command"><strong>git reset --hard</strong></span>命令，将文件内容也一同回溯</p>
+<pre class="screen">
+git commit -a -m "意外改动"<a name="git-reset-11"></a><img src="images/callouts/1.png" alt="1" border="0">
+git reset --hard HEAD^  <a name="git-reset-12"></a><img src="images/callouts/2.png" alt="2" border="0">
+git log <a name="git-reset-13"></a><img src="images/callouts/3.png" alt="3" border="0">
+git diff --cached <a name="git-reset-14"></a><img src="images/callouts/4.png" alt="4" border="0"> 
+cat <code class="filename">test</code><a name="git-reset-15"></a><img src="images/callouts/5.png" alt="5" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">……还得提交一次，谁让它是“意外改动”</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">使用<span class="command"><strong>--hard</strong></span>选项回溯到上一版本</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-13"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">版本纪录中已取消该版本</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-14"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">没有任何改动纪录待提交</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-reset-15"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">文件内容回溯到上一版本的状态</td>
+</tr>
+</table></div>
+<p><span class="command"><strong>--hard</strong></span>选项存在一定风险，因为很多情况下，你不能确定内容算不算“意外改动”。这时，可以新建一个分支，在这个分支中进行回溯，处理完成后合并两个分支，参见<a class="xref" href="ch28s07.html" title="分支管理">“分支管理”一节</a></p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch28s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch28.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch28s07.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">版本更新 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 分支管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

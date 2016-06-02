@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>键绑定、缩写</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch24.html" title="第 24 章 Vim 编辑器">
+<link rel="prev" href="ch24s16.html" title="插入模式下的快捷键">
+<link rel="next" href="ch24s18.html" title="单词补全">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">键绑定、缩写</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch24s16.html">上一页</a> </td>
+<th width="60%" align="center">第 24 章 Vim 编辑器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch24s18.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2858011"></a>键绑定、缩写</h2></div></div></div>
+<p>前面我们已经向您介绍了键绑定</p>
+<pre class="screen">map! &lt;M-j&gt; &lt;Down&gt;</pre>
+<p>尖括号及其中的内容，为 Vim 配置文件的约定，分别描述了按键和功能，表示将功能编写到按键上。如果绑定的只是普通字符，例如：</p>
+<pre class="screen">map! xxx XXXXX</pre>
+<p>表示将 XXXXX 绑定到 xxx 上。当您键入 xxx 时，编辑器会自动替换为 XXXXX</p>
+<p>如果您只是想将字符串绑定为缩写，方便输入，我们建议您使用 <span class="command"><strong>iabbrev</strong></span> 来绑定。例如：</p>
+<pre class="screen">iabbrev g google</pre>
+<p>在插入模式下键入 <strong class="userinput"><code>g</code></strong> ，编辑器会自动替换为 google 。您可以将 <span class="command"><strong>iabbrev</strong></span> 命令缩写为 <span class="command"><strong>iab</strong></span> ，例如：</p>
+<pre class="screen">iab g google</pre>
+<p>以上命令，您可以直接在命令模式下输入，临时启用。也可以写入配置文件，永久启用。</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch24s16.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch24.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch24s18.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">插入模式下的快捷键 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 单词补全</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

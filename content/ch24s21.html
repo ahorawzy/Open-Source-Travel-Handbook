@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>多栏窗口</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch24.html" title="第 24 章 Vim 编辑器">
+<link rel="prev" href="ch24s20.html" title="折叠">
+<link rel="next" href="ch24s22.html" title="标签页">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">多栏窗口</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch24s20.html">上一页</a> </td>
+<th width="60%" align="center">第 24 章 Vim 编辑器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch24s22.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2858581"></a>多栏窗口</h2></div></div></div>
+<p>您可以使用以下命令，将当前窗口水平分为两栏</p>
+<pre class="screen">:new</pre>
+<p>新建一栏空白窗口，将当前文件分两栏显示</p>
+<pre class="screen">:split</pre>
+<p>同理，您可以使用下列命令，将当前窗口垂直分为两栏</p>
+<pre class="screen">:vnew
+:vsplit</pre>
+<p>先按下 <strong class="userinput"><code>ctrl+w</code></strong> 键，再按下方向键 <strong class="userinput"><code>j</code></strong> 、 <strong class="userinput"><code>k</code></strong> 、 <strong class="userinput"><code>l</code></strong> 、 <strong class="userinput"><code>h</code></strong> ，您可以切换到其它栏；在当前栏中使用 <strong class="userinput"><code>:q</code></strong> 命令，可以退出当前栏，也可以使用其它命令，对当前栏作出修改</p>
+<p>如果您希望当前命令在所有栏中生效，您可以在命令的末尾追加 <span class="command"><strong>all</strong></span></p>
+<pre class="screen">:命令all</pre>
+<p>例如：<strong class="userinput"><code>:qall</code></strong></p>
+<p>如果您希望这条命令强制执行，那么 <strong class="userinput"><code>!</code></strong> 位于命令的最末，例如：<strong class="userinput"><code>:qall!</code></strong> 强行退出所有栏窗口</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch24s20.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch24.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch24s22.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">折叠 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 标签页</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

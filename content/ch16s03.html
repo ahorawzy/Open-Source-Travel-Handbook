@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>预编译软件包</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch16.html" title="第 16 章 软件管理">
+<link rel="prev" href="ch16s02.html" title="软件管理方式">
+<link rel="next" href="ch17.html" title="第 17 章 核心工具集">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">预编译软件包</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch16s02.html">上一页</a> </td>
+<th width="60%" align="center">第 16 章 软件管理</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch17.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2826402"></a>预编译软件包</h2></div></div></div>
+<p>虽然不能定做，但依然有许多人会去吃麦当劳，因为麦当劳的汉堡符合大多数人的口味；同样，预编译软件包也可以满足大多数用户的需求，如果没有特殊需求，很少有人会选择编译软件</p>
+<p>最早的软件包管理系统不支持网络，类似于在 Windows 下安装软件，你必须获取一个安装包(比如通过网络下载)，然后在本地安装它。使用这种方式安装软件的包管理系统主要有：<span class="application">dpkg</span>(debian系)、<span class="application">rpm</span>(redhat系)</p>
+<p>由于 Linux 系统中，软件包拆分的比较细<sup>[<a name="id2827041" href="#ftn.id2827041" class="footnote">22</a>]</sup>，安装一个软件可能要许多软件包。</p>
+<p>而用户自己动手获取这些软件包，是一个十分繁琐的过程，因此产生了通过网络安装软件的方式：包管理系统自动分析你将安装的软件需要哪些软件包，通过网络下载、安装、配置它们。</p>
+<p>debian系 发行版通过 <span class="application">apt</span> 系统实现网络支持，配合本地的 <span class="application">dpkg</span> 实现这一过程；redhat系 发行版则通过 <span class="application">yum</span> 和 <span class="application">rpm</span> 实现。而一些新派发行版，包管理系统兼具这两种能力，例如 archlinux 的 <span class="application">pacman</span>；而 gentoo 的 <span class="application">emerge</span> 虽然基于源代码编译安装，但也具备这种能力,参见<a class="xref" href="ch18s07.html" title="emerge">“emerge”一节</a></p>
+<p>以下是常见软件包管理系统的基本操作：</p>
+<div class="table">
+<a name="pkg-manage"></a><p class="title"><b>表 16.1. 包管理系统</b></p>
+<div class="table-contents"><table summary="包管理系统" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th rowspan="2">任务</th>
+<th>apt</th>
+<th>zypp</th>
+<th>yum</th>
+<th>pacman</th>
+<th>emerge</th>
+</tr></thead>
+<tbody>
+<tr>
+<td> </td>
+<td>Debian, Ubuntu</td>
+<td>openSUSE</td>
+<td>Fedora, CentOS (redhat系)</td>
+<td>Archlinux</td>
+<td>Gentoo</td>
+</tr>
+<tr>
+<td>安装包</td>
+<td>apt-get install pkg</td>
+<td>zypper install pkg</td>
+<td>yum install pkg</td>
+<td>pacman -S pkg</td>
+<td>emerge pkg</td>
+</tr>
+<tr>
+<td>移除包</td>
+<td>apt-get remove pkg</td>
+<td>zypper remove pkg</td>
+<td>yum erase pkg</td>
+<td>pacman -R pkg</td>
+<td>emerge -C pkg</td>
+</tr>
+<tr>
+<td>更新包列表</td>
+<td>apt-get update</td>
+<td>zypper refresh</td>
+<td>yum check-update</td>
+<td>pacman -Sy</td>
+<td>emerge --sync | layman -S (添加仓库)</td>
+</tr>
+<tr>
+<td>更新系统</td>
+<td>apt-get upgrade</td>
+<td>zypper update</td>
+<td>yum update</td>
+<td>pacman -Su</td>
+<td>emerge -avuDN world</td>
+</tr>
+<tr>
+<td>列出源</td>
+<td>cat /etc/apt/sources.list</td>
+<td>zypper repos</td>
+<td>yum repolist</td>
+<td>cat /etc/pacman.conf</td>
+<td>layman -L</td>
+</tr>
+<tr>
+<td>添加源</td>
+<td>edit /etc/apt/sources.list</td>
+<td>zypper addrepo 仓库地址 仓库名称</td>
+<td>add 仓库 to /etc/yum.repos.d/</td>
+<td>edit /etc/pacman.conf</td>
+<td>layman -a</td>
+</tr>
+<tr>
+<td>移除源</td>
+<td>edit /etc/apt/sources.list</td>
+<td>zypper removerepo 仓库名称</td>
+<td>remove 仓库 from /etc/yum.repos.d/</td>
+<td>edit /etc/pacman.conf</td>
+<td>layman -d </td>
+</tr>
+<tr>
+<td>搜索包</td>
+<td>apt-cache search pkg</td>
+<td>zypper search pkg</td>
+<td>yum search pkg</td>
+<td>pacman -Qs pkg</td>
+<td>emerge --search</td>
+</tr>
+<tr>
+<td>列出已安装的包</td>
+<td>dpkg -l</td>
+<td> 	rpm -qa</td>
+<td>rpm -qa</td>
+<td>pacman -Qii</td>
+<td>cat /var/lib/portage | more</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="itemizedlist"><ul type="disc"><li>
+    把 SUSE系 和 redhat系 排在前面，不是因为它们的软件包管理系统比较先进，而是考虑到它们的用户多
+  </li></ul></div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2827041" href="#id2827041" class="para">22</a>] </sup>因为不受版权的限制，凡是可以被其它软件利用的功能，都单独分离出来</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch16s02.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch16.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch17.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">软件管理方式 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 17 章 核心工具集</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

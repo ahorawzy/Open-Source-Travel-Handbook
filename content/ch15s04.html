@@ -1,0 +1,362 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>服务管理</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch15.html" title="第 15 章 基本系统">
+<link rel="prev" href="ch15s03.html" title="启动流程">
+<link rel="next" href="ch15s05.html" title="配置文件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">服务管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch15s03.html">上一页</a> </td>
+<th width="60%" align="center">第 15 章 基本系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch15s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2823981"></a>服务管理</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2823986"></a>更改启动服务</h3></div></div></div>
+<p>在运行级别对应的文件夹中，您可以看到许多文件名以 S## 和 K## 起始的启动脚本链接。例如：</p>
+<pre class="screen">
+/etc/rcS.d/S35mountall.sh   挂载文件系统 <a name="runlevel21"></a><img src="images/callouts/1.png" alt="1" border="0">
+/etc/rcS.d/S40networking    启用网络支持
+/etc/rc2.d/S13gdm           启动登录管理器
+/etc/rc2.d/S20makedev       创建设备文件
+/etc/rc2.d/S23xinetd        启动超级进程
+/etc/rc2.d/K20powernowd     针对某种硬件的电源管理支持  <a name="runlevel22"></a><img src="images/callouts/2.png" alt="2" border="0">  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#runlevel21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<span class="application">init</span>进程将以 <span class="command"><strong>start</strong></span> 为选项，按文件名顺序执行所有以 S## 起始的脚本。脚本名称中的数字越小，它将被越早执行。例如在 <code class="filename">/etc/rc2.d/</code> 文件夹中， <code class="filename">S13gdm</code> 文件名中的数字小于 <code class="filename">S23xinetd</code> , <code class="filename">S13gdm</code> 将比 <code class="filename">S23xinetd</code> 先执行。</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#runlevel22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">
+	如果一个脚本链接，以 K## 起始，表示它将以 <span class="command"><strong>stop</strong></span> 选项被执行。如果相应服务没有启动，则不执行该脚本。</td>
+</tr>
+</table></div>
+<div class="itemizedlist"><ul type="disc"><li>
+        如果您想禁止某一服务在启动时自动运行，您可以将相应运行级别中的脚本由 S##xxx 重命名为 K##xxx 。
+      </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="init.d"></a>手动控制服务</h3></div></div></div>
+<p>
+	您也可以手动运行带有以下选项的启动脚本，来控制系统服务。  <span class="command"><strong>start</strong></span> 启动  <span class="command"><strong>stop</strong></span> 停止  <span class="command"><strong>restart</strong></span> 重启      </p>
+<pre class="screen">
+/etc/rc2.d/K20powernowd start    </pre>
+<p>
+      有时您并不清楚某一运行级别有什么启动脚本；而且此类脚本的前三位字符并不固定，不便于记忆。这时，可以直接使用 <code class="filename">/etc/init.d/</code> 文件夹中的启动脚本（ <code class="filename">/etc/rcX.d/</code> 中的启动脚本链接到 <code class="filename">/etc/init.d/</code> 文件夹下相应脚本），这也是推荐的方式。      
+    </p>
+<pre class="screen">
+/etc/init.d/powernowd start    </pre>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">以上命令的位置并没有包含在环境变量的搜索路径中，所以要输入完整路径。</td></tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2824176"></a>常见系统服务</h3></div></div></div>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>acpi-support</td>
+<td>高级电源管理支持</td>
+</tr>
+<tr>
+<td>acpid</td>
+<td>acpi 守护程序.这两个用于电源管理，非常重要</td>
+</tr>
+<tr>
+<td>apmd</td>
+<td>acpi 的扩展</td>
+</tr>
+<tr>
+<td>alsa</td>
+<td>声音子系统</td>
+</tr>
+<tr>
+<td>alsa-utils</td>
+<td>声音子系统实用工具</td>
+</tr>
+<tr>
+<td>cron</td>
+<td>任务调度系统，建议开启</td>
+</tr>
+<tr>
+<td>anacron</td>
+<td>cron 的子系统，将系统关闭期间的计划任务，在下一次系统运行时执行</td>
+</tr>
+<tr>
+<td>atd</td>
+<td>类似于 cron 的任务调度系统。建议关闭</td>
+</tr>
+<tr>
+<td>binfmt-support</td>
+<td>核心支持其他二进制的文件格式</td>
+</tr>
+<tr>
+<td>bluez-utiles</td>
+<td>蓝牙设备支持</td>
+</tr>
+<tr>
+<td>bootlogd</td>
+<td>启动日志。开启它</td>
+</tr>
+<tr>
+<td>syslog-ng</td>
+<td>系统日志，建议开启</td>
+</tr>
+<tr>
+<td>klogd</td>
+<td>同上，使用一种就可以了</td>
+</tr>
+<tr>
+<td>sysklogd</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>cupsys</td>
+<td>打印机子系统</td>
+</tr>
+<tr>
+<td>dbus</td>
+<td>消息总线系统(message bus system)。非常重要</td>
+</tr>
+<tr>
+<td>dns-clean </td>
+<td>使用拨号连接时，清除 dns信息</td>
+</tr>
+<tr>
+<td>evms</td>
+<td>企业卷管理系统</td>
+</tr>
+<tr>
+<td>fetchmail</td>
+<td>邮件用户代理守护进程，用于收取邮件</td>
+</tr>
+<tr>
+<td>gdm</td>
+<td>gnome 登录管理器</td>
+</tr>
+<tr>
+<td>gpm</td>
+<td>终端中的鼠标支持</td>
+</tr>
+<tr>
+<td>halt</td>
+<td>别动它</td>
+</tr>
+<tr>
+<td>hdparm</td>
+<td>调整硬盘的脚本，配置文件为 <code class="filename">/etc/hdparm.conf</code>
+</td>
+</tr>
+<tr>
+<td>hibernate</td>
+<td>系统休眠</td>
+</tr>
+<tr>
+<td>hotkey-setup</td>
+<td>笔记本功能键支持</td>
+</tr>
+<tr>
+<td>hotplug and hotplug-net</td>
+<td>即插即用支持，比较复杂，建议不要动它</td>
+</tr>
+<tr>
+<td>ifrename</td>
+<td>网络接口重命名脚本。如果您有十块网卡，您应该开启它</td>
+</tr>
+<tr>
+<td>inetd</td>
+<td>配置文件为 <code class="filename">/etc/inetd.conf</code>
+</td>
+</tr>
+<tr>
+<td>linux-restricted-modules-common</td>
+<td>受限模块支持。<a name="srv11"></a><img src="images/callouts/1.png" alt="1" border="0"> </td>
+</tr>
+<tr>
+<td>lvm</td>
+<td>逻辑卷管理系统支持</td>
+</tr>
+<tr>
+<td>makedev</td>
+<td>创建设备文件，非常重要</td>
+</tr>
+<tr>
+<td>mdamd</td>
+<td>磁盘阵列</td>
+</tr>
+<tr>
+<td>module-init-tools</td>
+<td>从<code class="filename">/etc/modules</code>加载扩展模块，建议开启</td>
+</tr>
+<tr>
+<td>networking</td>
+<td>网络支持。按 <code class="filename">/etc/network/interfaces</code> 文件预设激活网络，非常重要</td>
+</tr>
+<tr>
+<td>ntpdate</td>
+<td>时间同步服务，建议关闭</td>
+</tr>
+<tr>
+<td>pcmcia</td>
+<td>pcmcia 设备支持</td>
+</tr>
+<tr>
+<td>powernowd</td>
+<td>移动 CPU 节能支持</td>
+</tr>
+<tr>
+<td>ppp</td>
+<td>拨号连接</td>
+</tr>
+<tr>
+<td>ppp-dns</td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>readahead</td>
+<td>预加载库文件</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>别动它</td>
+</tr>
+<tr>
+<td>resolvconf</td>
+<td>自动配置 DNS</td>
+</tr>
+<tr>
+<td>rmnologin</td>
+<td>清除 nologin</td>
+</tr>
+<tr>
+<td>rsync</td>
+<td>rsync 守护程序</td>
+</tr>
+<tr>
+<td>sendsigs</td>
+<td>在重启和关机期间发送信号</td>
+</tr>
+<tr>
+<td>single</td>
+<td>激活单用户模式</td>
+</tr>
+<tr>
+<td>sshd</td>
+<td>ssh服务器</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>检查 sudo 状态</td>
+</tr>
+<tr>
+<td>udev</td>
+<td>用户空间 dev文件系统（userspace dev filesystem）。重要</td>
+</tr>
+<tr>
+<td>umountfs</td>
+<td>卸载文件系统</td>
+</tr>
+<tr>
+<td>urandom</td>
+<td>随机数生成器</td>
+</tr>
+<tr>
+<td>usplash</td>
+<td>开机画面支持</td>
+</tr>
+<tr>
+<td>vbesave</td>
+<td>显卡 BIOS 配置工具。保存显卡的状态</td>
+</tr>
+<tr>
+<td>xorg-common </td>
+<td>设置 X 服务 ICE socket</td>
+</tr>
+<tr>
+<td>adjtimex</td>
+<td>调整核心时钟的工具</td>
+</tr>
+<tr>
+<td>dirmngr</td>
+<td>证书列表管理工具</td>
+</tr>
+<tr>
+<td>hwtools</td>
+<td>irqs 优化工具</td>
+</tr>
+<tr>
+<td>libpam-devperm</td>
+<td>系统崩溃之后，用于修理设备文件许可的守护程序</td>
+</tr>
+<tr>
+<td>lm-sensors</td>
+<td>板载传感器支持</td>
+</tr>
+<tr>
+<td>mdadm-raid</td>
+<td>磁盘陈列管理器</td>
+</tr>
+<tr>
+<td>screen-cleanup</td>
+<td>清除开机屏幕的脚本</td>
+</tr>
+<tr>
+<td>xinetd</td>
+<td>管理其他守护进程的一个 inetd 超级守护程序</td>
+</tr>
+</tbody>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#srv11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">
+<code class="filename">/lib/linux-restricted-modules/</code> 文件夹中的模块为受限模块。例如某些驱动程序，如果您没有使用受限模块，就不需要开启它。</td>
+</tr></table></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch15s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch15.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch15s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">启动流程 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 配置文件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>emerge</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch18.html" title="第 18 章 编译工具链">
+<link rel="prev" href="ch18s06.html" title="使用 make">
+<link rel="next" href="ch19.html" title="第 19 章 图形界面">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">emerge</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch18s06.html">上一页</a> </td>
+<th width="60%" align="center">第 18 章 编译工具链</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch19.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="emerge"></a>emerge</h2></div></div></div>
+<p>虽然我们能够使用<span class="application">autoconf</span>、<span class="application">automake</span>、<span class="application">make</span>等工具实现自动化编译，但这种针对单个软件包的编译系统，在编译多个软件时仍然十分繁琐</p>
+<p>假设需要编译<span class="application">emacs</span>和<span class="application">vim</span>，使用 xft字体、图形界面支持，并去掉调试符号，需要分别作如下配置</p>
+<pre class="screen">
+<span class="application">emacs</span>
+./configure --prefix=/usr/local/ 	\
+<strong class="userinput"><code>--no-debug</code></strong>				\
+<strong class="userinput"><code>--with-xft  --with-x-toolkit=gtk</code></strong>    	\
+--with-freetype    
+<span class="application">vim</span>  
+./configure --prefix=/usr/local/ 	\
+<strong class="userinput"><code>--no-debug</code></strong>				\
+<strong class="userinput"><code>--with-xft --with-x-toolkit=gtk</code></strong>  </pre>
+<p>这就像点菜时，你必须告诉厨师：鱼香肉丝(多放辣椒、不放蒜)、宫保鸡丁(多放辣椒、不放蒜)、麻婆豆腐(多放辣椒、不放蒜)……</p>
+<p>实际上，大多数人这样点菜：鱼香肉丝、宫保鸡丁、麻婆豆腐……多放辣椒、不放蒜</p>
+<p><span class="application">emerge</span>就是这样一种点菜方式，它是<span class="application">gentoo</span>的包管理系统，提供了更为现代化的编译方式</p>
+<p>可以通过指定<span class="application">USE</span>标记<strong class="userinput"><code>xft</code></strong>、<strong class="userinput"><code>gtk</code></strong>、<strong class="userinput"><code>-debug</code></strong>来确定所有软件的编译方式</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2843239"></a>设置 USE标记</h3></div></div></div>
+<p>以下方法按优先级由低到高排列：</p>
+<p><code class="filename">/etc/make.profile/</code>目录是一个符号链接，里面包含一些<code class="filename">make.defaults</code>文件，放置开发者设置的 USE标记<sup>[<a name="id2843264" href="#ftn.id2843264" class="footnote">31</a>]</sup>：</p>
+<pre class="screen">
+/usr/portage/profile/base/make.defaults
+/usr/portage/profile/default-linux/make.defaults
+/usr/portage/profile/default-linux/x86/make.defaults
+/usr/portage/profile/default-linux/x86/2008.0/make.defaults </pre>
+<p>在<code class="filename">/etc/make.conf</code>文件中声明永久 USE标记(推荐)</p>
+<pre class="screen">
+USE="nptl nptlonly nls cjk php mysql -kde -qt3 -qt4"    </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+        带<strong class="userinput"><code>-</code></strong>的 USE标记，表示排除
+      </li></ul></div>
+<p>在<code class="filename">/etc/portage/package.use</code>文件中为单个包声明 USE标记</p>
+<pre class="screen">
+app-editors/emacs-cvs xft 
+www-servers/lighttpd fastcgi
+dev-lang/php mysqli cgi gd ctype pcre session unicode pic posix
+dev-db/phpmyadmin vhosts
+app-shells/zsh doc
+net-ftp/pure-ftpd -ldap mysql pam ssl vchroot    </pre>
+<p>使用环境变量声明临时 USE标记</p>
+<pre class="screen">
+USE="-java" 
+emerge seamonkey    </pre>
+<p>查看使用的 USE标记：</p>
+<pre class="screen">
+merge --pretend --verbose seamonkey    
+
+Calculating dependencies ...done!
+[ebuild   R   ] www-client/seamonkey-1.0.7  USE="crypt gnome java -debug -ipv6
+-ldap -mozcalendar -mozdevelop -moznocompose -moznoirc -moznomail -moznopango
+-moznoroaming -postgres -xinerama -xprint" 0 kB</pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2843355"></a>编译选项</h3></div></div></div>
+<p><code class="filename">/etc/make.conf</code></p>
+<pre class="screen">
+CFLAGS="-O2 -march=i686 -pipe" <a name="build-e21"></a><img src="images/callouts/1.png" alt="1" border="0">
+CXXFLAGS="-O2 -march=i686 -pipe" <a name="build-e22"></a><img src="images/callouts/2.png" alt="2" border="0">
+
+CHOST="i686-pc-linux-gnu" <a name="build-e23"></a><img src="images/callouts/3.png" alt="3" border="0">
+MAKEOPTS="-j2" <a name="build-e24"></a><img src="images/callouts/4.png" alt="4" border="0">
+    
+FEATURES="parallel-fetch ccache" <a name="build-e25"></a><img src="images/callouts/5.png" alt="5" border="0">
+CCACHE_DIR="/var/tmp/ccache" <a name="build-e26"></a><img src="images/callouts/6.png" alt="6" border="0">
+CCACHE_SIZE="2G" <a name="build-e27"></a><img src="images/callouts/7.png" alt="7" border="0">
+
+ACCEPT_KEYWORDS="x86" <a name="build-e28"></a><img src="images/callouts/8.png" alt="8" border="0">
+
+USE="nptl nptlonly nls cjk php mysql" <a name="build-e29"></a><img src="images/callouts/9.png" alt="9" border="0">
+
+FETCHCOMMAND="/usr/bin/axel -a -n4 \${URI} -o \${DISTDIR}" <a name="build-e30"></a><img src="images/callouts/10.png" alt="10" border="0">
+RESUMECOMMAND="/usr/bin/axel -a -n4 \${URI} -o \${DISTDIR}"    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e21"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">针对C语言的优化选项，<span class="command"><strong>-march=</strong></span>设置目标架构</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e22"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">针对C++语言的优化选项</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e23"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">进行编译工作的机器架构</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e24"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">编译选项</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e25"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">emerge 特性。并行下载、使用 ccache 缓冲编译结果</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e26"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td>
+<td valign="top" align="left">ccache 缓存目录</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e27"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td>
+<td valign="top" align="left">ccache 缓存大小</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e28"><img src="images/callouts/8.png" alt="8" border="0"></a> </p></td>
+<td valign="top" align="left">通过关键字选择分支。<strong class="userinput"><code>x86</code></strong>表示 x86 架构的稳定分支，<strong class="userinput"><code>~x86</code></strong>表示 x86 架构的不稳定分支</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e29"><img src="images/callouts/9.png" alt="9" border="0"></a> </p></td>
+<td valign="top" align="left">USE标记</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e30"><img src="images/callouts/10.png" alt="10" border="0"></a> </p></td>
+<td valign="top" align="left">使用<span class="application">axel</span>加速下载</td>
+</tr>
+</table></div>
+<p><span class="application">gentoo</span>支持多种架构：x86、 sparc、 amd64、 ppc、 ppc64、 alpha、 hppa、 mips、 ia64、 arm，我们使用的 PC 多为 x86 架构</p>
+<p>假设你主要使用 x86 稳定分支，但少数软件要使用最新版本，在<code class="filename">/etc/portage/package.keywords</code>文件中为单个包设置关键字</p>
+<pre class="screen">
+app-editors/emacs-cvs ~x86
+x11-misc/emacs-desktop ~x86
+app-i18n/fcitx ~x86
+app-editors/vim x86
+app-editors/vim-core x86
+    
+media-video/mplayer ~x86
+media-libs/win32codecs ~x86    
+    
+app-i18n/man-pages-zh_CN ~x86    </pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2843580"></a>微调</h3></div></div></div>
+<p>在<code class="filename">/etc/portage/</code>目标下包含一些文件，可以在软件包级别上进行调节。前面已经介绍了<code class="filename">package.use</code>和<code class="filename">package.keywords</code></p>
+<div class="glosslist"><dl>
+<dt>
+  package.keywords
+    </dt>
+<dd><p>还未被确认适合你的系统或架构，但是你希望能安装的软件包</p></dd>
+<dt>
+  package.use
+    </dt>
+<dd><p>特定软件包而不是整个系统使用的 USE标记</p></dd>
+<dt>
+  package.provided 
+    </dt>
+<dd><p>屏蔽的软件包(需要指明版本号)</p></dd>
+<dt>
+  package.mask
+    </dt>
+<dd><p>永远不希望 Portage 安装的软件包。</p></dd>
+<dt>
+  package.unmask
+    </dt>
+<dd><p>被 Gentoo 开发者屏蔽的软件包，但是你希望能安装的软件包。</p></dd>
+</dl></div>
+<p>软件包可能由于以下原因被屏蔽</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>~架构 keyword</td>
+<td>意味着这个软件没有经过充分的测试，不能进入稳定分支，请等待一段时间后在尝试使用它</td>
+</tr>
+<tr>
+<td>-架构 keyword 或 -* keyword</td>
+<td>意味着这个软件不能工作在您机器的体系结构中</td>
+</tr>
+<tr>
+<td>missing keyword</td>
+<td>意味着这个软件还没有在您机器的体系结构中进行过测试</td>
+</tr>
+<tr>
+<td>package.mask</td>
+<td>意味着这个软件被认为是损坏的，不稳定的或者有更严重的问题，它被故意标识为“不应使用”</td>
+</tr>
+<tr>
+<td>profile</td>
+<td>意味着这个软件不适用于您的 profile。安装这样的应用软件可能会破坏您的系统，或者只是不能与您使用的 profile 相兼容</td>
+</tr>
+</tbody>
+</table></div>
+<p>例如：</p>
+<pre class="screen">
+gnome-base/gnome-2.8.0_pre1 (masked by: ~x86 keyword)
+lm-sensors/lm-sensors-2.8.7 (masked by: -sparc keyword)
+sys-libs/glibc-2.3.4.20040808 (masked by: -* keyword)
+dev-util/cvsd-1.0.2 (masked by: missing keyword)
+games-fps/unreal-tournament-451 (masked by: package.mask)
+sys-libs/glibc-2.3.2-r11 (masked by: profile)</pre>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2843743"></a>使用 emerge</h3></div></div></div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">本部分内容来源于<a class="ulink" href="http://www.gentoo.org/doc/zh_cn/handbook/" target="_top">gentoo 中文手册</a>
+</td></tr>
+</table></div>
+<p><b>查找. </b></p>
+<p>查找名字包含 pdf 的软件包</p>
+<pre class="screen">
+emerge --search pdf    </pre>
+<p>查找与 pdf 相关的软件包</p>
+<pre class="screen">
+emerge --searchdesc pdf
+emerge -S pdf    </pre>
+<p>查看软件拥有的 USE标记</p>
+<pre class="screen">
+emerge -vp 软件包名称     </pre>
+<p><b>管理. </b></p>
+<p>安装软件包</p>
+<pre class="screen">
+emerge 软件包名称    </pre>
+<p>模拟安装软件包</p>
+<pre class="screen">
+emerge --pretend 软件包名称    </pre>
+<p>下载软件包的源代码包</p>
+<pre class="screen">
+emerge --fetchonly 软件包名称    </pre>
+<p>从系统中删除软件包</p>
+<pre class="screen">
+emerge --unmerge 软件包名称    </pre>
+<p><b>更新. </b></p>
+<p>更新系统</p>
+<pre class="screen">
+emerge --update --ask world    
+emerge -ua world   </pre>
+<p>更新整个系统</p>
+<pre class="screen">
+emerge --update --deep world    
+emerge -uD world   </pre>
+<p>使用新的 USE标记 重新构建系统</p>
+<pre class="screen">
+emerge --update --deep --newuse world    
+emerge -uDN world   </pre>
+<p>移除孤立依赖的软件包</p>
+<pre class="screen">
+emerge --update --deep --newuse world<a name="build-e31"></a><img src="images/callouts/1.png" alt="1" border="0">
+emerge --depclean<a name="build-e32"></a><img src="images/callouts/2.png" alt="2" border="0">
+revdep-rebuild<a name="build-e33"></a><img src="images/callouts/3.png" alt="3" border="0">    </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e31"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">重新构建系统</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e32"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">清除孤立依赖包</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#build-e33"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">重新构建依赖关系</td>
+</tr>
+</table></div>
+<p><span class="application">revdep-rebuild</span>工具由<span class="application">gentoolkit</span>包提供；使用前别忘了首先 emerge 它： </p>
+<pre class="screen">
+emerge gentoolkit    </pre>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2843264" href="#id2843264" class="para">31</a>] </sup>在升级 Portage 的时候，这些文件将会被覆盖，请不要在这里设置</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch18s06.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch18.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch19.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">使用 make </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 19 章 图形界面</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

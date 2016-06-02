@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>环境变量</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch15.html" title="第 15 章 基本系统">
+<link rel="prev" href="ch15s05.html" title="配置文件">
+<link rel="next" href="ch16.html" title="第 16 章 软件管理">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">环境变量</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch15s05.html">上一页</a> </td>
+<th width="60%" align="center">第 15 章 基本系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch16.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2825046"></a>环境变量</h2></div></div></div>
+<p>
+    环境变量是作用在整个系统中的变量。
+  </p>
+<p>很多软件工作的时候都要读取环境变量<sup>[<a name="id2825059" href="#ftn.id2825059" class="footnote">21</a>]</sup>的值来确定其工作方式。例如 <span class="application">cd</span> 这个程序，如果不带任何选项执行，它会读取 <code class="envar">$HOME</code> 这个变量的值，然后进入到这个目录，也就是用户的 HOME 目录。使用 <span class="command"><strong>echo</strong></span> 显示一个环境变量：</p>
+<pre class="screen">
+echo $HOME<a name="sys-env"></a><img src="images/callouts/1.png" alt="1" border="0">
+/home/user  
+
+echo HOME <a name="sys-env1"></a><img src="images/callouts/2.png" alt="2" border="0">
+HOME </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">依据惯例，变量名称通常使用大写字母；<strong class="userinput"><code>$</code></strong> 告诉 echo 这是一个变量，不要将字符串“HOME”直接输出到屏幕</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env1"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">输出字符串“HOME”到屏幕</td>
+</tr>
+</table></div>
+<p>
+     
+  </p>
+<pre class="screen">
+WELCOME="Hello!"<a name="sys-env2"></a><img src="images/callouts/1.png" alt="1" border="0">
+echo $WELCOME <a name="sys-env3"></a><img src="images/callouts/2.png" alt="2" border="0">
+Hello!
+env<a name="sys-env4"></a><img src="images/callouts/3.png" alt="3" border="0"> | grep WELCOME<a name="sys-env6"></a><img src="images/callouts/4.png" alt="4" border="0"> 
+export WELCOME <a name="sys-env5"></a><img src="images/callouts/5.png" alt="5" border="0">
+env | grep WELCOME 
+Hello! </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env2"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">定义一个变量</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env3"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">输出这个变量</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env4"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td valign="top" align="left">
+<span class="application">env</span> 输出所有环境变量</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env6"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td>
+<td valign="top" align="left">将输出通过管道发送到 <span class="application">grep</span>，检查其中是否有“WELCOME”这个值</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env5"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td>
+<td valign="top" align="left">
+<span class="application">export</span> 将变量 WELCOME 导出为环境变量</td>
+</tr>
+</table></div>
+<p>
+    定义一个环境变量，可以将定义变量和导出变量一起进行
+  </p>
+<pre class="screen">
+export WELCOME<a name="sys-env7"></a><img src="images/callouts/1.png" alt="1" border="0"> ="Hello!"  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#sys-env7"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">实际上不会有什么程序要用到 <code class="envar">$WELCOME</code> 这个变量，定义它只是为了演示</td>
+</tr></table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2825243"></a>常用环境变量</h3></div></div></div>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>变量名</th>
+<th>说明</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>SHELL</td>
+<td>默认 Shell</td>
+</tr>
+<tr>
+<td>HISTSIZE</td>
+<td>历史纪录</td>
+</tr>
+<tr>
+<td>PATH</td>
+<td>搜索路径</td>
+</tr>
+<tr>
+<td>EDITOR</td>
+<td>默认编辑器</td>
+</tr>
+<tr>
+<td>TERM</td>
+<td>默认终端</td>
+</tr>
+<tr>
+<td>HOME</td>
+<td>用户目录</td>
+</tr>
+<tr>
+<td>LANG</td>
+<td>系统语言</td>
+</tr>
+<tr>
+<td>XMODIFIERS=@im</td>
+<td>默认输入法</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2825059" href="#id2825059" class="para">21</a>] </sup>必须由大量不同程序共享，独立于应用程序的优先选项，通常由环境变量指定，<br>  如果通过配置文件给每个程序分别指定，既麻烦又容易出差错。<br>  例如<a class="link" href="ch20s03.html" title="设置 locale">语言环境</a>，如果所有能够使用多语言的程序都使用自己的配置文件确定其工作界面的语言，逐一去修改它们的配置文件将是一件苦恼的事情</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch15s05.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch15.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch16.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">配置文件 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 第 16 章 软件管理</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

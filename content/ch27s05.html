@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>搭建 DocBook 环境</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s04.html" title="DocBook 介绍">
+<link rel="next" href="ch27s06.html" title="创建 DocBook 文档">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">搭建 DocBook 环境</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s04.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s06.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2881197"></a>搭建 DocBook 环境</h2></div></div></div>
+<p>在 Linux 系统中，DocBook 环境主要由以下几个软件包提供</p>
+<div class="informaltable"><table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>libxml2</td>
+<td>XML 解析器</td>
+</tr>
+<tr>
+<td>docbook-xml</td>
+<td>DocBook 的 DTD 定义</td>
+</tr>
+<tr>
+<td>libxslt</td>
+<td>XSL 转换程序<a name="docbook-01"></a><img src="images/callouts/1.png" alt="1" border="0">
+</td>
+</tr>
+<tr>
+<td>docbook-xsl</td>
+<td>用来处理 DocBook-XML 的样式表</td>
+</tr>
+</tbody>
+</table></div>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">xsltproc 这个转换程序就在这个软件包中<br>  还有两个 JAVA 的转换程序 <span class="application">saxon</span>、 <span class="application">xalan</span>，不推荐</td>
+</tr></table></div>
+<p>例如，在 Archlinux 中可以这样安装：</p>
+<pre class="screen">
+sudo pacman -S docbook-xml docbook-xsl libxslt libxml2     </pre>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s04.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s06.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">DocBook 介绍 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 创建 DocBook 文档</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

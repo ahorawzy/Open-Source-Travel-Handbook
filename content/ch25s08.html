@@ -1,0 +1,322 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>基础编辑</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch25.html" title="第 25 章 Emacs 入门">
+<link rel="prev" href="ch25s07.html" title="数字参数">
+<link rel="next" href="ch25s09.html" title="">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">基础编辑</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch25s07.html">上一页</a> </td>
+<th width="60%" align="center">第 25 章 Emacs 入门</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch25s09.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2865205"></a>基础编辑</h2></div></div></div>
+<p>
+	  几乎所有编辑器都具有的基础功能。
+	</p>
+<p>
+	  使用 Readline 控件的程序，例如 bash ；以及其它使用 Emacs风格 键绑定的程序，也使用基本相同的功能键。如果熟悉 bash 的快捷键，这些绑定您一定驾轻就熟
+	</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">
+     这里只是一个列表，更详细的介绍，请参阅《Emacs 快捷指南》 C-h t
+	</td></tr>
+</table></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2865232"></a>定位</h3></div></div></div>
+<div class="table">
+<a name="id2865238"></a><p class="title"><b>表 25.4. Emacs 定位</b></p>
+<div class="table-contents"><table summary="Emacs 定位" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td> </td>
+<td>向前</td>
+<td>向后</td>
+<td>向下</td>
+<td>向上</td>
+</tr>
+<tr>
+<td>卷屏</td>
+<td> </td>
+<td> </td>
+<td>C-v</td>
+<td>M-v</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>C-f</td>
+<td>C-b</td>
+<td>C-n</td>
+<td>C-p</td>
+</tr>
+<tr>
+<td>单词</td>
+<td>M-f</td>
+<td>M-b</td>
+<td class="auto-generated"> </td>
+<td class="auto-generated"> </td>
+</tr>
+<tr>
+<td>行</td>
+<td>C-a</td>
+<td>C-e</td>
+<td colspan="2">移动到行首或行尾，不能跨行</td>
+</tr>
+<tr>
+<td>句</td>
+<td>M-a</td>
+<td>M-e</td>
+<td rowspan="2" colspan="2"> </td>
+</tr>
+<tr>
+<td>段落</td>
+<td>M-{</td>
+<td>M-}</td>
+</tr>
+<tr>
+<td>缓冲区</td>
+<td>M-&lt;</td>
+<td>M-&gt;</td>
+<td colspan="2">移动到缓冲区起始或结束</td>
+</tr>
+<tr>
+<td>行号</td>
+<td>M-g g</td>
+<td>M-g M-g</td>
+<td>M-x goto-line</td>
+<td>按行号跳转</td>
+</tr>
+<tr>
+<td>字符位置</td>
+<td> </td>
+<td> </td>
+<td>M-x goto-char</td>
+<td>按字符跳转</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+其它：	    
+	  </p>
+<div class="glosslist"><dl>
+<dt>
+		  <strong class="userinput"><code>C-M-l</code></strong> <span class="command"><strong>(M-x reposition-window)</strong></span>
+    </dt>
+<dd><p>将当前行卷至页面中部</p></dd>
+<dt>
+		  <strong class="userinput"><code>C-l</code></strong> <span class="command"><strong>(M-x recenter)</strong></span>
+    </dt>
+<dd><p>刷新页面，将将当前行卷至页面中部 （使用数字参数指定行）</p></dd>
+<dt>
+		  <strong class="userinput"><code>M-r M-x</code></strong> <span class="command"><strong>(move-to-window-line)</strong></span>
+    </dt>
+<dd><p>移动光标至页面中间的行 （使用数字参数指定行）</p></dd>
+</dl></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2865526"></a>删除</h3></div></div></div>
+<div class="table">
+<a name="id2865532"></a><p class="title"><b>表 25.5. Emacs 删除</b></p>
+<div class="table-contents"><table summary="Emacs 删除" border="1">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td> </td>
+<td colspan="2">向前</td>
+<td colspan="2">向后</td>
+</tr>
+<tr>
+<td>字符</td>
+<td>C-d</td>
+<td>M-x delete-char</td>
+<td>DEL</td>
+<td>M-x delete-backward-char</td>
+</tr>
+<tr>
+<td>单词</td>
+<td>M-d</td>
+<td>M-x kill-word</td>
+<td>C-Delete / M-DEL</td>
+<td>M-x backward-kill-word</td>
+</tr>
+<tr><td colspan="5"> </td></tr>
+<tr>
+<td rowspan="3">行</td>
+<td colspan="2">光标至行末</td>
+<td>C-k</td>
+<td>M-x kill-line</td>
+</tr>
+<tr>
+<td colspan="2">整行</td>
+<td>C-S-backspace</td>
+<td>M-x kill-whole-line</td>
+</tr>
+<tr>
+<td colspan="2">按表达式删除</td>
+<td>C-M-k </td>
+<td>M-x kill-sexp</td>
+</tr>
+<tr>
+<td>区块</td>
+<td colspan="2">C-w</td>
+<td colspan="2">M-x kill-region</td>
+</tr>
+<tr>
+<td>空白</td>
+<td colspan="2">删除连续空格</td>
+<td colspan="2">M-x delete-horizontal-space</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+	      上表中 DEL 实际按键为 Backspace ，PC 中只有 Delete 键，而没有 DEL 键，Emacs 把 Backspace 映射为 DEL
+	    </p>
+<p>
+	      backspace 实际按键也为 Backspace
+	    </p>
+<p>
+	      类似的，Emacs 把 PC 的 Enter 键映射为 RET ; 而 RET 实际为 C-m
+	    </p>
+</td></tr>
+</table></div>
+<p>
+	    可能您注意到了，Emacs 进行删除时有两种处理方法， delete 和 kill
+	  </p>
+<div class="glosslist"><dl>
+<dt>
+	      kill
+    </dt>
+<dd><p>    比较类似于 剪切 ，剪切掉的内容被依次放入 剪切队列 kill-ring ，可以召回。</p></dd>
+<dt>
+       delete
+    </dt>
+<dd><p>  就是 删除 了，删除掉的内容并不能召回。但是可以通过 M-x undo 撤消删除。</p></dd>
+</dl></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2865825"></a>复制</h3></div></div></div>
+<div class="glosslist"><dl>
+<dt>
+		  <strong class="userinput"><code>M-w</code></strong> <span class="command"><strong>(M-x kill-ring-save)</strong></span>
+    </dt>
+<dd><p>将内容放入 剪切队列 kill-ring</p></dd>
+<dt>
+		  <strong class="userinput"><code>C-w</code></strong>
+    </dt>
+<dd><p>剪切</p></dd>
+</dl></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2865880"></a>粘贴</h3></div></div></div>
+<div class="glosslist"><dl>
+<dt>
+		  <strong class="userinput"><code>C-y</code></strong> <span class="command"><strong>(M-x yank)</strong></span>
+    </dt>
+<dd><p>从 剪切队列 kill-ring 中召回最后一次放入的内容</p></dd>
+<dt>
+		  <strong class="userinput"><code>M-y</code></strong> <span class="command"><strong>(M-x yank-pop)</strong></span>
+    </dt>
+<dd><p>从 剪切队列 kill-ring 中按后进先出的顺序，依次召回</p></dd>
+</dl></div>
+<div class="itemizedlist"><ul type="disc"><li>
+	    这个命令只能在 M-x yank 或者 M-x yank-pop 之后使用。也就是说，只能 C-y 后 M-y ， M-y 可以连续多次。
+	  </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2865952"></a>撤消</h3></div></div></div>
+<div class="glosslist"><dl>
+<dt>
+		  <strong class="userinput"><code>C-/</code></strong> <span class="command"><strong>(M-x undo)</strong></span>
+    </dt>
+<dd><p>撤消之前的修改</p></dd>
+<dt>
+		  <strong class="userinput"><code>C-_</code></strong> <span class="command"><strong>(M-x undo)</strong></span>
+    </dt>
+<dd><p></p></dd>
+<dt>
+		  <strong class="userinput"><code>C-x u</code></strong> <span class="command"><strong>(M-x advertised-undo)</strong></span>
+    </dt>
+<dd><p>advertised-unde 是 undo 命令的一个别名</p></dd>
+</dl></div>
+<div class="itemizedlist"><ul type="disc"><li>
+	    为了减少 undo 的次数，每插入20个字符，视为一个 undo 的单位。
+	  </li></ul></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2866046"></a>重做</h3></div></div></div>
+<p>
+	    安装 redo.el 扩展,并在配置文件中添加如下内容
+	  </p>
+<pre class="screen">
+;;---------- redo
+;; 读取扩展
+(require 'redo)
+;; 设置 Redo 的键绑定
+(global-set-key ( kbd "C-.") 'redo)	  </pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch25s07.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch25.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch25s09.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">数字参数 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> </td>
+</tr>
+</table>
+</div>
+</body>
+</html>

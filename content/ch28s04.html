@@ -1,0 +1,190 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>初始化</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch28.html" title="第 28 章 Git 版本控制系统">
+<link rel="prev" href="ch28s03.html" title="git 如何工作">
+<link rel="next" href="ch28s05.html" title="版本更新">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">初始化</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch28s03.html">上一页</a> </td>
+<th width="60%" align="center">第 28 章 Git 版本控制系统</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch28s05.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="git-init"></a>初始化</h2></div></div></div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2890550"></a>创建版本库</h3></div></div></div>
+<p><span class="application">git</span> 基于文件夹(工作树)进行版本控制，在一个文件夹中创建 git版本库：</p>
+<pre class="screen">
+$ cd project/  
+$ git init   
+<a name="git-init-1"></a><img src="images/callouts/1.png" alt="1" border="0">Initialized empty Git repository in .git/   </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-init-1"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">输出信息：在当前文件夹的
+	<code class="filename">.git/</code> 目录下创建版本库</td>
+</tr></table></div>
+<p>将文件提交到 git索引：</p>
+<pre class="screen">
+git add file1 file2 file3 ……  </pre>
+<p>更方便的作法是将当前文件夹中的所有文件全部加入到索引中</p>
+<pre class="screen">
+git add .  </pre>
+<div class="itemizedlist"><ul type="disc"><li>
+ 可以在 <code class="filename">.gitignore</code> 文件中设置排除的文件(通常把临时文件排除)
+  </li></ul></div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top"> git 只负责管理被索引的文件</td></tr>
+</table></div>
+<p>此时，文件还没有被提交到版本库。向版本库提交第一个版本：</p>
+<pre class="screen">
+git commit<a name="git-init-2"></a><img src="images/callouts/1.png" alt="1" border="0">
+git commit -m "备注"  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list"><tr>
+<td width="5%" valign="top" align="left"><p><a href="#git-init-2"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">调用系统默认编辑器编辑备注内容</td>
+</tr></table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2890672"></a>版本库状态</h3></div></div></div>
+<p>使用 <span class="command"><strong>git status</strong></span> 命令查看版本库状态。先创建一个演示版本库：</p>
+<pre class="screen">
+mkdir sandbox                 <span class="database">#新建一个文件夹</span>
+cd sandbox/                   <span class="database">#进入该文件夹</span>
+git init                      <span class="database">#初始化版本库</span>
+touch a b                     <span class="database">#新建 a b 两个文件</span>
+git add .                     <span class="database">#将这两个文件提交到索引</span>
+git commit -m "创建git版本库"  <span class="database">#将第一个版本提交到版本库</span>   </pre>
+<p>这时使用 <strong class="userinput"><code>git status</code></strong> 查看版本库状态：</p>
+<pre class="screen">
+# On branch master
+nothing to commit (working directory clean)    </pre>
+<p>对文件进行一些操作：</p>
+<pre class="screen">
+vi a      <span class="database">#编辑 a</span>
+rm b      <span class="database">#删除 b</span>
+touch c   <span class="database">#新建 c</span> </pre>
+<p>再用 <strong class="userinput"><code>git status</code></strong> 查看：</p>
+<pre class="screen">
+# On branch master          <span class="database">#在 master 分支上</span>
+# Changes to be committed:  <span class="database">#已提交到索引，等待提交到版本库(其实本例中没有这一段)</span>
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#       <code class="filename">new file:  e </code>
+#       <code class="filename">modified:  f </code>
+#
+# Changed but not updated:  <span class="database">#改动未提交到索引</span>
+#   (use "git add/rm &lt;file&gt;..." to update what will be committed)
+#
+#       <span class="command"><strong>modified:   a</strong></span>
+#       <span class="command"><strong>deleted:    b</strong></span>
+#
+# Untracked files:           <span class="database">#文件未提交到索引</span>
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#       <span class="command"><strong>c</strong></span>
+no changes added to commit (use "git add" and/or "git commit -a")    </pre>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top">如果只是想删除该文件夹中的版本库，只要删除
+      <code class="filename">.git/</code> 目录即可
+<pre class="screen">
+rm -rf .git    </pre>
+</td></tr>
+</table></div>
+</div>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2890890"></a>配置</h3></div></div></div>
+<p>git 初始化后，会在<code class="filename">.git/</code>目录下创建一个版本库，其中<code class="filename">.git/config</code>为配置文件。</p>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2890911"></a>用户信息</h4></div></div></div>
+<p>为当前版本库添加用户信息<sup>[<a name="id2890919" href="#ftn.id2890919" class="footnote">62</a>]</sup>：</p>
+<pre class="screen">
+[user]
+    name = kardinal
+    email = 2999am@gmail.com  </pre>
+<p>也使用全局用户信息，在<code class="filename">~/.gitconfig</code>中写入上述内容，或者使用命令：</p>
+<pre class="screen">			
+git config --global user.name "kardinal"
+git config --global user.email 2999am@gmail.com  </pre>
+</div>
+<div class="sect3" lang="zh-cn">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="id2890955"></a>语法高亮</h4></div></div></div>
+<p>在<code class="filename">~/.gitconfig</code>文件中添加如下语句，使用容易阅读的彩色来输出信息：</p>
+<pre class="screen">
+[color]
+    branch = auto
+    diff = auto
+    status = auto    </pre>
+<p>或者自己定义：</p>
+<pre class="screen">
+branch.current          # color of the current branch
+branch.local            # color of a local branch
+branch.plain            # color of other branches
+branch.remote           # color of a remote branch
+diff                    # when to color diff output
+diff.commit             # color of commit headers
+diff.frag               # color of hunk headers
+diff.meta               # color of metainformation
+diff.new                # color of added lines
+diff.old                # color of removed lines
+diff.plain              # color of context text
+diff.whitespace         # color of dubious whitespace
+status                  # when to color output of git-status
+status.added            # color of added, but not yet committed, files
+status.changed          # color of changed, but not yet added in the index, files
+status.header           # color of header text
+status.untracked        # color of files not currently being tracked
+status.updated          # color of updated, but not yet committed, files    </pre>
+</div>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2890919" href="#id2890919" class="para">62</a>] </sup>这是必需的，请不要忽略</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch28s03.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch28.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch28s05.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">git 如何工作 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 版本更新</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

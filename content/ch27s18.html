@@ -1,0 +1,115 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>文档工程</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch27.html" title="第 27 章 docbook 指南">
+<link rel="prev" href="ch27s17.html" title="图形">
+<link rel="next" href="ch27s19.html" title="DocBook 编辑软件">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">文档工程</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch27s17.html">上一页</a> </td>
+<th width="60%" align="center">第 27 章 docbook 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch27s19.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="docbook-project"></a>文档工程</h2></div></div></div>
+<p>如果你在作一个比较大的文档，建议每个章节使用一个单独的文件存储，便于管理<sup>[<a name="id2883862" href="#ftn.id2883862" class="footnote">55</a>]</sup></p>
+<p>前面讲到的<a class="link" href="ch27s03.html#docbook-entity" title="实体">实体</a>可以用来作这件事情</p>
+<p>有两个文件一个是主文件<code class="filename">docbook.xml</code>，包含文件头和文档信息；另一个文件<code class="filename">file.xml</code>是文档内容，主文件如下：</p>
+<pre class="screen">
+&lt;?xml version='1.0' encoding="UTF-8"?&gt;
+&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5/zh_cn"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" 
+[
+&lt;!ENTITY file SYSTEM "file.xml"&gt;<a name="docbook-project01"></a><img src="images/callouts/1.png" alt="1" border="0">
+]&gt;  
+&lt;article&gt;
+    &lt;info&gt;&lt;/info&gt;
+    &amp;file;<a name="docbook-project02"></a><img src="images/callouts/2.png" alt="2" border="0">
+&lt;/article&gt;
+  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-project01"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">定义外部实体</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-project02"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">通过外部实体引用文档</td>
+</tr>
+</table></div>
+<p><code class="filename">file.xml</code>文件内容如下：</p>
+<pre class="screen">
+&lt;sect1&gt;
+  &lt;para&gt;
+      ……
+  &lt;/para&gt;
+&lt;/sect1&gt;</pre>
+<div class="itemizedlist"><ul type="disc"><li>
+      参见<a class="xref" href="ch27s09.html" title="分子元素">“分子元素”一节</a>
+</li></ul></div>
+<p>如果把引用文件的列表放在外部文件中，则更加容易管理。但是 XML 不允许在 DTD 中引用普通实体<sup>[<a name="id2883980" href="#ftn.id2883980" class="footnote">56</a>]</sup>，这就要定义参数实体：</p>
+<pre class="screen">
+&lt;?xml version='1.0' encoding="UTF-8"?&gt;
+&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5/zh_cn"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" 
+[
+&lt;!ENTITY %<a name="docbook-project11"></a><img src="images/callouts/1.png" alt="1" border="0"> list SYSTEM "list.xml"&gt;
+%list;<a name="docbook-project12"></a><img src="images/callouts/2.png" alt="2" border="0">
+]&gt;  </pre>
+<div class="calloutlist"><table border="0" summary="Callout list">
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-project11"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td valign="top" align="left">在定义参数实体时，这里多了一个<strong class="userinput"><code>%</code></strong>
+</td>
+</tr>
+<tr>
+<td width="5%" valign="top" align="left"><p><a href="#docbook-project12"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td valign="top" align="left">引用参数实体时使用<strong class="userinput"><code>%</code></strong>而不是<strong class="userinput"><code>&amp;</code></strong>
+</td>
+</tr>
+</table></div>
+<p><code class="filename">list.xml</code>文件内容如下：</p>
+<pre class="screen">
+&lt;!ENTITY file SYSTEM "file.xml"&gt;  
+&lt;!ENTITY file1 SYSTEM "file1.xml"&gt;
+&lt;!ENTITY file2 SYSTEM "file2.xml"&gt;</pre>
+<p>这样就可以在正文引用<code class="filename">list.xml</code>文件中定义的普通实体了</p>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2883862" href="#id2883862" class="para">55</a>] </sup>即便文档规模不是很大，把内容独立出来也有好处，比如：<br>    每部分单独发布，修改，节省时间<br>    如果出错便于排查</p></div>
+<div class="footnote"><p><sup>[<a name="ftn.id2883980" href="#id2883980" class="para">56</a>] </sup>在 DTD 中能够定义外部文件作为普通实体，但是只能在正文中引用，不能在 DTD 中引用</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch27s17.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch27.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch27s19.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">图形 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> DocBook 编辑软件</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

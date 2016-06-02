@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>LAMP</title>
+<link rel="stylesheet" href="docbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="开源世界旅行手册">
+<link rel="up" href="ch23.html" title="第 23 章 服务器">
+<link rel="prev" href="ch23.html" title="第 23 章 服务器">
+<link rel="next" href="ch23s03.html" title="Lighttpd">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">LAMP</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="ch23.html">上一页</a> </td>
+<th width="60%" align="center">第 23 章 服务器</th>
+<td width="20%" align="right"> <a accesskey="n" href="ch23s03.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh-cn">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id2853176"></a>LAMP</h2></div></div></div>
+<p><strong class="userinput"><code>LAMP</code></strong>是一个缩写，它包括:Linux 操作系统，Apache 网络服务器，MySQL 数据库，Perl、PHP 或者 Python 编程语言。</p>
+<p>毫不夸张的说，<strong class="userinput"><code>LAMP</code></strong> 是开源世界的“皇家海军”<sup>[<a name="id2853183" href="#ftn.id2853183" class="footnote">42</a>]</sup>，正是凭借 LAMP 的力量，开源应用得以在服务器市场称雄</p>
+<p>web 服务器(Apache) 是 LAMP
+  的核心，几乎所有远程访问都要通过 web 服务器进行。除了 Apache ，web 服务器还有一些其它的开源实现，如：Lighttpd、Tomcat、Zope 等</p>
+<p>Perl、PHP、Python  是服务器端脚本语言，web 服务器以扩展的形式支持这些语言作为后端处理器，以获得强大的可编程能力</p>
+<p>数据库服务器(MySQL)提供数据存储、检索支持。除了 MySQL ，还有
+  PostgreSQL 等开源实现</p>
+<p>理论上可以直接通过网络访问数据库服务器，不过出于安全需要，多数 LAMP 应用中，数据库服务器只能由 web 服务器本地访问。</p>
+<p>也就是说，访问 web 服务器，产生了数据处理请求，web 服务器把数据请求发送到数据库服务器，然后将数据库服务器返回的处理结果发送给访问者</p>
+<p>数据库服务器接受和返回数据处理请求，要通过 SQL 查询语言。web 服务器本身不支持 SQL，而服务器端脚本语言可以内嵌 SQL 语句，web 服务器通过脚本语言处理访问者对数据库服务器的请求</p>
+<div class="sect2" lang="zh-cn">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="id2853218"></a>虚拟主机</h3></div></div></div>
+<p>一台机器上可能有多个网络接口：每一块网卡会分配一个 IP地址；类似
+      <strong class="userinput"><code>127.0.0.1</code></strong> 这样的回环地址则指向本地机器</p>
+<p>网络接口就像港口，有很多泊位，称为端口。可以使用不同的协议连接(如 http、ftp、ssh 等)</p>
+<p>服务器工作时，会监听某一地址的固定端口，称为“绑定”。如果该端口中传来请求，则进行响应</p>
+<p>很多服务器可以针对不同的网络接口设置不同的响应规则，例如：从内网访问接口 <strong class="userinput"><code>192.168.1.2</code></strong> ，使用 <code class="filename">/home/user</code> 作为根目录；从公网访问接口 <strong class="userinput"><code>211.148.131.7</code></strong> 使用 <code class="filename">/var/WWW</code> 作为根目录</p>
+<p>这就是虚拟主机</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id2853183" href="#id2853183" class="para">42</a>] </sup>或许 Emacs 工具链可以算是“太平洋舰队”</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="ch23.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="ch23.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="ch23s03.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">第 23 章 服务器 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> Lighttpd</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
